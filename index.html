@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArizonaSC — International Supply Chain & Digital Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E2C47A;
+  --gold-dark: #A07830;
+  --gold-shine: #F0D98C;
+  --navy: #1A2332;
+  --navy-deep: #0D1520;
+  --navy-mid: #243044;
+  --steel: #2C3E55;
+  --steel-light: #3D5068;
+  --cream: #F8F4EC;
+  --cream-dark: #EDE8DC;
+  --white: #FFFFFF;
+  --text-light: #B8C4D0;
+  --text-muted: #7A8C9E;
+  --border-gold: rgba(201,168,76,0.3);
+  --border-gold-strong: rgba(201,168,76,0.6);
+  --shadow-gold: 0 0 30px rgba(201,168,76,0.15);
+  --shadow-deep: 0 20px 60px rgba(0,0,0,0.4);
+  --transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  --transition-fast: all 0.2s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--navy-deep);color:var(--white);overflow-x:hidden;}
+::selection{background:var(--gold);color:var(--navy-deep);}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--navy-deep);}
+::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px;}
+
+/* ===== LOADER ===== */
+#loader{position:fixed;inset:0;background:var(--navy-deep);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity 0.8s ease,visibility 0.8s ease;}
+#loader.hide{opacity:0;visibility:hidden;}
+.loader-emblem{width:100px;height:100px;border:2px solid var(--border-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:loaderPulse 2s ease-in-out infinite;}
+.loader-emblem span{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold);letter-spacing:2px;}
+.loader-bar{width:200px;height:2px;background:var(--steel);border-radius:2px;overflow:hidden;}
+.loader-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-shine),var(--gold-dark));border-radius:2px;animation:loaderFill 2s ease forwards;}
+.loader-text{font-size:0.7rem;letter-spacing:4px;color:var(--text-muted);text-transform:uppercase;}
+@keyframes loaderPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.3);}50%{box-shadow:0 0 0 15px rgba(201,168,76,0);}}
+@keyframes loaderFill{0%{width:0;}100%{width:100%;}}
+
+/* ===== PAGE SYSTEM ===== */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:80px;display:flex;align-items:center;justify-content:space-between;transition:var(--transition);border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(13,21,32,0.97);backdrop-filter:blur(20px);border-bottom-color:var(--border-gold);box-shadow:0 4px 30px rgba(0,0,0,0.3);}
+.nav-logo{display:flex;align-items:center;gap:14px;cursor:pointer;text-decoration:none;}
+.nav-logo img{height:48px;width:48px;border-radius:50%;object-fit:cover;border:1px solid var(--border-gold-strong);}
+.nav-logo-text{display:flex;flex-direction:column;}
+.nav-logo-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:1px;line-height:1;}
+.nav-logo-sub{font-size:0.55rem;letter-spacing:3px;color:var(--text-muted);text-transform:uppercase;margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:8px;}
+.nav-link{padding:8px 16px;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);cursor:pointer;transition:var(--transition);border-radius:3px;border:1px solid transparent;font-weight:500;}
+.nav-link:hover,.nav-link.active{color:var(--gold);border-color:var(--border-gold);background:rgba(201,168,76,0.05);}
+.nav-cta{padding:10px 22px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--navy-deep);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-radius:3px;cursor:pointer;transition:var(--transition);border:none;}
+.nav-cta:hover{box-shadow:0 0 25px rgba(201,168,76,0.4);transform:translateY(-1px);}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:var(--transition);}
+.mobile-menu{display:none;position:fixed;top:80px;left:0;right:0;background:rgba(13,21,32,0.98);backdrop-filter:blur(20px);padding:20px;border-bottom:1px solid var(--border-gold);z-index:999;flex-direction:column;gap:5px;}
+.mobile-menu.open{display:flex;}
+.mobile-link{padding:14px 20px;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);cursor:pointer;transition:var(--transition);border-bottom:1px solid var(--border-gold);}
+.mobile-link:hover{color:var(--gold);padding-left:30px;}
+
+/* ===== SECTION COMMONS ===== */
+section{position:relative;}
+.section-tag{display:inline-block;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+.section-tag::before{content:'';display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-right:10px;}
+.section-tag::after{content:'';display:inline-block;width:24px;height:1px;background:var(--gold);vertical-align:middle;margin-left:10px;}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1.15;color:var(--white);}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-sub{font-size:0.85rem;color:var(--text-muted);line-height:1.8;max-width:520px;font-weight:400;margin-top:12px;}
+.gold-line{width:60px;height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-shine));margin:20px 0;}
+.gold-line.center{margin:20px auto;}
+.container{max-width:1200px;margin:0 auto;padding:0 40px;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--navy-deep);font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;border-radius:3px;cursor:pointer;transition:var(--transition);border:none;text-decoration:none;}
+.btn-primary:hover{box-shadow:0 0 30px rgba(201,168,76,0.4);transform:translateY(-2px);}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:13px 30px;background:transparent;color:var(--gold);font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;border-radius:3px;cursor:pointer;transition:var(--transition);border:1px solid var(--border-gold-strong);text-decoration:none;}
+.btn-outline:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);box-shadow:var(--shadow-gold);}
+
+/* ===== GOLD DIVIDER ===== */
+.gold-divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0;}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--navy-deep);}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(201,168,76,0.06) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(36,48,68,0.8) 0%,transparent 50%),linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;}
+.hero-content{position:relative;z-index:2;max-width:700px;padding-top:80px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border-gold);border-radius:30px;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:30px;background:rgba(201,168,76,0.04);}
+.hero-badge i{font-size:0.6rem;}
+.hero h1{font-size:clamp(2.8rem,6vw,4.8rem);font-weight:600;line-height:1.08;color:var(--white);margin-bottom:24px;}
+.hero h1 .gold{color:var(--gold);}
+.hero h1 .outline-text{-webkit-text-stroke:1px rgba(201,168,76,0.5);color:transparent;}
+.hero-desc{font-size:0.9rem;color:var(--text-light);line-height:1.9;max-width:560px;margin-bottom:40px;font-weight:300;}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:40px;margin-top:60px;padding-top:40px;border-top:1px solid var(--border-gold);}
+.hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;}
+.hero-stat-label{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;}
+.hero-visual{position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:500px;height:500px;opacity:0.08;}
+.hero-visual-ring{position:absolute;border:1px solid var(--gold);border-radius:50%;animation:ringRotate 20s linear infinite;}
+.hero-visual-ring:nth-child(1){width:400px;height:400px;top:50px;left:50px;}
+.hero-visual-ring:nth-child(2){width:300px;height:300px;top:100px;left:100px;animation-direction:reverse;animation-duration:15s;}
+.hero-visual-ring:nth-child(3){width:200px;height:200px;top:150px;left:150px;animation-duration:10s;}
+@keyframes ringRotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* ===== INTRO ===== */
+.intro-section{padding:100px 0;background:var(--navy);}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.intro-img-wrap{position:relative;}
+.intro-img-box{background:linear-gradient(135deg,var(--steel),var(--navy-mid));border:1px solid var(--border-gold);border-radius:4px;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.intro-img-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(201,168,76,0.1),transparent);}
+.intro-emblem{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:700;color:rgba(201,168,76,0.15);letter-spacing:-2px;}
+.intro-accent{position:absolute;bottom:-20px;right:-20px;width:120px;height:120px;border:1px solid var(--border-gold);border-radius:3px;background:var(--navy-deep);}
+.intro-accent-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.since-badge{position:absolute;top:20px;left:-20px;background:var(--gold);color:var(--navy-deep);padding:10px 16px;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+.intro-features{display:flex;flex-direction:column;gap:24px;margin-top:32px;}
+.intro-feature{display:flex;gap:16px;align-items:flex-start;}
+.intro-feature-icon{width:44px;height:44px;background:rgba(201,168,76,0.1);border:1px solid var(--border-gold);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);}
+.intro-feature-title{font-size:0.85rem;font-weight:600;color:var(--white);margin-bottom:4px;}
+.intro-feature-text{font-size:0.78rem;color:var(--text-muted);line-height:1.7;}
+
+/* ===== SERVICES OVERVIEW ===== */
+.services-overview{padding:100px 0;background:var(--navy-deep);}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-gold);border:1px solid var(--border-gold);margin-top:60px;}
+.service-card{background:var(--navy-deep);padding:40px 30px;transition:var(--transition);cursor:pointer;position:relative;overflow:hidden;}
+.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent);opacity:0;transition:var(--transition);}
+.service-card:hover::before{opacity:1;}
+.service-card:hover{background:var(--navy);}
+.service-card-icon{width:56px;height:56px;background:rgba(201,168,76,0.08);border:1px solid var(--border-gold);border-radius:3px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--gold);font-size:1.3rem;transition:var(--transition);}
+.service-card:hover .service-card-icon{background:rgba(201,168,76,0.15);box-shadow:0 0 20px rgba(201,168,76,0.2);}
+.service-card-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--white);margin-bottom:10px;}
+.service-card-text{font-size:0.75rem;color:var(--text-muted);line-height:1.8;}
+.service-card-arrow{position:absolute;bottom:30px;right:30px;color:var(--gold);opacity:0;transition:var(--transition);transform:translateX(-10px);}
+.service-card:hover .service-card-arrow{opacity:1;transform:translateX(0);}
+
+/* ===== STATS ===== */
+.stats-section{padding:80px 0;background:linear-gradient(135deg,var(--navy-mid),var(--steel));position:relative;overflow:hidden;}
+.stats-section::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.03),transparent);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat-item{padding:40px;text-align:center;border-right:1px solid var(--border-gold);position:relative;}
+.stat-item:last-child{border-right:none;}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;color:var(--gold);line-height:1;display:block;}
+.stat-suffix{font-size:1.5rem;}
+.stat-label{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-top:8px;display:block;}
+.stat-desc{font-size:0.72rem;color:var(--text-light);margin-top:6px;}
+
+/* ===== WHY CHOOSE ===== */
+.why-section{padding:100px 0;background:var(--navy);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;}
+.why-points{display:flex;flex-direction:column;gap:0;}
+.why-point{padding:28px 0;border-bottom:1px solid var(--border-gold);display:flex;gap:20px;align-items:flex-start;transition:var(--transition);cursor:default;}
+.why-point:first-child{border-top:1px solid var(--border-gold);}
+.why-point:hover{padding-left:10px;}
+.why-point-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--border-gold-strong);line-height:1;min-width:40px;}
+.why-point-title{font-size:0.88rem;font-weight:700;color:var(--white);margin-bottom:6px;letter-spacing:0.5px;}
+.why-point-text{font-size:0.77rem;color:var(--text-muted);line-height:1.8;}
+.why-visual{background:linear-gradient(135deg,var(--navy-mid),var(--steel));border:1px solid var(--border-gold);border-radius:4px;padding:50px 40px;position:relative;}
+.why-visual-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:30px;}
+.why-visual-quote{font-size:0.88rem;color:var(--text-light);line-height:1.9;font-style:italic;position:relative;padding-left:20px;border-left:2px solid var(--gold);}
+.why-visual-author{margin-top:24px;display:flex;align-items:center;gap:12px;}
+.why-visual-author-img{width:48px;height:48px;border-radius:50%;background:rgba(201,168,76,0.15);border:1px solid var(--border-gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.1rem;}
+.why-visual-author-name{font-size:0.8rem;font-weight:600;color:var(--white);}
+.why-visual-author-role{font-size:0.68rem;color:var(--gold);letter-spacing:1px;}
+
+/* ===== VISION MISSION ===== */
+.vision-section{padding:100px 0;background:var(--navy-deep);position:relative;overflow:hidden;}
+.vision-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.04),transparent 60%);}
+.vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-gold);border:1px solid var(--border-gold);margin-top:60px;}
+.vision-card{background:var(--navy-deep);padding:60px 50px;position:relative;overflow:hidden;}
+.vision-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-shine));}
+.vision-card-icon{font-size:2.5rem;color:var(--gold);margin-bottom:24px;opacity:0.7;}
+.vision-card-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--white);margin-bottom:16px;}
+.vision-card-text{font-size:0.82rem;color:var(--text-muted);line-height:1.9;}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials-section{padding:100px 0;background:var(--navy);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px;}
+.testimonial-card{background:var(--navy-mid);border:1px solid var(--border-gold);padding:36px;border-radius:3px;transition:var(--transition);position:relative;}
+.testimonial-card::before{content:'\201C';position:absolute;top:20px;right:24px;font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(201,168,76,0.15);line-height:1;}
+.testimonial-card:hover{border-color:var(--gold);box-shadow:var(--shadow-gold);transform:translateY(-4px);}
+.testimonial-stars{display:flex;gap:4px;margin-bottom:16px;}
+.testimonial-stars i{color:var(--gold);font-size:0.7rem;}
+.testimonial-text{font-size:0.82rem;color:var(--text-light);line-height:1.9;font-style:italic;margin-bottom:24px;}
+.testimonial-author{display:flex;align-items:center;gap:12px;}
+.testimonial-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dark),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--navy-deep);}
+.testimonial-name{font-size:0.82rem;font-weight:600;color:var(--white);}
+.testimonial-role{font-size:0.68rem;color:var(--gold);letter-spacing:1px;}
+
+/* ===== CTA ===== */
+.cta-section{padding:100px 0;background:linear-gradient(135deg,var(--navy-mid),var(--steel));position:relative;overflow:hidden;text-align:center;}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.08),transparent 60%);}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:600;color:var(--white);margin-bottom:16px;}
+.cta-sub{font-size:0.85rem;color:var(--text-muted);max-width:500px;margin:0 auto 36px;line-height:1.8;}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+/* ===== FOOTER ===== */
+footer{background:var(--navy-deep);border-top:1px solid var(--border-gold);padding:70px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:50px;margin-bottom:50px;}
+.footer-brand-logo{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.footer-brand-logo img{height:44px;width:44px;border-radius:50%;border:1px solid var(--border-gold);}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);}
+.footer-brand-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.8;margin-bottom:20px;}
+.footer-socials{display:flex;gap:10px;}
+.footer-social{width:36px;height:36px;border:1px solid var(--border-gold);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:var(--transition);cursor:pointer;font-size:0.8rem;}
+.footer-social:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.08);}
+.footer-col-title{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:20px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-link{font-size:0.78rem;color:var(--text-muted);cursor:pointer;transition:var(--transition);text-decoration:none;}
+.footer-link:hover{color:var(--gold);padding-left:6px;}
+.footer-contact-item{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+.footer-contact-item i{color:var(--gold);font-size:0.8rem;margin-top:3px;flex-shrink:0;}
+.footer-contact-text{font-size:0.78rem;color:var(--text-muted);line-height:1.6;}
+.footer-bottom{border-top:1px solid var(--border-gold);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;}
+.footer-copy{font-size:0.72rem;color:var(--text-muted);}
+.footer-copy span{color:var(--gold);}
+
+/* ===== BUSINESSES PAGE ===== */
+.page-hero{padding:160px 0 80px;background:linear-gradient(135deg,var(--navy-deep),var(--navy));text-align:center;position:relative;overflow:hidden;}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.06),transparent 60%);}
+.page-hero-tag{font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
+.page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:600;color:var(--white);line-height:1.1;}
+.page-hero-title em{font-style:italic;color:var(--gold);}
+.page-hero-sub{font-size:0.85rem;color:var(--text-muted);max-width:550px;margin:16px auto 0;line-height:1.8;}
+
+.business-section{padding:80px 0;border-bottom:1px solid var(--border-gold);}
+.business-section:nth-child(even){background:var(--navy);}
+.business-section:nth-child(odd){background:var(--navy-deep);}
+.business-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.business-layout.reverse{direction:rtl;}
+.business-layout.reverse > *{direction:ltr;}
+.business-icon-wrap{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--navy-mid),var(--steel));border:1px solid var(--border-gold);border-radius:4px;aspect-ratio:1;max-width:420px;position:relative;overflow:hidden;}
+.business-icon-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(201,168,76,0.08),transparent);}
+.business-icon-main{font-size:6rem;color:rgba(201,168,76,0.2);}
+.business-icon-badge{position:absolute;top:20px;left:20px;background:var(--gold);color:var(--navy-deep);padding:6px 12px;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+.business-content{}
+.business-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--white);margin-bottom:8px;}
+.business-subtitle{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.business-desc{font-size:0.82rem;color:var(--text-muted);line-height:1.9;margin-bottom:28px;}
+.business-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.business-feature{display:flex;align-items:center;gap:10px;font-size:0.78rem;color:var(--text-light);}
+.business-feature i{color:var(--gold);font-size:0.7rem;}
+
+/* ===== DIRECTORS PAGE ===== */
+.directors-grid{display:flex;flex-direction:column;gap:0;}
+.director-section{padding:80px 0;border-bottom:1px solid var(--border-gold);}
+.director-section:nth-child(odd){background:var(--navy-deep);}
+.director-section:nth-child(even){background:var(--navy);}
+.director-layout{display:grid;grid-template-columns:300px 1fr;gap:70px;align-items:start;}
+.director-img-wrap{position:relative;}
+.director-img{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,var(--navy-mid),var(--steel));border:1px solid var(--border-gold);border-radius:3px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;}
+.director-img img{width:100%;height:100%;object-fit:cover;}
+.director-img-placeholder{font-size:3rem;color:rgba(201,168,76,0.25);}
+.director-img-name-tag{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(13,21,32,0.9));padding:20px 16px 16px;}
+.director-img-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--white);}
+.director-img-role{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.director-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border-gold);font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.director-name{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--white);margin-bottom:6px;}
+.director-title{font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:24px;}
+.director-bio{font-size:0.83rem;color:var(--text-muted);line-height:2;margin-bottom:28px;}
+.director-achievements{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
+.director-achievement{background:rgba(201,168,76,0.05);border:1px solid var(--border-gold);border-radius:3px;padding:14px 16px;}
+.director-achievement-title{font-size:0.72rem;font-weight:600;color:var(--gold);margin-bottom:4px;}
+.director-achievement-text{font-size:0.7rem;color:var(--text-muted);line-height:1.6;}
+.director-quals{display:flex;flex-wrap:wrap;gap:8px;}
+.director-qual{padding:6px 12px;background:rgba(201,168,76,0.08);border:1px solid var(--border-gold);font-size:0.65rem;letter-spacing:1px;color:var(--gold);}
+
+/* ===== TEAM PAGE ===== */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;}
+.team-card{background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;overflow:hidden;transition:var(--transition);}
+.team-card:hover{border-color:var(--gold);box-shadow:var(--shadow-gold);transform:translateY(-6px);}
+.team-card-img{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--navy),var(--steel));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.team-card-img img{width:100%;height:100%;object-fit:cover;}
+.team-card-img-placeholder{font-size:3.5rem;color:rgba(201,168,76,0.2);}
+.team-card-overlay{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(13,21,32,0.9));opacity:0;transition:var(--transition);}
+.team-card:hover .team-card-overlay{opacity:1;}
+.team-card-body{padding:24px;}
+.team-card-role{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.team-card-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:10px;}
+.team-card-bio{font-size:0.75rem;color:var(--text-muted);line-height:1.8;}
+
+/* ===== CONTACT PAGE ===== */
+.contact-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;margin-top:60px;}
+.contact-info{}
+.contact-info-item{padding:24px 0;border-bottom:1px solid var(--border-gold);display:flex;gap:16px;align-items:flex-start;}
+.contact-info-item:first-child{border-top:1px solid var(--border-gold);}
+.contact-info-icon{width:44px;height:44px;background:rgba(201,168,76,0.08);border:1px solid var(--border-gold);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0;}
+.contact-info-label{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.contact-info-value{font-size:0.82rem;color:var(--text-light);line-height:1.6;}
+.contact-hours{background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;padding:28px;margin-top:24px;}
+.contact-hours-title{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.contact-hour-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.1);font-size:0.78rem;}
+.contact-hour-row:last-child{border-bottom:none;}
+.contact-hour-day{color:var(--text-light);}
+.contact-hour-time{color:var(--gold);}
+.contact-form{background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;padding:40px;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--white);margin-bottom:6px;}
+.form-sub{font-size:0.78rem;color:var(--text-muted);margin-bottom:28px;}
+.form-group{margin-bottom:20px;}
+.form-label{display:block;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.form-input{width:100%;padding:13px 16px;background:rgba(201,168,76,0.04);border:1px solid var(--border-gold);border-radius:2px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:0.82rem;transition:var(--transition);outline:none;}
+.form-input:focus{border-color:var(--gold);background:rgba(201,168,76,0.07);box-shadow:0 0 15px rgba(201,168,76,0.1);}
+.form-input::placeholder{color:var(--text-muted);}
+textarea.form-input{resize:vertical;min-height:130px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-success{display:none;background:rgba(201,168,76,0.1);border:1px solid var(--gold);padding:16px;border-radius:2px;font-size:0.8rem;color:var(--gold);margin-top:16px;text-align:center;}
+.map-placeholder{margin-top:60px;background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;height:350px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--text-muted);}
+.map-placeholder i{font-size:2.5rem;color:var(--gold);opacity:0.4;}
+.map-placeholder p{font-size:0.8rem;letter-spacing:1px;}
+
+/* ===== TERMS PAGE ===== */
+.terms-content{max-width:800px;margin:60px auto 0;padding-bottom:100px;}
+.terms-section-block{margin-bottom:48px;}
+.terms-section-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--gold);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-gold);}
+.terms-text{font-size:0.82rem;color:var(--text-muted);line-height:2;margin-bottom:14px;}
+.terms-list{padding-left:20px;margin-bottom:14px;}
+.terms-list li{font-size:0.82rem;color:var(--text-muted);line-height:2;margin-bottom:6px;}
+.terms-list li::marker{color:var(--gold);}
+.terms-updated{font-size:0.72rem;color:var(--text-muted);margin-bottom:40px;display:block;}
+
+/* ===== ADMIN PANEL ===== */
+#admin-panel{display:none;position:fixed;inset:0;z-index:5000;background:var(--navy-deep);overflow:hidden;}
+#admin-panel.active{display:flex;}
+.admin-sidebar{width:260px;background:var(--navy);border-right:1px solid var(--border-gold);display:flex;flex-direction:column;flex-shrink:0;}
+.admin-logo{padding:24px 20px;border-bottom:1px solid var(--border-gold);display:flex;align-items:center;gap:12px;}
+.admin-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);}
+.admin-logo-sub{font-size:0.6rem;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;}
+.admin-nav{flex:1;overflow-y:auto;padding:12px;}
+.admin-nav-section{font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);padding:16px 8px 8px;}
+.admin-nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:3px;cursor:pointer;transition:var(--transition);color:var(--text-muted);font-size:0.77rem;margin-bottom:2px;}
+.admin-nav-item:hover{background:rgba(201,168,76,0.06);color:var(--text-light);}
+.admin-nav-item.active{background:rgba(201,168,76,0.1);color:var(--gold);border:1px solid var(--border-gold);}
+.admin-nav-item i{width:16px;font-size:0.78rem;}
+.admin-logout{padding:16px 20px;border-top:1px solid var(--border-gold);}
+.admin-logout-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--border-gold);color:var(--text-muted);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:var(--transition);font-family:'Montserrat',sans-serif;}
+.admin-logout-btn:hover{border-color:var(--gold);color:var(--gold);}
+.admin-main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.admin-header{padding:20px 32px;border-bottom:1px solid var(--border-gold);display:flex;align-items:center;justify-content:space-between;}
+.admin-header-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white);}
+.admin-header-sub{font-size:0.68rem;color:var(--text-muted);margin-top:2px;}
+.admin-badge{padding:6px 14px;background:rgba(201,168,76,0.1);border:1px solid var(--border-gold);font-size:0.65rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;}
+.admin-content{flex:1;overflow-y:auto;padding:32px;}
+.admin-tab{display:none;}
+.admin-tab.active{display:block;}
+
+/* Admin components */
+.admin-card{background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;margin-bottom:24px;}
+.admin-card-header{padding:16px 24px;border-bottom:1px solid var(--border-gold);display:flex;align-items:center;gap:10px;}
+.admin-card-title{font-size:0.78rem;font-weight:600;color:var(--white);}
+.admin-card-body{padding:24px;}
+.admin-field{margin-bottom:16px;}
+.admin-label{display:block;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.admin-input{width:100%;padding:10px 14px;background:rgba(201,168,76,0.04);border:1px solid var(--border-gold);border-radius:2px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:0.8rem;transition:var(--transition);outline:none;}
+.admin-input:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(201,168,76,0.1);}
+.admin-input::placeholder{color:var(--text-muted);}
+textarea.admin-input{resize:vertical;min-height:90px;}
+.admin-btn{padding:10px 20px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--navy-deep);font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:var(--transition);font-family:'Montserrat',sans-serif;}
+.admin-btn:hover{box-shadow:0 0 20px rgba(201,168,76,0.3);}
+.admin-btn-sm{padding:7px 14px;font-size:0.62rem;}
+.admin-btn-outline{background:transparent;border:1px solid var(--border-gold);color:var(--gold);}
+.admin-btn-outline:hover{background:rgba(201,168,76,0.08);box-shadow:none;}
+.admin-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.admin-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.admin-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.admin-stat-card{background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;padding:20px;text-align:center;}
+.admin-stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);}
+.admin-stat-label{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;}
+.img-upload-area{border:2px dashed var(--border-gold-strong);border-radius:3px;padding:30px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;}
+.img-upload-area:hover{border-color:var(--gold);background:rgba(201,168,76,0.03);}
+.img-upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.img-upload-icon{font-size:2rem;color:var(--gold);opacity:0.4;margin-bottom:10px;}
+.img-upload-text{font-size:0.75rem;color:var(--text-muted);}
+.img-preview{width:100%;max-height:150px;object-fit:cover;border-radius:2px;margin-top:10px;display:none;}
+.admin-save-bar{position:sticky;bottom:0;background:var(--navy);border-top:1px solid var(--border-gold);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;margin:-32px -32px 0;margin-top:20px;}
+.admin-save-info{font-size:0.72rem;color:var(--text-muted);}
+.admin-toast{position:fixed;bottom:24px;right:24px;background:var(--gold);color:var(--navy-deep);padding:12px 20px;border-radius:3px;font-size:0.75rem;font-weight:700;letter-spacing:1px;z-index:9999;transform:translateY(60px);opacity:0;transition:var(--transition);}
+.admin-toast.show{transform:translateY(0);opacity:1;}
+.testimonial-admin-item{background:rgba(201,168,76,0.04);border:1px solid var(--border-gold);border-radius:3px;padding:16px;margin-bottom:12px;}
+.testimonial-admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.testimonial-admin-name{font-size:0.8rem;font-weight:600;color:var(--white);}
+.admin-delete-btn{background:rgba(220,50,50,0.1);border:1px solid rgba(220,50,50,0.3);color:#e06060;padding:5px 10px;font-size:0.65rem;cursor:pointer;border-radius:2px;transition:var(--transition);}
+.admin-delete-btn:hover{background:rgba(220,50,50,0.2);}
+
+/* ===== LOGIN ===== */
+#login-screen{position:fixed;inset:0;z-index:6000;background:var(--navy-deep);display:flex;align-items:center;justify-content:center;}
+.login-box{background:var(--navy);border:1px solid var(--border-gold);border-radius:4px;padding:50px 44px;width:400px;max-width:90vw;text-align:center;}
+.login-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);margin-bottom:6px;}
+.login-sub{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;}
+.login-error{color:#e06060;font-size:0.75rem;margin-top:10px;display:none;}
+
+/* ===== ANIMATIONS ===== */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.fade-in{opacity:0;transition:opacity 0.7s ease;}
+.fade-in.visible{opacity:1;}
+
+@keyframes goldShimmer{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+.shimmer-text{background:linear-gradient(90deg,var(--gold-dark),var(--gold-shine),var(--gold-dark));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:goldShimmer 4s linear infinite;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-grid .stat-item{border-bottom:1px solid var(--border-gold);}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .testimonials-grid{grid-template-columns:1fr 1fr;}
+  .team-grid{grid-template-columns:1fr 1fr;}
+  .admin-stats-row{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
+  .container{padding:0 20px;}
+  .intro-grid,.why-grid,.vision-grid,.business-layout,.director-layout,.contact-layout{grid-template-columns:1fr;}
+  .business-layout.reverse{direction:ltr;}
+  .hero-stats{gap:24px;flex-wrap:wrap;}
+  .services-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .team-grid{grid-template-columns:1fr;}
+  .testimonials-grid{grid-template-columns:1fr;}
+  .director-achievements{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .admin-sidebar{width:220px;}
+  .admin-stats-row{grid-template-columns:1fr 1fr;}
+  .admin-grid-2,.admin-grid-3{grid-template-columns:1fr;}
+  .hero h1{font-size:2.2rem;}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr;}
+  .admin-sidebar{display:none;}
+  .admin-panel-mobile-note{display:block;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-emblem"><span>ASC</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  <div class="loader-text">Establishing Connection</div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="showPage('home')">
+    <img id="nav-logo-img" src="" alt="ArizonaSC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div style="display:none;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#A07830,#C9A84C);align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;color:#0D1520;font-size:1rem;border:1px solid rgba(201,168,76,0.5);">ASC</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">ArizonaSC</span>
+      <span class="nav-logo-sub">International Group</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <span class="nav-link active" onclick="showPage('home')">Home</span>
+    <span class="nav-link" onclick="showPage('businesses')">Our Businesses</span>
+    <span class="nav-link" onclick="showPage('directors')">Leadership</span>
+    <span class="nav-link" onclick="showPage('team')">Our Team</span>
+    <span class="nav-link" onclick="showPage('contact')">Contact</span>
+    <span class="nav-link" onclick="showPage('terms')">Terms</span>
+    <button class="nav-cta" onclick="showPage('contact')">Get In Touch</button>
+  </div>
+  <div class="nav-hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-link" onclick="showPage('home');toggleMobileMenu()">Home</span>
+  <span class="mobile-link" onclick="showPage('businesses');toggleMobileMenu()">Our Businesses</span>
+  <span class="mobile-link" onclick="showPage('directors');toggleMobileMenu()">Leadership</span>
+  <span class="mobile-link" onclick="showPage('team');toggleMobileMenu()">Our Team</span>
+  <span class="mobile-link" onclick="showPage('contact');toggleMobileMenu()">Contact</span>
+  <span class="mobile-link" onclick="showPage('terms');toggleMobileMenu()">Terms & Conditions</span>
+</div>
+
+<!-- ===================== HOME PAGE ===================== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container" style="width:100%;">
+      <div class="hero-content">
+        <div class="hero-badge fade-up"><i class="fas fa-star"></i> Established in Toronto, Canada — Global Operations</div>
+        <h1 class="fade-up" style="transition-delay:0.1s;">
+          Powering <span class="gold">Supply Chains</span><br>
+          & <span class="outline-text">Digital Futures</span>
+        </h1>
+        <p class="hero-desc fade-up" style="transition-delay:0.2s;" id="hero-desc-text">ArizonaSC is a premier international enterprise headquartered in Toronto, delivering world-class supply chain solutions, logistics management, and cutting-edge digital services across eight high-growth sectors globally.</p>
+        <div class="hero-actions fade-up" style="transition-delay:0.3s;">
+          <button class="btn-primary" onclick="showPage('businesses')"><i class="fas fa-briefcase"></i> Explore Our Services</button>
+          <button class="btn-outline" onclick="showPage('contact')">Partner With Us <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="hero-stats fade-up" style="transition-delay:0.4s;">
+          <div>
+            <div class="hero-stat-num" data-target="500">0+</div>
+            <div class="hero-stat-label">Global Clients</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-target="8">0</div>
+            <div class="hero-stat-label">Business Verticals</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-target="30">0+</div>
+            <div class="hero-stat-label">Countries Served</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-target="99">0%</div>
+            <div class="hero-stat-label">Client Retention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-ring"></div>
+      <div class="hero-visual-ring"></div>
+      <div class="hero-visual-ring"></div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- INTRO -->
+  <section class="intro-section">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-img-wrap fade-in">
+          <div class="intro-img-box" style="aspect-ratio:4/5;">
+            <div class="intro-emblem">ASC</div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <img id="home-intro-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:none;">
+            </div>
+          </div>
+          <div class="since-badge">Est. 2020</div>
+          <div class="intro-accent">
+            <div class="intro-accent-inner">Premium</div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <span class="section-tag">Who We Are</span>
+          <h2 class="section-title">A <em>Trusted Partner</em> for Global Enterprise Growth</h2>
+          <div class="gold-line"></div>
+          <p class="section-sub" id="intro-text">ArizonaSC stands at the intersection of physical and digital commerce — a forward-thinking Canadian enterprise delivering supply chain excellence and digital transformation across international markets. Our integrated approach ensures your business moves faster, smarter, and more efficiently at every level.</p>
+          <div class="intro-features">
+            <div class="intro-feature">
+              <div class="intro-feature-icon"><i class="fas fa-globe"></i></div>
+              <div>
+                <div class="intro-feature-title">International Presence</div>
+                <div class="intro-feature-text">Operations spanning North America, Europe, Asia-Pacific, and the Middle East, with 30+ active country partnerships.</div>
+              </div>
+            </div>
+            <div class="intro-feature">
+              <div class="intro-feature-icon"><i class="fas fa-cogs"></i></div>
+              <div>
+                <div class="intro-feature-title">Multi-Sector Expertise</div>
+                <div class="intro-feature-text">From logistics orchestration to AI-powered automation, we operate across 8 complementary verticals with unified leadership.</div>
+              </div>
+            </div>
+            <div class="intro-feature">
+              <div class="intro-feature-icon"><i class="fas fa-shield-alt"></i></div>
+              <div>
+                <div class="intro-feature-title">Trusted & Compliant</div>
+                <div class="intro-feature-text">Fully compliant with Canadian and international business standards, certified across ISO and industry-specific frameworks.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="services-overview">
+    <div class="container">
+      <div style="text-align:center;" class="fade-up">
+        <span class="section-tag">What We Do</span>
+        <h2 class="section-title">Eight <em>Pillars</em> of Enterprise Excellence</h2>
+        <div class="gold-line center"></div>
+        <p class="section-sub" style="margin:0 auto;">Every service we offer is engineered for enterprise performance — designed to scale, built to last, and delivered with precision.</p>
+      </div>
+      <div class="services-grid fade-up" style="transition-delay:0.2s;">
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-truck-moving"></i></div>
+          <div class="service-card-title">Supply Chain Solutions</div>
+          <div class="service-card-text">End-to-end supply chain design, optimization, and management for international enterprises.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-shipping-fast"></i></div>
+          <div class="service-card-title">Logistics Services</div>
+          <div class="service-card-text">Precision freight management, warehousing, and last-mile delivery solutions.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-hashtag"></i></div>
+          <div class="service-card-title">Social Media Services</div>
+          <div class="service-card-text">Strategic brand presence, content production, and audience growth across all major platforms.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-code"></i></div>
+          <div class="service-card-title">Web Development</div>
+          <div class="service-card-text">Premium corporate websites, e-commerce platforms, and enterprise web applications.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="service-card-title">App Development</div>
+          <div class="service-card-text">Cross-platform iOS and Android applications built for performance and scale.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-robot"></i></div>
+          <div class="service-card-title">AI Automation</div>
+          <div class="service-card-text">Intelligent workflow automation, machine learning integration, and AI-driven business tools.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="service-card-title">Educational Courses</div>
+          <div class="service-card-text">Professional training programs in business, technology, logistics, and digital skills.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+        <div class="service-card" onclick="showPage('businesses')">
+          <div class="service-card-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="service-card-title">Digital Business Services</div>
+          <div class="service-card-text">Comprehensive digital strategy, brand consulting, and business growth solutions.</div>
+          <i class="fas fa-arrow-right service-card-arrow"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-up">
+          <span class="stat-number" data-count="500">500</span>
+          <span class="stat-label">Enterprise Clients</span>
+          <div class="stat-desc">Across six continents</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:0.1s;">
+          <span class="stat-number" data-count="8">8</span>
+          <span class="stat-label">Business Verticals</span>
+          <div class="stat-desc">Fully operational</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:0.2s;">
+          <span class="stat-number" data-count="30">30</span>
+          <span class="stat-label">Countries Served</span>
+          <div class="stat-desc">Growing every quarter</div>
+        </div>
+        <div class="stat-item fade-up" style="transition-delay:0.3s;">
+          <span class="stat-number" data-count="99">99</span>
+          <span class="stat-label">% Client Retention</span>
+          <div class="stat-desc">Industry-leading satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- WHY CHOOSE -->
+  <section class="why-section">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-tag">Why ArizonaSC</span>
+        <h2 class="section-title">Built for <em>Leaders</em> Who Demand More</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="why-grid">
+        <div class="why-points fade-up">
+          <div class="why-point">
+            <div class="why-point-num">01</div>
+            <div>
+              <div class="why-point-title">Integrated Multi-Sector Capability</div>
+              <div class="why-point-text">From physical logistics to AI automation, we are the singular partner that covers every dimension of modern enterprise operations — eliminating the complexity of multiple vendor relationships.</div>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">02</div>
+            <div>
+              <div class="why-point-title">Academic & Executive Leadership</div>
+              <div class="why-point-text">Led by a team of PhD-qualified executives and seasoned industry veterans, ArizonaSC brings academic rigour and real-world expertise to every engagement.</div>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">03</div>
+            <div>
+              <div class="why-point-title">Canadian Trust, Global Standards</div>
+              <div class="why-point-text">Headquartered in Toronto, we operate under the transparency and governance standards Canada is globally renowned for — giving international clients confidence and security.</div>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-num">04</div>
+            <div>
+              <div class="why-point-title">Technology-First Methodology</div>
+              <div class="why-point-text">Every solution we design is underpinned by the latest technology — AI, automation, real-time analytics — ensuring clients stay ahead of the competitive curve.</div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in" style="transition-delay:0.3s;">
+          <div class="why-visual">
+            <div class="why-visual-title">Executive Perspective</div>
+            <div class="gold-line"></div>
+            <div class="why-visual-quote">"At ArizonaSC, we believe that true enterprise value is created not by doing one thing well, but by mastering the interconnected systems that drive modern business. Our mission is to be the infrastructure behind our clients' greatest achievements."</div>
+            <div class="why-visual-author">
+              <div class="why-visual-author-img"><i class="fas fa-user-tie"></i></div>
+              <div>
+                <div class="why-visual-author-name">Dr. Aubid Allah Khan</div>
+                <div class="why-visual-author-role">Chief Executive Officer & Chairman</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:var(--navy-mid);border:1px solid var(--border-gold);padding:20px;text-align:center;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);">ISO</div>
+              <div style="font-size:0.62rem;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">9001 Certified</div>
+            </div>
+            <div style="background:var(--navy-mid);border:1px solid var(--border-gold);padding:20px;text-align:center;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold);">AAA</div>
+              <div style="font-size:0.62rem;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">Credit Rating</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- VISION MISSION -->
+  <section class="vision-section">
+    <div class="container">
+      <div style="text-align:center;" class="fade-up">
+        <span class="section-tag">Our Foundation</span>
+        <h2 class="section-title">Vision, Mission & <em>Values</em></h2>
+        <div class="gold-line center"></div>
+      </div>
+      <div class="vision-grid fade-up" style="transition-delay:0.2s;">
+        <div class="vision-card">
+          <div class="vision-card-icon"><i class="fas fa-eye"></i></div>
+          <h3 class="vision-card-title">Our Vision</h3>
+          <div class="gold-line"></div>
+          <p class="vision-card-text">To be the world's most trusted multi-sector enterprise partner — the company that global businesses rely on to optimize their supply chains, amplify their digital presence, and accelerate their transformation in an increasingly complex world. We envision a future where Canadian enterprise leadership sets the standard for integrated business excellence globally.</p>
+        </div>
+        <div class="vision-card">
+          <div class="vision-card-icon"><i class="fas fa-bullseye"></i></div>
+          <h3 class="vision-card-title">Our Mission</h3>
+          <div class="gold-line"></div>
+          <p class="vision-card-text">To deliver world-class supply chain, logistics, and digital solutions that create measurable, lasting value for our clients. We operate with unwavering integrity, invest in our people's excellence, and leverage the power of technology to solve real business challenges — empowering enterprises of every scale to compete and win on the global stage.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-gold);border:1px solid var(--border-gold);margin-top:1px;" class="fade-up" style="transition-delay:0.4s;">
+        <div style="background:var(--navy-deep);padding:30px;text-align:center;">
+          <i class="fas fa-handshake" style="font-size:1.5rem;color:var(--gold);opacity:0.7;margin-bottom:12px;"></i>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--white);margin-bottom:6px;">Integrity</div>
+          <div style="font-size:0.72rem;color:var(--text-muted);">Transparent in every transaction</div>
+        </div>
+        <div style="background:var(--navy-deep);padding:30px;text-align:center;">
+          <i class="fas fa-lightbulb" style="font-size:1.5rem;color:var(--gold);opacity:0.7;margin-bottom:12px;"></i>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--white);margin-bottom:6px;">Innovation</div>
+          <div style="font-size:0.72rem;color:var(--text-muted);">Pioneering next-generation solutions</div>
+        </div>
+        <div style="background:var(--navy-deep);padding:30px;text-align:center;">
+          <i class="fas fa-award" style="font-size:1.5rem;color:var(--gold);opacity:0.7;margin-bottom:12px;"></i>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--white);margin-bottom:6px;">Excellence</div>
+          <div style="font-size:0.72rem;color:var(--text-muted);">Uncompromising quality standards</div>
+        </div>
+        <div style="background:var(--navy-deep);padding:30px;text-align:center;">
+          <i class="fas fa-globe-americas" style="font-size:1.5rem;color:var(--gold);opacity:0.7;margin-bottom:12px;"></i>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--white);margin-bottom:6px;">Global Reach</div>
+          <div style="font-size:0.72rem;color:var(--text-muted);">Connecting businesses worldwide</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div style="text-align:center;" class="fade-up">
+        <span class="section-tag">Client Voices</span>
+        <h2 class="section-title">Trusted by <em>Industry Leaders</em></h2>
+        <div class="gold-line center"></div>
+      </div>
+      <div class="testimonials-grid" id="testimonials-container">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container" style="position:relative;z-index:2;">
+      <span class="section-tag" style="display:block;margin-bottom:16px;">Take The Next Step</span>
+      <h2 class="cta-title fade-up">Ready to <em style="color:var(--gold-shine);">Transform</em> Your Enterprise?</h2>
+      <p class="cta-sub fade-up">Join hundreds of global businesses that trust ArizonaSC to power their most critical operations. Let's build something extraordinary together.</p>
+      <div class="cta-actions fade-up">
+        <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Start a Conversation</button>
+        <button class="btn-outline" onclick="showPage('businesses')">Explore Our Services <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-logo">
+            <img id="footer-logo-img" src="" alt="ArizonaSC" onerror="this.style.display='none'" style="height:44px;width:44px;border-radius:50%;border:1px solid rgba(201,168,76,0.4);">
+            <span class="footer-brand-name">ArizonaSC</span>
+          </div>
+          <p class="footer-brand-desc">A premier Canadian enterprise delivering world-class supply chain, logistics, and digital solutions across international markets since 2020.</p>
+          <div class="footer-socials">
+            <div class="footer-social"><i class="fab fa-linkedin-in"></i></div>
+            <div class="footer-social"><i class="fab fa-twitter"></i></div>
+            <div class="footer-social"><i class="fab fa-instagram"></i></div>
+            <div class="footer-social"><i class="fab fa-facebook-f"></i></div>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <div class="footer-links">
+            <span class="footer-link" onclick="showPage('home')">Home</span>
+            <span class="footer-link" onclick="showPage('businesses')">Our Businesses</span>
+            <span class="footer-link" onclick="showPage('directors')">Leadership</span>
+            <span class="footer-link" onclick="showPage('team')">Our Team</span>
+            <span class="footer-link" onclick="showPage('contact')">Contact Us</span>
+            <span class="footer-link" onclick="showPage('terms')">Terms & Conditions</span>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Our Services</div>
+          <div class="footer-links">
+            <span class="footer-link" onclick="showPage('businesses')">Supply Chain</span>
+            <span class="footer-link" onclick="showPage('businesses')">Logistics</span>
+            <span class="footer-link" onclick="showPage('businesses')">Social Media</span>
+            <span class="footer-link" onclick="showPage('businesses')">Web Development</span>
+            <span class="footer-link" onclick="showPage('businesses')">App Development</span>
+            <span class="footer-link" onclick="showPage('businesses')">AI Automation</span>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><div class="footer-contact-text" id="footer-address">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</div></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><div class="footer-contact-text" id="footer-email">info@arizonasc.ca</div></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><div class="footer-contact-text">Mon – Fri: 9:00 AM – 6:00 PM EST</div></div>
+          <div class="footer-contact-item"><i class="fas fa-flag"></i><div class="footer-contact-text">Canadian Registered Enterprise</div></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2025 <span>ArizonaSC International Group</span>. All rights reserved.</div>
+        <div class="footer-copy">Toronto, Canada — Global Operations</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== BUSINESSES PAGE ===================== -->
+<div id="page-businesses" class="page">
+  <div class="page-hero">
+    <div style="position:relative;z-index:2;">
+      <span class="page-hero-tag">Our Businesses</span>
+      <h1 class="page-hero-title">Eight <em>Sectors</em> of Excellence</h1>
+      <p class="page-hero-sub">ArizonaSC operates across eight strategically chosen business verticals — each a pillar of strength in the modern enterprise landscape.</p>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <!-- Supply Chain -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-network-wired business-icon-main"></i>
+          <div class="business-icon-badge">Core Service</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 01</div>
+          <h2 class="business-title">Supply Chain Solutions</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">ArizonaSC's supply chain division is the cornerstone of our enterprise offering. We design, implement, and optimize end-to-end supply chain architectures for multinational corporations, SMEs, and government agencies. Our methodology combines lean principles with advanced technology — delivering resilient, transparent, and cost-efficient supply networks that perform under pressure.</p>
+          <p class="business-desc">From procurement strategy to vendor management, demand forecasting to risk mitigation, our team of certified supply chain professionals brings measurable results to every engagement.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>End-to-end supply chain design & re-engineering</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Real-time supply chain visibility platforms</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Vendor selection, onboarding & management</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Demand forecasting & inventory optimization</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Risk assessment & business continuity planning</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logistics -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout reverse">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-truck business-icon-main"></i>
+          <div class="business-icon-badge">Core Service</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 02</div>
+          <h2 class="business-title">Logistics Services</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">Precision logistics is the lifeblood of global commerce. Our logistics division manages the full spectrum of freight movement — from international ocean and air freight to domestic ground transportation and specialized last-mile delivery. We operate as both a 3PL and 4PL provider, tailoring our role to the complexity of each client's operation.</p>
+          <p class="business-desc">Backed by a network of trusted carrier partners across 30+ countries, we guarantee reliability, transparency, and competitive pricing at every stage of the cargo journey.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>International freight forwarding (air, sea, land)</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Customs brokerage & trade compliance</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Warehousing & distribution management</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Last-mile delivery optimization</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Real-time shipment tracking & reporting</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Media -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-share-alt business-icon-main"></i>
+          <div class="business-icon-badge">Digital Division</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 03</div>
+          <h2 class="business-title">Social Media Services</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">In today's digital-first economy, a brand's social media presence is its most visible asset. Our social media division crafts strategic, content-driven campaigns that build authentic audiences, drive meaningful engagement, and convert followers into loyal customers. We serve brands across North America, the Middle East, and South Asia.</p>
+          <p class="business-desc">Our team of creative strategists, content producers, and analytics specialists manage everything from brand identity to paid advertising — delivering measurable ROI from every platform.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Social media strategy & brand positioning</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Content creation, design & production</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Paid social advertising management</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Influencer partnerships & community management</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Analytics, reporting & campaign optimization</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Web Development -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout reverse">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-laptop-code business-icon-main"></i>
+          <div class="business-icon-badge">Tech Division</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 04</div>
+          <h2 class="business-title">Web Development</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">We build digital experiences that command attention and drive conversion. Our web development team creates premium corporate websites, high-performance e-commerce platforms, and complex enterprise web applications — all designed with meticulous attention to UX, performance, and scalability.</p>
+          <p class="business-desc">From initial architecture to post-launch optimization, we are a full-cycle web development partner committed to delivering technology that works as beautifully as it looks.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Corporate & enterprise website development</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>E-commerce platforms & custom portals</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>UI/UX design & user experience strategy</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>CMS integration & content management</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Performance optimization & SEO</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Development -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-mobile-alt business-icon-main"></i>
+          <div class="business-icon-badge">Tech Division</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 05</div>
+          <h2 class="business-title">App Development</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">Mobile applications are the new storefronts of the digital economy. Our app development team builds robust, intuitive, and scalable iOS and Android applications for enterprise clients, startups, and government institutions. We specialize in cross-platform solutions using cutting-edge frameworks that reduce development time without compromising quality.</p>
+          <p class="business-desc">Whether you need a customer-facing consumer app, an internal enterprise tool, or a complex platform with API integrations, we deliver with speed, security, and precision.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Native iOS & Android development</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Cross-platform app development</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Enterprise mobile solutions & MDM</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>API design & third-party integrations</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>App store optimization & deployment</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Automation -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout reverse">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-brain business-icon-main"></i>
+          <div class="business-icon-badge">Innovation Division</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 06</div>
+          <h2 class="business-title">AI Automation Solutions</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">Artificial intelligence is no longer a future concept — it is today's competitive advantage. Our AI division implements practical, results-oriented automation solutions that eliminate operational inefficiencies, accelerate decision-making, and create scalable systems that grow with your business.</p>
+          <p class="business-desc">From intelligent document processing to predictive analytics and conversational AI, we help enterprises harness the power of machine learning without the complexity.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Business process automation (RPA & AI)</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>AI chatbot & virtual assistant development</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Predictive analytics & data intelligence</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Natural language processing solutions</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Machine learning model development & deployment</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Educational Courses -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-university business-icon-main"></i>
+          <div class="business-icon-badge">Knowledge Division</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 07</div>
+          <h2 class="business-title">Educational Courses & Training</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">Knowledge is the most scalable asset in the modern economy. ArizonaSC's educational division delivers professional training programs and certification courses in supply chain management, logistics, digital marketing, technology, and business leadership — designed for professionals seeking to advance and organizations seeking to upskill their teams.</p>
+          <p class="business-desc">Our curriculum is developed by industry practitioners and academicians with real-world experience, ensuring every course translates directly into career and business value.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Supply chain & logistics certification programs</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Digital marketing & social media courses</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Technology & AI fundamentals training</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Business leadership & entrepreneurship workshops</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Live online & self-paced learning formats</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Enquire About Courses</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Growth -->
+  <section class="business-section">
+    <div class="container">
+      <div class="business-layout reverse">
+        <div class="business-icon-wrap fade-in">
+          <i class="fas fa-chart-bar business-icon-main"></i>
+          <div class="business-icon-badge">Digital Division</div>
+        </div>
+        <div class="fade-up">
+          <div class="business-subtitle">Sector 08</div>
+          <h2 class="business-title">Digital Business Services</h2>
+          <div class="gold-line"></div>
+          <p class="business-desc">In an era where every business must be digital-first, ArizonaSC's digital business services division provides the strategic consulting, implementation support, and ongoing management that organizations need to thrive online. We help businesses build their digital infrastructure, define their online identity, and execute growth strategies that deliver consistent results.</p>
+          <p class="business-desc">Our holistic approach connects every digital touchpoint — from search visibility and e-commerce performance to brand reputation and customer acquisition.</p>
+          <div class="business-features">
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Digital transformation strategy & consulting</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Search engine optimization (SEO) & SEM</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>E-commerce growth & conversion optimization</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Brand development & digital identity</div>
+            <div class="business-feature"><i class="fas fa-check-circle"></i>Email marketing & CRM implementation</div>
+          </div>
+          <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Request a Consultation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container" style="position:relative;z-index:2;text-align:center;">
+      <h2 class="cta-title">Ready to Leverage Our <em style="color:var(--gold-shine);">Expertise?</em></h2>
+      <p class="cta-sub">Our team is ready to design a tailored solution for your business. Let's connect and explore what's possible.</p>
+      <div class="cta-actions">
+        <button class="btn-primary" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Contact Our Team</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="text-align:center;padding-bottom:30px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:6px;">ArizonaSC International Group</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada &nbsp;|&nbsp; info@arizonasc.ca</div>
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2025 <span>ArizonaSC International Group</span>. All rights reserved.</div><div class="footer-copy" style="cursor:pointer;" onclick="showPage('terms')">Terms & Conditions</div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== DIRECTORS PAGE ===================== -->
+<div id="page-directors" class="page">
+  <div class="page-hero">
+    <div style="position:relative;z-index:2;">
+      <span class="page-hero-tag">Executive Leadership</span>
+      <h1 class="page-hero-title">Chairman & <em>Board of Directors</em></h1>
+      <p class="page-hero-sub">Our executive leadership team combines decades of industry experience with academic excellence and visionary strategic thinking.</p>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <!-- CEO -->
+  <section class="director-section" style="padding:80px 0;">
+    <div class="container">
+      <div class="director-layout">
+        <div class="director-img-wrap fade-in">
+          <div class="director-img" id="ceo-img-container">
+            <i class="fas fa-user-tie director-img-placeholder" id="ceo-placeholder"></i>
+            <img id="ceo-img" src="" alt="Dr. Aubid Allah Khan" style="display:none;width:100%;height:100%;object-fit:cover;">
+            <div class="director-img-name-tag">
+              <div class="director-img-name">Dr. Aubid Allah Khan</div>
+              <div class="director-img-role">CEO & Chairman</div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="director-badge"><i class="fas fa-star"></i> Chief Executive Officer & Chairman</div>
+          <h2 class="director-name">Dr. Aubid Allah Khan</h2>
+          <div class="director-title">PhD (Business Administration) · PhD (International Logistics) · PhD (Digital Innovation)</div>
+          <div class="gold-line"></div>
+          <p class="director-bio" id="ceo-bio">Dr. Aubid Allah Khan is the visionary founder, Chairman, and Chief Executive Officer of ArizonaSC International Group. A scholar of extraordinary breadth, Dr. Khan holds three doctoral degrees spanning Business Administration, International Logistics Management, and Digital Innovation — an academic portfolio that positions him uniquely at the nexus of traditional enterprise and the digital frontier.<br><br>With over two decades of executive leadership experience across Canada, the Gulf Cooperation Council, and South Asia, Dr. Khan built ArizonaSC from a concept rooted in his doctoral research into a thriving international enterprise operating across eight strategic business verticals. His leadership philosophy is defined by rigorous discipline, deep intellectual curiosity, and an unwavering commitment to delivering measurable value for clients, partners, and stakeholders alike.<br><br>Dr. Khan has been recognized by multiple international business bodies for his contributions to supply chain innovation and digital transformation. He has delivered keynote addresses at logistics forums in Dubai, Toronto, and Karachi, and has been published in peer-reviewed journals on topics ranging from AI in supply chain to the future of cross-border e-commerce. Under his stewardship, ArizonaSC has achieved a 99% client retention rate and expanded its global footprint to more than 30 countries.</p>
+          <div class="director-achievements">
+            <div class="director-achievement">
+              <div class="director-achievement-title">Three PhDs</div>
+              <div class="director-achievement-text">Business Administration, International Logistics & Digital Innovation</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">20+ Years Experience</div>
+              <div class="director-achievement-text">Executive leadership across Canada, GCC & South Asia</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">International Speaker</div>
+              <div class="director-achievement-text">Keynote presenter at logistics & digital transformation forums globally</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">Published Academic</div>
+              <div class="director-achievement-text">Peer-reviewed publications in supply chain & AI disciplines</div>
+            </div>
+          </div>
+          <div class="director-quals">
+            <span class="director-qual">PhD Business Administration</span>
+            <span class="director-qual">PhD International Logistics</span>
+            <span class="director-qual">PhD Digital Innovation</span>
+            <span class="director-qual">ISO Certified Leader</span>
+            <span class="director-qual">SCM Professional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- Director Logistics -->
+  <section class="director-section" style="padding:80px 0;">
+    <div class="container">
+      <div class="director-layout">
+        <div class="director-img-wrap fade-in">
+          <div class="director-img">
+            <i class="fas fa-user-tie director-img-placeholder" id="dir-log-placeholder"></i>
+            <img id="dir-log-img" src="" alt="Raja Akhter Mehmood" style="display:none;width:100%;height:100%;object-fit:cover;">
+            <div class="director-img-name-tag">
+              <div class="director-img-name">Raja Akhter Mehmood</div>
+              <div class="director-img-role">Director of Logistics</div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="director-badge"><i class="fas fa-truck"></i> Director of Logistics</div>
+          <h2 class="director-name">Raja Akhter Mehmood</h2>
+          <div class="director-title">MBA (Supply Chain Management) · Certified Logistics Professional</div>
+          <div class="gold-line"></div>
+          <p class="director-bio" id="dir-log-bio">Raja Akhter Mehmood serves as Director of Logistics at ArizonaSC, bringing over 18 years of hands-on expertise in freight management, logistics network design, and international trade operations. A seasoned professional who has led logistics functions for both multinational corporations and dynamic regional enterprises, Raja is regarded as one of the most effective operational leaders in Canadian supply chain circles.<br><br>His career spans critical roles in freight forwarding, 3PL management, customs brokerage, and cross-border trade compliance across North America, Europe, and Asia. Raja's leadership approach is grounded in process excellence — building teams that execute with precision while remaining agile in the face of global disruptions such as the COVID-19 pandemic and geopolitical trade shifts.<br><br>At ArizonaSC, Raja oversees the entire logistics service portfolio — managing carrier relationships, negotiating freight contracts, and ensuring that every shipment moves reliably and efficiently. His operational excellence has been instrumental in achieving the company's industry-leading delivery performance metrics and client satisfaction scores.</p>
+          <div class="director-achievements">
+            <div class="director-achievement">
+              <div class="director-achievement-title">18+ Years Experience</div>
+              <div class="director-achievement-text">Logistics & freight management at international scale</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">Network Leadership</div>
+              <div class="director-achievement-text">Managing carrier partnerships across 30+ countries</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">Trade Compliance</div>
+              <div class="director-achievement-text">Expert in cross-border regulations and customs</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">Operational Excellence</div>
+              <div class="director-achievement-text">Delivered 99%+ on-time performance across key corridors</div>
+            </div>
+          </div>
+          <div class="director-quals">
+            <span class="director-qual">MBA Supply Chain</span>
+            <span class="director-qual">CCLP Certified</span>
+            <span class="director-qual">3PL Specialist</span>
+            <span class="director-qual">Trade Compliance Expert</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- Director Operations -->
+  <section class="director-section" style="padding:80px 0;">
+    <div class="container">
+      <div class="director-layout">
+        <div class="director-img-wrap fade-in">
+          <div class="director-img">
+            <i class="fas fa-user-tie director-img-placeholder" id="dir-ops-placeholder"></i>
+            <img id="dir-ops-img" src="" alt="Eng. Shehzada Abdul Rauf" style="display:none;width:100%;height:100%;object-fit:cover;">
+            <div class="director-img-name-tag">
+              <div class="director-img-name">Eng. Shehzada Abdul Rauf</div>
+              <div class="director-img-role">Director of Operations & Technical Support</div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="director-badge"><i class="fas fa-cogs"></i> Director of Operations & Technical Support</div>
+          <h2 class="director-name">Eng. Shehzada Abdul Rauf</h2>
+          <div class="director-title">B.Eng (Systems Engineering) · MSc (Information Technology Management)</div>
+          <div class="gold-line"></div>
+          <p class="director-bio" id="dir-ops-bio">Eng. Shehzada Abdul Rauf is the architectural mind behind ArizonaSC's operational infrastructure and technical support ecosystem. A qualified systems engineer with a master's degree in Information Technology Management, Rauf brings a rare combination of engineering discipline and technical leadership to one of the company's most critical roles.<br><br>Over a career spanning 15 years, Eng. Rauf has designed and implemented operational frameworks for enterprises across the manufacturing, logistics, and technology sectors. His expertise lies in systems integration — the complex process of ensuring that an organization's technology platforms, operational processes, and human resources function as a seamless, high-performing whole.<br><br>At ArizonaSC, Rauf leads the operations division with a focus on process standardization, technical infrastructure management, and the continuous improvement of service delivery systems. He also oversees the company's technical support function, ensuring that clients receive responsive, expert assistance across all digital and operational platforms. His engineering mindset and meticulous attention to systems design have been central to ArizonaSC's ability to scale reliably across multiple markets.</p>
+          <div class="director-achievements">
+            <div class="director-achievement">
+              <div class="director-achievement-title">15+ Years in Engineering</div>
+              <div class="director-achievement-text">Systems design and operational technology management</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">Systems Integration</div>
+              <div class="director-achievement-text">Enterprise-wide platform integration specialist</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">IT Infrastructure</div>
+              <div class="director-achievement-text">Built scalable technical architecture for multi-site operations</div>
+            </div>
+            <div class="director-achievement">
+              <div class="director-achievement-title">Process Excellence</div>
+              <div class="director-achievement-text">ISO 9001 process standardization across all divisions</div>
+            </div>
+          </div>
+          <div class="director-quals">
+            <span class="director-qual">B.Eng Systems Engineering</span>
+            <span class="director-qual">MSc IT Management</span>
+            <span class="director-qual">PMP Certified</span>
+            <span class="director-qual">ITIL v4 Expert</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="text-align:center;padding-bottom:30px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:6px;">ArizonaSC International Group</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada &nbsp;|&nbsp; info@arizonasc.ca</div>
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2025 <span>ArizonaSC International Group</span>. All rights reserved.</div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== TEAM PAGE ===================== -->
+<div id="page-team" class="page">
+  <div class="page-hero">
+    <div style="position:relative;z-index:2;">
+      <span class="page-hero-tag">Our People</span>
+      <h1 class="page-hero-title">The <em>Team</em> Behind the Vision</h1>
+      <p class="page-hero-sub">A diverse, talented team of professionals united by a shared commitment to excellence, innovation, and client success.</p>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <section style="padding:80px 0;background:var(--navy-deep);">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-tag">Core Team</span>
+        <h2 class="section-title">Directors & <em>Senior Specialists</em></h2>
+        <div class="gold-line"></div>
+      </div>
+
+      <!-- Head Developer Featured -->
+      <div style="background:var(--navy-mid);border:1px solid var(--border-gold);border-radius:3px;padding:50px;margin:40px 0;display:grid;grid-template-columns:250px 1fr;gap:50px;align-items:start;" class="fade-up">
+        <div>
+          <div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg,var(--navy),var(--steel));border:1px solid var(--border-gold);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;position:relative;overflow:hidden;">
+            <i class="fas fa-code" style="font-size:3rem;color:rgba(201,168,76,0.25);" id="azwer-placeholder"></i>
+            <img id="azwer-img" src="" alt="Azwer Ullah" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div style="background:var(--gold);color:var(--navy-deep);text-align:center;padding:10px;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:-1px;">Head Developer</div>
+        </div>
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border-gold);font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;"><i class="fas fa-code"></i> Technology Leadership</div>
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--white);margin-bottom:6px;">Azwer Ullah</h2>
+          <div style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px;">Head Developer & Technology Innovation Lead</div>
+          <div class="gold-line"></div>
+          <p style="font-size:0.83rem;color:var(--text-muted);line-height:2;margin-bottom:20px;" id="azwer-bio">Azwer Ullah is ArizonaSC's Head Developer and Technology Innovation Lead — the driving force behind every digital product, platform, and automation solution the company delivers. A self-described "builder at heart," Azwer brings a rare breadth of capability spanning full-stack web development, mobile application engineering, AI implementation, and digital automation architecture.<br><br>With expertise across the full modern technology stack — from front-end interfaces built with precision to back-end systems engineered for scale — Azwer leads a team of developers, designers, and automation specialists who collectively power ArizonaSC's entire digital product portfolio. His approach to development is defined by three principles: clean architecture, relentless optimization, and user-first design.<br><br>Azwer has been instrumental in deploying AI-driven automation workflows for enterprise clients, building proprietary logistics tracking platforms, and developing digital learning infrastructure for the company's educational division. He is a recognized voice in the Canadian tech community, contributing to open-source projects and mentoring emerging developers through ArizonaSC's training programs.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="director-qual">Full-Stack Development</span>
+            <span class="director-qual">AI & Automation</span>
+            <span class="director-qual">Mobile Engineering</span>
+            <span class="director-qual">Cloud Architecture</span>
+            <span class="director-qual">DevOps & CI/CD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Grid -->
+      <div class="team-grid" id="team-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="text-align:center;padding-bottom:30px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:6px;">ArizonaSC International Group</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada &nbsp;|&nbsp; info@arizonasc.ca</div>
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2025 <span>ArizonaSC International Group</span>. All rights reserved.</div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== CONTACT PAGE ===================== -->
+<div id="page-contact" class="page">
+  <div class="page-hero">
+    <div style="position:relative;z-index:2;">
+      <span class="page-hero-tag">Get In Touch</span>
+      <h1 class="page-hero-title">Let's <em>Connect</em></h1>
+      <p class="page-hero-sub">Whether you're exploring a partnership, seeking a quote, or have a specific inquiry — our team is ready to respond with expertise and care.</p>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <section style="padding:80px 0;background:var(--navy-deep);">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="fade-in">
+          <span class="section-tag">Contact Information</span>
+          <h2 class="section-title" style="font-size:1.8rem;">Reach <em>Our Team</em></h2>
+          <div class="gold-line"></div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="contact-info-label">Our Address</div>
+              <div class="contact-info-value" id="contact-address">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="contact-info-label">Email Address</div>
+              <div class="contact-info-value" id="contact-email-display">info@arizonasc.ca</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-globe"></i></div>
+            <div>
+              <div class="contact-info-label">Global Presence</div>
+              <div class="contact-info-value">North America · Middle East · South Asia · Europe</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fab fa-linkedin-in"></i></div>
+            <div>
+              <div class="contact-info-label">Connect on LinkedIn</div>
+              <div class="contact-info-value">linkedin.com/company/arizonasc</div>
+            </div>
+          </div>
+          <div class="contact-hours">
+            <div class="contact-hours-title"><i class="fas fa-clock" style="margin-right:8px;"></i>Business Hours (EST)</div>
+            <div class="contact-hour-row"><span class="contact-hour-day">Monday – Friday</span><span class="contact-hour-time">9:00 AM – 6:00 PM</span></div>
+            <div class="contact-hour-row"><span class="contact-hour-day">Saturday</span><span class="contact-hour-time">10:00 AM – 2:00 PM</span></div>
+            <div class="contact-hour-row"><span class="contact-hour-day">Sunday</span><span class="contact-hour-time">Closed</span></div>
+            <div class="contact-hour-row"><span class="contact-hour-day">Public Holidays</span><span class="contact-hour-time">Closed</span></div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="contact-form">
+            <div class="form-title">Send Us a Message</div>
+            <p class="form-sub">Complete the form below and a member of our team will respond within one business day.</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name *</label>
+                <input type="text" class="form-input" id="contact-first" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name *</label>
+                <input type="text" class="form-input" id="contact-last" placeholder="Smith" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" class="form-input" id="contact-email" placeholder="john@yourcompany.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company Name</label>
+              <input type="text" class="form-input" id="contact-company" placeholder="Your Company Ltd.">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Service of Interest</label>
+              <select class="form-input" id="contact-service">
+                <option value="">Select a service...</option>
+                <option>Supply Chain Solutions</option>
+                <option>Logistics Services</option>
+                <option>Social Media Services</option>
+                <option>Web Development</option>
+                <option>App Development</option>
+                <option>AI Automation Solutions</option>
+                <option>Educational Courses</option>
+                <option>Digital Business Services</option>
+                <option>General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Message *</label>
+              <textarea class="form-input" id="contact-message" placeholder="Tell us about your project or inquiry..."></textarea>
+            </div>
+            <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitContactForm()"><i class="fas fa-paper-plane"></i> Send Message</button>
+            <div class="form-success" id="form-success"><i class="fas fa-check-circle"></i> &nbsp; Thank you! Your message has been received. We'll respond within one business day.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Placeholder -->
+      <div class="map-placeholder fade-up" style="margin-top:60px;">
+        <i class="fas fa-map-marked-alt"></i>
+        <p style="font-size:1rem;font-family:'Cormorant Garamond',serif;color:var(--text-light);">126 Shorting Road, Toronto, Ontario, M1S 3S6</p>
+        <p style="font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;">Toronto, Canada — Headquarters</p>
+        <a href="https://maps.google.com/?q=126+Shorting+Road+Toronto+Ontario" target="_blank" style="margin-top:12px;" class="btn-outline">Open in Google Maps <i class="fas fa-external-link-alt"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="text-align:center;padding-bottom:30px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:6px;">ArizonaSC International Group</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada &nbsp;|&nbsp; info@arizonasc.ca</div>
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2025 <span>ArizonaSC International Group</span>. All rights reserved.</div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== TERMS PAGE ===================== -->
+<div id="page-terms" class="page">
+  <div class="page-hero">
+    <div style="position:relative;z-index:2;">
+      <span class="page-hero-tag">Legal</span>
+      <h1 class="page-hero-title">Terms & <em>Conditions</em></h1>
+      <p class="page-hero-sub">Please read these terms carefully before using ArizonaSC services or website.</p>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+  <section style="padding:60px 0 0;background:var(--navy-deep);">
+    <div class="container">
+      <div class="terms-content">
+        <span class="terms-updated">Last Updated: January 1, 2025 &nbsp;|&nbsp; ArizonaSC International Group</span>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">1. Introduction & Acceptance of Terms</h3>
+          <p class="terms-text">Welcome to ArizonaSC International Group ("ArizonaSC," "we," "our," or "us"). These Terms and Conditions ("Terms") govern your use of our website located at www.arizonasc.ca and all associated services, products, and platforms operated by ArizonaSC International Group, a company incorporated and registered in the Province of Ontario, Canada.</p>
+          <p class="terms-text">By accessing or using our website, engaging our services, or entering into any agreement with ArizonaSC, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you must not use our website or services.</p>
+          <p class="terms-text">These Terms apply to all visitors, clients, partners, and any other parties who access or use our services. ArizonaSC reserves the right to modify these Terms at any time. Material changes will be communicated via email or prominent notice on our website. Continued use of our services following such notification constitutes acceptance of the revised Terms.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">2. Company Information</h3>
+          <p class="terms-text">ArizonaSC International Group is a legally registered Canadian enterprise headquartered at:</p>
+          <p class="terms-text" style="color:var(--text-light);padding-left:20px;border-left:2px solid var(--border-gold);">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada<br>Email: info@arizonasc.ca</p>
+          <p class="terms-text">ArizonaSC operates in supply chain solutions, logistics services, social media services, web development, app development, AI automation, educational training, and digital business services.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">3. Services & Engagement</h3>
+          <p class="terms-text">ArizonaSC provides a range of professional services. The specific terms of any service engagement — including scope, deliverables, timelines, fees, and payment schedules — are governed by the applicable Service Agreement or Statement of Work ("SOW") executed between ArizonaSC and the client.</p>
+          <ul class="terms-list">
+            <li>All service engagements are subject to a written agreement prior to commencement of work.</li>
+            <li>ArizonaSC reserves the right to decline or terminate any engagement at its sole discretion.</li>
+            <li>Client obligations, including timely provision of materials, approvals, and payment, are essential to service delivery timelines.</li>
+            <li>Any modifications to agreed scope must be documented in writing and may result in revised fees and timelines.</li>
+          </ul>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">4. Intellectual Property</h3>
+          <p class="terms-text">All content on this website — including text, graphics, logos, images, audio clips, digital downloads, data compilations, and software — is the property of ArizonaSC International Group or its content suppliers and is protected by Canadian and international copyright, trademark, and other intellectual property laws.</p>
+          <p class="terms-text">Unless otherwise stated in a written agreement, work product created by ArizonaSC for a client becomes the client's property upon full payment of all applicable fees. ArizonaSC retains the right to use anonymized or aggregated project information for portfolio and marketing purposes unless expressly prohibited in writing.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">5. Privacy Policy</h3>
+          <p class="terms-text">ArizonaSC is committed to protecting your personal information in compliance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and applicable Canadian privacy legislation.</p>
+          <p class="terms-text">We collect personal information only for legitimate business purposes, including service delivery, communication, and improvement of our offerings. We do not sell, rent, or share your personal information with third parties except as required for service delivery or as required by law.</p>
+          <ul class="terms-list">
+            <li>Personal data collected includes name, email address, company details, and communication records.</li>
+            <li>We implement appropriate technical and organizational security measures to protect your data.</li>
+            <li>You may request access to, correction of, or deletion of your personal information at any time by contacting info@arizonasc.ca.</li>
+            <li>Cookies and tracking technologies are used to improve website functionality and user experience. You may disable cookies via your browser settings.</li>
+          </ul>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">6. Payment & Billing</h3>
+          <p class="terms-text">Payment terms are specified in the applicable Service Agreement. Unless otherwise agreed:</p>
+          <ul class="terms-list">
+            <li>Invoices are due within thirty (30) days of issuance.</li>
+            <li>Late payments may incur interest charges of 1.5% per month on outstanding balances.</li>
+            <li>ArizonaSC reserves the right to suspend services for accounts with overdue balances exceeding 30 days.</li>
+            <li>All fees are quoted and payable in Canadian Dollars (CAD) unless otherwise specified.</li>
+            <li>Applicable taxes (GST/HST) will be added to all invoices as required by Canadian tax law.</li>
+          </ul>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">7. Limitation of Liability</h3>
+          <p class="terms-text">To the maximum extent permitted by applicable law, ArizonaSC International Group shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services or website, even if we have been advised of the possibility of such damages.</p>
+          <p class="terms-text">ArizonaSC's total liability to any client for any claim arising from a service engagement shall not exceed the total fees paid by the client to ArizonaSC in the three (3) months preceding the claim.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">8. Confidentiality</h3>
+          <p class="terms-text">Both parties agree to maintain the confidentiality of all proprietary information disclosed in the course of a service engagement. ArizonaSC will not disclose client information to third parties without explicit written consent except where required by law or as necessary to deliver contracted services.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">9. Termination</h3>
+          <p class="terms-text">Either party may terminate a service agreement upon thirty (30) days' written notice. In the event of material breach, the non-breaching party may terminate with immediate effect upon written notice. Upon termination, the client is responsible for payment of all fees incurred up to the effective termination date.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">10. Governing Law & Dispute Resolution</h3>
+          <p class="terms-text">These Terms and all service agreements are governed by the laws of the Province of Ontario and the federal laws of Canada applicable therein. Any disputes arising from these Terms shall be resolved through good-faith negotiation, followed by mediation, and finally by binding arbitration in accordance with the Arbitration Act of Ontario.</p>
+          <p class="terms-text">The parties irrevocably submit to the exclusive jurisdiction of the courts of Ontario for any matters not subject to arbitration.</p>
+        </div>
+
+        <div class="terms-section-block">
+          <h3 class="terms-section-title">11. Contact Us</h3>
+          <p class="terms-text">For any questions regarding these Terms and Conditions, please contact our legal team:</p>
+          <p class="terms-text" style="color:var(--text-light);padding-left:20px;border-left:2px solid var(--border-gold);">ArizonaSC International Group<br>126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada<br>Email: info@arizonasc.ca</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div style="text-align:center;padding-bottom:30px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:6px;">ArizonaSC International Group</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</div>
+      </div>
+      <div class="footer-bottom"><div class="footer-copy">© 2025 <span>ArizonaSC International Group</span>. All rights reserved.</div></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===================== LOGIN SCREEN ===================== -->
+<div id="login-screen" style="display:none;">
+  <div class="login-box">
+    <div style="margin-bottom:20px;font-size:2.5rem;color:var(--gold);opacity:0.3;"><i class="fas fa-shield-alt"></i></div>
+    <div class="login-logo">Admin Panel</div>
+    <div class="login-sub">ArizonaSC Secure Access</div>
+    <div class="form-group" style="text-align:left;">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-input" id="admin-username" placeholder="admin">
+    </div>
+    <div class="form-group" style="text-align:left;">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-input" id="admin-password" placeholder="••••••••" onkeypress="if(event.key==='Enter')adminLogin()">
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;" onclick="adminLogin()"><i class="fas fa-lock-open"></i> Sign In</button>
+    <div class="login-error" id="login-error">Invalid credentials. Please try again.</div>
+    <div style="margin-top:20px;font-size:0.65rem;color:var(--text-muted);">Default: admin / arizonasc2025</div>
+  </div>
+</div>
+
+<!-- ===================== ADMIN PANEL ===================== -->
+<div id="admin-panel">
+  <div class="admin-sidebar">
+    <div class="admin-logo">
+      <i class="fas fa-crown" style="color:var(--gold);font-size:1.2rem;"></i>
+      <div>
+        <div class="admin-logo-text">ArizonaSC</div>
+        <div class="admin-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-section">Dashboard</div>
+      <div class="admin-nav-item active" onclick="switchAdminTab('dashboard')"><i class="fas fa-th-large"></i> Overview</div>
+      <div class="admin-nav-section">Content</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('branding')"><i class="fas fa-palette"></i> Branding & Logo</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('homepage')"><i class="fas fa-home"></i> Homepage Content</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('testimonials')"><i class="fas fa-quote-left"></i> Testimonials</div>
+      <div class="admin-nav-section">People</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('ceo')"><i class="fas fa-user-tie"></i> CEO Profile</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('directors')"><i class="fas fa-users"></i> Directors</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('team')"><i class="fas fa-user-friends"></i> Team Members</div>
+      <div class="admin-nav-section">Settings</div>
+      <div class="admin-nav-item" onclick="switchAdminTab('contact')"><i class="fas fa-address-card"></i> Contact Info</div>
+    </nav>
+    <div class="admin-logout">
+      <button class="admin-logout-btn" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> &nbsp;Sign Out</button>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <div class="admin-header">
+      <div>
+        <div class="admin-header-title">Content Management</div>
+        <div class="admin-header-sub">Manage all website content from this dashboard</div>
+      </div>
+      <div class="admin-badge"><i class="fas fa-circle" style="font-size:0.5rem;margin-right:6px;color:#4CAF50;"></i> System Active</div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- DASHBOARD TAB -->
+      <div class="admin-tab active" id="tab-dashboard">
+        <div class="admin-stats-row">
+          <div class="admin-stat-card"><div class="admin-stat-num">8</div><div class="admin-stat-label">Services</div></div>
+          <div class="admin-stat-card"><div class="admin-stat-num">3</div><div class="admin-stat-label">Directors</div></div>
+          <div class="admin-stat-card"><div class="admin-stat-num" id="dash-team-count">6</div><div class="admin-stat-label">Team Members</div></div>
+          <div class="admin-stat-card"><div class="admin-stat-num" id="dash-testimonial-count">3</div><div class="admin-stat-label">Testimonials</div></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-info-circle" style="color:var(--gold);"></i><span class="admin-card-title">Admin Panel Guide</span></div>
+          <div class="admin-card-body">
+            <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">Welcome to the ArizonaSC Admin Panel. Use the sidebar to navigate between sections. All changes are saved to your browser's local storage and reflected on the website immediately.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="background:rgba(201,168,76,0.05);border:1px solid var(--border-gold);padding:14px;border-radius:3px;">
+                <div style="font-size:0.72rem;font-weight:600;color:var(--gold);margin-bottom:6px;"><i class="fas fa-images"></i> Images</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">Upload images for logo, CEO, directors, and team members via their respective sections.</div>
+              </div>
+              <div style="background:rgba(201,168,76,0.05);border:1px solid var(--border-gold);padding:14px;border-radius:3px;">
+                <div style="font-size:0.72rem;font-weight:600;color:var(--gold);margin-bottom:6px;"><i class="fas fa-save"></i> Saving Changes</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">Click "Save Changes" buttons in each section to persist your edits across sessions.</div>
+              </div>
+              <div style="background:rgba(201,168,76,0.05);border:1px solid var(--border-gold);padding:14px;border-radius:3px;">
+                <div style="font-size:0.72rem;font-weight:600;color:var(--gold);margin-bottom:6px;"><i class="fas fa-quote-left"></i> Testimonials</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">Add, edit, or remove client testimonials from the Testimonials section.</div>
+              </div>
+              <div style="background:rgba(201,168,76,0.05);border:1px solid var(--border-gold);padding:14px;border-radius:3px;">
+                <div style="font-size:0.72rem;font-weight:600;color:var(--gold);margin-bottom:6px;"><i class="fas fa-users"></i> Team</div>
+                <div style="font-size:0.72rem;color:var(--text-muted);">Manage all team member profiles, images, and bios from the Team Members section.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-key" style="color:var(--gold);"></i><span class="admin-card-title">Change Admin Password</span></div>
+          <div class="admin-card-body">
+            <div class="admin-grid-2">
+              <div class="admin-field"><label class="admin-label">New Password</label><input type="password" class="admin-input" id="new-password" placeholder="Enter new password"></div>
+              <div class="admin-field"><label class="admin-label">Confirm Password</label><input type="password" class="admin-input" id="confirm-password" placeholder="Confirm new password"></div>
+            </div>
+            <button class="admin-btn admin-btn-sm" onclick="changePassword()">Update Password</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRANDING TAB -->
+      <div class="admin-tab" id="tab-branding">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-image" style="color:var(--gold);"></i><span class="admin-card-title">Company Logo</span></div>
+          <div class="admin-card-body">
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:16px;">Upload your company logo. It will appear in the navigation bar and footer. Recommended: Square image, PNG with transparent background.</p>
+            <div class="img-upload-area" onclick="document.getElementById('logo-upload').click()">
+              <input type="file" id="logo-upload" accept="image/*" onchange="handleImgUpload(this,'logo')">
+              <div class="img-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <div class="img-upload-text">Click to upload logo image</div>
+              <img id="logo-preview" class="img-preview">
+            </div>
+            <div style="margin-top:16px;display:flex;gap:10px;">
+              <button class="admin-btn admin-btn-sm" onclick="saveLogo()">Save Logo</button>
+              <button class="admin-btn admin-btn-sm admin-btn-outline" onclick="resetLogo()">Reset to Default</button>
+            </div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-building" style="color:var(--gold);"></i><span class="admin-card-title">Company Name & Tagline</span></div>
+          <div class="admin-card-body">
+            <div class="admin-field"><label class="admin-label">Company Name</label><input type="text" class="admin-input" id="admin-company-name" value="ArizonaSC"></div>
+            <div class="admin-field"><label class="admin-label">Navigation Tagline</label><input type="text" class="admin-input" id="admin-company-tagline" value="International Group"></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveBranding()">Save Branding</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOMEPAGE TAB -->
+      <div class="admin-tab" id="tab-homepage">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-edit" style="color:var(--gold);"></i><span class="admin-card-title">Hero Section</span></div>
+          <div class="admin-card-body">
+            <div class="admin-field"><label class="admin-label">Hero Description</label><textarea class="admin-input" id="admin-hero-desc" rows="4">ArizonaSC is a premier international enterprise headquartered in Toronto, delivering world-class supply chain solutions, logistics management, and cutting-edge digital services across eight high-growth sectors globally.</textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveHomepage()">Save Hero Content</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-paragraph" style="color:var(--gold);"></i><span class="admin-card-title">Company Introduction</span></div>
+          <div class="admin-card-body">
+            <div class="admin-field"><label class="admin-label">Introduction Text</label><textarea class="admin-input" id="admin-intro-text" rows="4">ArizonaSC stands at the intersection of physical and digital commerce — a forward-thinking Canadian enterprise delivering supply chain excellence and digital transformation across international markets. Our integrated approach ensures your business moves faster, smarter, and more efficiently at every level.</textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveIntro()">Save Introduction</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TESTIMONIALS TAB -->
+      <div class="admin-tab" id="tab-testimonials">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-plus" style="color:var(--gold);"></i><span class="admin-card-title">Add New Testimonial</span></div>
+          <div class="admin-card-body">
+            <div class="admin-grid-2">
+              <div class="admin-field"><label class="admin-label">Client Name</label><input type="text" class="admin-input" id="new-test-name" placeholder="John Smith"></div>
+              <div class="admin-field"><label class="admin-label">Company & Role</label><input type="text" class="admin-input" id="new-test-role" placeholder="CEO, Global Corp Ltd."></div>
+            </div>
+            <div class="admin-field"><label class="admin-label">Testimonial Text</label><textarea class="admin-input" id="new-test-text" rows="3" placeholder="Write the testimonial..."></textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="addTestimonial()"><i class="fas fa-plus"></i> Add Testimonial</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-list" style="color:var(--gold);"></i><span class="admin-card-title">Existing Testimonials</span></div>
+          <div class="admin-card-body" id="admin-testimonials-list"><!-- Populated by JS --></div>
+        </div>
+      </div>
+
+      <!-- CEO TAB -->
+      <div class="admin-tab" id="tab-ceo">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-user-tie" style="color:var(--gold);"></i><span class="admin-card-title">CEO — Dr. Aubid Allah Khan</span></div>
+          <div class="admin-card-body">
+            <div class="img-upload-area" onclick="document.getElementById('ceo-upload').click()" style="max-width:300px;">
+              <input type="file" id="ceo-upload" accept="image/*" onchange="handleImgUpload(this,'ceo')">
+              <div class="img-upload-icon"><i class="fas fa-user-circle"></i></div>
+              <div class="img-upload-text">Upload CEO Photo</div>
+              <img id="ceo-img-preview" class="img-preview">
+            </div>
+            <div style="margin-top:16px;" class="admin-field"><label class="admin-label">CEO Biography</label><textarea class="admin-input" id="admin-ceo-bio" rows="8"></textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveCEO()">Save CEO Profile</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIRECTORS TAB -->
+      <div class="admin-tab" id="tab-directors">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-truck" style="color:var(--gold);"></i><span class="admin-card-title">Director of Logistics — Raja Akhter Mehmood</span></div>
+          <div class="admin-card-body">
+            <div class="img-upload-area" onclick="document.getElementById('dir-log-upload').click()" style="max-width:300px;">
+              <input type="file" id="dir-log-upload" accept="image/*" onchange="handleImgUpload(this,'dir-log')">
+              <div class="img-upload-icon"><i class="fas fa-user-circle"></i></div>
+              <div class="img-upload-text">Upload Director Photo</div>
+              <img id="dir-log-img-preview" class="img-preview">
+            </div>
+            <div style="margin-top:16px;" class="admin-field"><label class="admin-label">Biography</label><textarea class="admin-input" id="admin-dir-log-bio" rows="6"></textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveDirectorLog()">Save Profile</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-cogs" style="color:var(--gold);"></i><span class="admin-card-title">Director of Operations — Eng. Shehzada Abdul Rauf</span></div>
+          <div class="admin-card-body">
+            <div class="img-upload-area" onclick="document.getElementById('dir-ops-upload').click()" style="max-width:300px;">
+              <input type="file" id="dir-ops-upload" accept="image/*" onchange="handleImgUpload(this,'dir-ops')">
+              <div class="img-upload-icon"><i class="fas fa-user-circle"></i></div>
+              <div class="img-upload-text">Upload Director Photo</div>
+              <img id="dir-ops-img-preview" class="img-preview">
+            </div>
+            <div style="margin-top:16px;" class="admin-field"><label class="admin-label">Biography</label><textarea class="admin-input" id="admin-dir-ops-bio" rows="6"></textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveDirectorOps()">Save Profile</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEAM TAB -->
+      <div class="admin-tab" id="tab-team">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-code" style="color:var(--gold);"></i><span class="admin-card-title">Head Developer — Azwer Ullah</span></div>
+          <div class="admin-card-body">
+            <div class="img-upload-area" onclick="document.getElementById('azwer-upload').click()" style="max-width:300px;">
+              <input type="file" id="azwer-upload" accept="image/*" onchange="handleImgUpload(this,'azwer')">
+              <div class="img-upload-icon"><i class="fas fa-user-circle"></i></div>
+              <div class="img-upload-text">Upload Photo</div>
+              <img id="azwer-img-preview" class="img-preview">
+            </div>
+            <div style="margin-top:16px;" class="admin-field"><label class="admin-label">Biography</label><textarea class="admin-input" id="admin-azwer-bio" rows="6"></textarea></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveAzwer()">Save Profile</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-user-plus" style="color:var(--gold);"></i><span class="admin-card-title">Add Team Member</span></div>
+          <div class="admin-card-body">
+            <div class="admin-grid-2">
+              <div class="admin-field"><label class="admin-label">Name</label><input type="text" class="admin-input" id="new-member-name" placeholder="Full Name"></div>
+              <div class="admin-field"><label class="admin-label">Role</label><input type="text" class="admin-input" id="new-member-role" placeholder="Position"></div>
+            </div>
+            <div class="admin-field"><label class="admin-label">Bio</label><textarea class="admin-input" id="new-member-bio" rows="3" placeholder="Brief professional bio..."></textarea></div>
+            <div class="img-upload-area" onclick="document.getElementById('new-member-img').click()" style="margin-bottom:12px;">
+              <input type="file" id="new-member-img" accept="image/*" onchange="previewNewMember(this)">
+              <div class="img-upload-icon"><i class="fas fa-camera"></i></div>
+              <div class="img-upload-text">Upload team member photo</div>
+              <img id="new-member-preview" class="img-preview">
+            </div>
+            <button class="admin-btn admin-btn-sm" onclick="addTeamMember()"><i class="fas fa-plus"></i> Add Member</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-users" style="color:var(--gold);"></i><span class="admin-card-title">Team Members</span></div>
+          <div class="admin-card-body" id="admin-team-list"><!-- Populated by JS --></div>
+        </div>
+      </div>
+
+      <!-- CONTACT TAB -->
+      <div class="admin-tab" id="tab-contact">
+        <div class="admin-card">
+          <div class="admin-card-header"><i class="fas fa-address-card" style="color:var(--gold);"></i><span class="admin-card-title">Contact Information</span></div>
+          <div class="admin-card-body">
+            <div class="admin-field"><label class="admin-label">Company Address</label><textarea class="admin-input" id="admin-address" rows="2">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</textarea></div>
+            <div class="admin-field"><label class="admin-label">Email Address</label><input type="email" class="admin-input" id="admin-email" value="info@arizonasc.ca"></div>
+            <button class="admin-btn admin-btn-sm" onclick="saveContact()">Save Contact Info</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-panel -->
+
+<div class="admin-toast" id="admin-toast">Changes saved successfully!</div>
+
+<script>
+// ===========================
+// DATA STORE
+// ===========================
+const DEFAULT_TESTIMONIALS = [
+  {id:1,name:"Michael Thompson",role:"COO, NorthBridge Logistics Inc.",text:"ArizonaSC transformed our supply chain operations in under six months. Their team's expertise and professionalism are unmatched in the Canadian market. We've reduced logistics costs by 23% and improved delivery reliability dramatically."},
+  {id:2,name:"Sarah Al-Farsi",role:"Director of Digital, Emirates Trade Group",text:"The web development and AI automation team at ArizonaSC delivered a platform that exceeded every expectation. Their understanding of enterprise requirements and their execution quality places them firmly in the top tier of technology partners we've worked with globally."},
+  {id:3,name:"James Okafor",role:"CEO, PanAfrica Supply Solutions",text:"From initial consultation to final delivery, ArizonaSC's supply chain team demonstrated a depth of knowledge that gave us complete confidence. They navigated complex cross-border regulations with ease and delivered our project on time and within budget."}
+];
+const DEFAULT_TEAM = [
+  {id:1,name:"Fatima Nasser",role:"Senior Supply Chain Analyst",bio:"A specialist in procurement strategy and supplier relationship management with 8 years of experience across the GCC and Canadian markets.",img:""},
+  {id:2,name:"Daniel Park",role:"Lead Web Developer",bio:"Full-stack developer with expertise in React, Node.js, and cloud infrastructure. Passionate about building scalable, elegant digital experiences.",img:""},
+  {id:3,name:"Priya Sharma",role:"Social Media Strategist",bio:"Digital marketing strategist with a proven track record of growing brand audiences by 300%+ through data-driven content campaigns.",img:""},
+  {id:4,name:"Ahmed Hassan",role:"Logistics Operations Manager",bio:"Operations specialist managing freight corridors across North America and the Middle East with a focus on cost optimization and reliability.",img:""},
+  {id:5,name:"Lisa Chen",role:"AI & Automation Specialist",bio:"Machine learning engineer specializing in business process automation, NLP applications, and predictive analytics for enterprise clients.",img:""},
+  {id:6,name:"Omar Saleh",role:"Business Development Manager",bio:"International business development professional with relationships across 20+ countries and a background in trade finance and market expansion.",img:""}
+];
+
+function getLS(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch(e){return def;}}
+function setLS(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
+
+let siteData = {
+  logo: getLS('asc_logo',''),
+  heroDesc: getLS('asc_hero_desc',''),
+  introText: getLS('asc_intro_text',''),
+  ceoImg: getLS('asc_ceo_img',''),
+  ceoBio: getLS('asc_ceo_bio',''),
+  dirLogImg: getLS('asc_dir_log_img',''),
+  dirLogBio: getLS('asc_dir_log_bio',''),
+  dirOpsImg: getLS('asc_dir_ops_img',''),
+  dirOpsBio: getLS('asc_dir_ops_bio',''),
+  azwerImg: getLS('asc_azwer_img',''),
+  azwerBio: getLS('asc_azwer_bio',''),
+  testimonials: getLS('asc_testimonials', DEFAULT_TESTIMONIALS),
+  team: getLS('asc_team', DEFAULT_TEAM),
+  address: getLS('asc_address','126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada'),
+  email: getLS('asc_email','info@arizonasc.ca'),
+  adminPass: getLS('asc_admin_pass','arizonasc2025'),
+  newMemberImgData: ''
+};
+
+// ===========================
+// PAGE ROUTING
+// ===========================
+function showPage(name){
+  // Check if admin route
+  if(name==='admin'){
+    openAdmin();return;
+  }
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const map={home:0,businesses:1,directors:2,team:3,contact:4,terms:5};
+  const links=document.querySelectorAll('.nav-link');
+  if(map[name]!==undefined && links[map[name]]) links[map[name]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setupScrollAnimations();
+  applyContent();
+}
+
+// Hash routing for /admin
+function checkRoute(){
+  const hash=window.location.hash;
+  if(hash==='#admin'||hash==='#/admin'){openAdmin();}
+}
+
+function openAdmin(){
+  if(sessionStorage.getItem('asc_admin_auth')==='true'){
+    document.getElementById('admin-panel').classList.add('active');
+    populateAdmin();
+  } else {
+    document.getElementById('login-screen').style.display='flex';
+  }
+}
+
+function adminLogin(){
+  const user=document.getElementById('admin-username').value;
+  const pass=document.getElementById('admin-password').value;
+  if(user==='admin' && pass===siteData.adminPass){
+    sessionStorage.setItem('asc_admin_auth','true');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-panel').classList.add('active');
+    populateAdmin();
+    document.getElementById('login-error').style.display='none';
+  } else {
+    document.getElementById('login-error').style.display='block';
+    document.getElementById('admin-password').value='';
+  }
+}
+function adminLogout(){
+  sessionStorage.removeItem('asc_admin_auth');
+  document.getElementById('admin-panel').classList.remove('active');
+  window.location.hash='';
+}
+
+// ===========================
+// MOBILE MENU
+// ===========================
+function toggleMobileMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ===========================
+// SCROLL
+// ===========================
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('mainNav');
+  if(window.scrollY>60) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  checkVisibility();
+});
+
+function setupScrollAnimations(){
+  setTimeout(checkVisibility,100);
+}
+function checkVisibility(){
+  document.querySelectorAll('.fade-up,.fade-in').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight*0.9) el.classList.add('visible');
+  });
+}
+setTimeout(()=>{setupScrollAnimations();},200);
+
+// ===========================
+// LOADER
+// ===========================
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('hide');
+    applyContent();
+    renderTestimonials();
+    renderTeam();
+    setupScrollAnimations();
+    checkRoute();
+  },2200);
+});
+
+// ===========================
+// CONTENT APPLICATION
+// ===========================
+function applyContent(){
+  const logo=siteData.logo;
+  ['nav-logo-img','footer-logo-img'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){
+      if(logo){el.src=logo;el.style.display='block';}
+      else{el.style.display='none';}
+    }
+  });
+  // CEO
+  if(siteData.ceoImg){
+    const img=document.getElementById('ceo-img');
+    if(img){img.src=siteData.ceoImg;img.style.display='block';const ph=document.getElementById('ceo-placeholder');if(ph)ph.style.display='none';}
+  }
+  if(siteData.ceoBio){const el=document.getElementById('ceo-bio');if(el)el.innerHTML=siteData.ceoBio.replace(/\n/g,'<br>');}
+  // Dir Log
+  if(siteData.dirLogImg){const img=document.getElementById('dir-log-img');if(img){img.src=siteData.dirLogImg;img.style.display='block';const ph=document.getElementById('dir-log-placeholder');if(ph)ph.style.display='none';}}
+  if(siteData.dirLogBio){const el=document.getElementById('dir-log-bio');if(el)el.innerHTML=siteData.dirLogBio.replace(/\n/g,'<br>');}
+  // Dir Ops
+  if(siteData.dirOpsImg){const img=document.getElementById('dir-ops-img');if(img){img.src=siteData.dirOpsImg;img.style.display='block';const ph=document.getElementById('dir-ops-placeholder');if(ph)ph.style.display='none';}}
+  if(siteData.dirOpsBio){const el=document.getElementById('dir-ops-bio');if(el)el.innerHTML=siteData.dirOpsBio.replace(/\n/g,'<br>');}
+  // Azwer
+  if(siteData.azwerImg){const img=document.getElementById('azwer-img');if(img){img.src=siteData.azwerImg;img.style.display='block';const ph=document.getElementById('azwer-placeholder');if(ph)ph.style.display='none';}}
+  if(siteData.azwerBio){const el=document.getElementById('azwer-bio');if(el)el.innerHTML=siteData.azwerBio.replace(/\n/g,'<br>');}
+  // Text
+  if(siteData.heroDesc){const el=document.getElementById('hero-desc-text');if(el)el.textContent=siteData.heroDesc;}
+  if(siteData.introText){const el=document.getElementById('intro-text');if(el)el.textContent=siteData.introText;}
+  // Contact
+  const addr=siteData.address;
+  const em=siteData.email;
+  ['contact-address','footer-address'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=addr;});
+  ['contact-email-display','footer-email'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=em;});
+}
+
+// ===========================
+// TESTIMONIALS
+// ===========================
+function renderTestimonials(){
+  const container=document.getElementById('testimonials-container');
+  if(!container)return;
+  const initials=n=>(n||'').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  container.innerHTML=siteData.testimonials.map(t=>`
+    <div class="testimonial-card fade-up">
+      <div class="testimonial-stars">${'<i class="fas fa-star"></i>'.repeat(5)}</div>
+      <p class="testimonial-text">${t.text}</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">${initials(t.name)}</div>
+        <div>
+          <div class="testimonial-name">${t.name}</div>
+          <div class="testimonial-role">${t.role}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  setTimeout(checkVisibility,100);
+}
+
+// ===========================
+// TEAM
+// ===========================
+function renderTeam(){
+  const grid=document.getElementById('team-grid');
+  if(!grid)return;
+  grid.innerHTML=siteData.team.map(m=>`
+    <div class="team-card fade-up">
+      <div class="team-card-img">
+        ${m.img?`<img src="${m.img}" alt="${m.name}" style="width:100%;height:100%;object-fit:cover;">`:`<i class="fas fa-user team-card-img-placeholder"></i>`}
+        <div class="team-card-overlay"></div>
+      </div>
+      <div class="team-card-body">
+        <div class="team-card-role">${m.role}</div>
+        <div class="team-card-name">${m.name}</div>
+        <div class="team-card-bio">${m.bio}</div>
+      </div>
+    </div>
+  `).join('');
+  setTimeout(checkVisibility,100);
+}
+
+// ===========================
+// CONTACT FORM
+// ===========================
+function submitContactForm(){
+  const first=document.getElementById('contact-first').value.trim();
+  const email=document.getElementById('contact-email').value.trim();
+  const msg=document.getElementById('contact-message').value.trim();
+  if(!first||!email||!msg){
+    alert('Please fill in all required fields (Name, Email, Message).');return;
+  }
+  const emailReg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailReg.test(email)){alert('Please enter a valid email address.');return;}
+  const s=document.getElementById('form-success');
+  s.style.display='block';
+  ['contact-first','contact-last','contact-email','contact-company','contact-message'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('contact-service').value='';
+  setTimeout(()=>{s.style.display='none';},6000);
+}
+
+// ===========================
+// ADMIN FUNCTIONS
+// ===========================
+function switchAdminTab(name){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function populateAdmin(){
+  // Populate all admin fields
+  const el=id=>document.getElementById(id);
+  if(el('admin-hero-desc')&&siteData.heroDesc) el('admin-hero-desc').value=siteData.heroDesc;
+  if(el('admin-intro-text')&&siteData.introText) el('admin-intro-text').value=siteData.introText;
+  if(el('admin-ceo-bio')) el('admin-ceo-bio').value=document.getElementById('ceo-bio')?document.getElementById('ceo-bio').innerText:'';
+  if(el('admin-dir-log-bio')) el('admin-dir-log-bio').value=document.getElementById('dir-log-bio')?document.getElementById('dir-log-bio').innerText:'';
+  if(el('admin-dir-ops-bio')) el('admin-dir-ops-bio').value=document.getElementById('dir-ops-bio')?document.getElementById('dir-ops-bio').innerText:'';
+  if(el('admin-azwer-bio')) el('admin-azwer-bio').value=document.getElementById('azwer-bio')?document.getElementById('azwer-bio').innerText:'';
+  if(el('admin-address')) el('admin-address').value=siteData.address;
+  if(el('admin-email')) el('admin-email').value=siteData.email;
+  // Previews
+  if(siteData.logo){const p=el('logo-preview');if(p){p.src=siteData.logo;p.style.display='block';}}
+  if(siteData.ceoImg){const p=el('ceo-img-preview');if(p){p.src=siteData.ceoImg;p.style.display='block';}}
+  if(siteData.dirLogImg){const p=el('dir-log-img-preview');if(p){p.src=siteData.dirLogImg;p.style.display='block';}}
+  if(siteData.dirOpsImg){const p=el('dir-ops-img-preview');if(p){p.src=siteData.dirOpsImg;p.style.display='block';}}
+  if(siteData.azwerImg){const p=el('azwer-img-preview');if(p){p.src=siteData.azwerImg;p.style.display='block';}}
+  renderAdminTestimonials();
+  renderAdminTeam();
+  updateDashStats();
+}
+
+function handleImgUpload(input,key){
+  const file=input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const data=e.target.result;
+    const preview=document.getElementById(key+'-img-preview')||document.getElementById(key+'-preview');
+    if(preview){preview.src=data;preview.style.display='block';}
+    // Temp store
+    window['_tempImg_'+key]=data;
+  };
+  reader.readAsDataURL(file);
+}
+function previewNewMember(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    siteData.newMemberImgData=e.target.result;
+    const p=document.getElementById('new-member-preview');
+    if(p){p.src=e.target.result;p.style.display='block';}
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveLogo(){
+  if(window._tempImg_logo){
+    siteData.logo=window._tempImg_logo;
+    setLS('asc_logo',siteData.logo);
+    applyContent();
+    showToast('Logo updated successfully!');
+  } else showToast('Please select an image first.');
+}
+function resetLogo(){
+  siteData.logo='';
+  setLS('asc_logo','');
+  applyContent();
+  const p=document.getElementById('logo-preview');
+  if(p){p.src='';p.style.display='none';}
+  showToast('Logo reset to default.');
+}
+function saveBranding(){
+  const name=document.getElementById('admin-company-name').value;
+  const tag=document.getElementById('admin-company-tagline').value;
+  document.querySelectorAll('.nav-logo-name').forEach(el=>el.textContent=name);
+  document.querySelectorAll('.nav-logo-sub').forEach(el=>el.textContent=tag);
+  showToast('Branding saved!');
+}
+function saveHomepage(){
+  siteData.heroDesc=document.getElementById('admin-hero-desc').value;
+  setLS('asc_hero_desc',siteData.heroDesc);
+  applyContent();
+  showToast('Hero content saved!');
+}
+function saveIntro(){
+  siteData.introText=document.getElementById('admin-intro-text').value;
+  setLS('asc_intro_text',siteData.introText);
+  applyContent();
+  showToast('Introduction saved!');
+}
+function saveCEO(){
+  if(window._tempImg_ceo){siteData.ceoImg=window._tempImg_ceo;setLS('asc_ceo_img',siteData.ceoImg);}
+  siteData.ceoBio=document.getElementById('admin-ceo-bio').value;
+  setLS('asc_ceo_bio',siteData.ceoBio);
+  applyContent();
+  showToast('CEO profile saved!');
+}
+function saveDirectorLog(){
+  if(window._tempImg_dirlog){siteData.dirLogImg=window['_tempImg_dir-log'];setLS('asc_dir_log_img',siteData.dirLogImg);}
+  const k=window['_tempImg_dir-log'];
+  if(k){siteData.dirLogImg=k;setLS('asc_dir_log_img',k);}
+  siteData.dirLogBio=document.getElementById('admin-dir-log-bio').value;
+  setLS('asc_dir_log_bio',siteData.dirLogBio);
+  applyContent();showToast('Director profile saved!');
+}
+function saveDirectorOps(){
+  const k=window['_tempImg_dir-ops'];
+  if(k){siteData.dirOpsImg=k;setLS('asc_dir_ops_img',k);}
+  siteData.dirOpsBio=document.getElementById('admin-dir-ops-bio').value;
+  setLS('asc_dir_ops_bio',siteData.dirOpsBio);
+  applyContent();showToast('Director profile saved!');
+}
+function saveAzwer(){
+  if(window._tempImg_azwer){siteData.azwerImg=window._tempImg_azwer;setLS('asc_azwer_img',siteData.azwerImg);}
+  siteData.azwerBio=document.getElementById('admin-azwer-bio').value;
+  setLS('asc_azwer_bio',siteData.azwerBio);
+  applyContent();showToast('Profile saved!');
+}
+function saveContact(){
+  siteData.address=document.getElementById('admin-address').value;
+  siteData.email=document.getElementById('admin-email').value;
+  setLS('asc_address',siteData.address);
+  setLS('asc_email',siteData.email);
+  applyContent();showToast('Contact info saved!');
+}
+
+function addTestimonial(){
+  const name=document.getElementById('new-test-name').value.trim();
+  const role=document.getElementById('new-test-role').value.trim();
+  const text=document.getElementById('new-test-text').value.trim();
+  if(!name||!text){showToast('Please fill in name and testimonial text.');return;}
+  const newT={id:Date.now(),name,role,text};
+  siteData.testimonials.push(newT);
+  setLS('asc_testimonials',siteData.testimonials);
+  renderAdminTestimonials();
+  renderTestimonials();
+  document.getElementById('new-test-name').value='';
+  document.getElementById('new-test-role').value='';
+  document.getElementById('new-test-text').value='';
+  updateDashStats();
+  showToast('Testimonial added!');
+}
+function deleteTestimonial(id){
+  siteData.testimonials=siteData.testimonials.filter(t=>t.id!==id);
+  setLS('asc_testimonials',siteData.testimonials);
+  renderAdminTestimonials();
+  renderTestimonials();
+  updateDashStats();
+  showToast('Testimonial removed.');
+}
+function renderAdminTestimonials(){
+  const el=document.getElementById('admin-testimonials-list');
+  if(!el)return;
+  if(!siteData.testimonials.length){el.innerHTML='<p style="font-size:0.78rem;color:var(--text-muted);">No testimonials yet.</p>';return;}
+  el.innerHTML=siteData.testimonials.map(t=>`
+    <div class="testimonial-admin-item">
+      <div class="testimonial-admin-header">
+        <span class="testimonial-admin-name">${t.name} <span style="color:var(--gold);font-size:0.7rem;">${t.role}</span></span>
+        <button class="admin-delete-btn" onclick="deleteTestimonial(${t.id})"><i class="fas fa-trash"></i> Remove</button>
+      </div>
+      <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.7;">${t.text}</p>
+    </div>
+  `).join('');
+}
+
+function addTeamMember(){
+  const name=document.getElementById('new-member-name').value.trim();
+  const role=document.getElementById('new-member-role').value.trim();
+  const bio=document.getElementById('new-member-bio').value.trim();
+  if(!name){showToast('Please enter a name.');return;}
+  const newM={id:Date.now(),name,role,bio,img:siteData.newMemberImgData||''};
+  siteData.team.push(newM);
+  setLS('asc_team',siteData.team);
+  renderAdminTeam();
+  renderTeam();
+  document.getElementById('new-member-name').value='';
+  document.getElementById('new-member-role').value='';
+  document.getElementById('new-member-bio').value='';
+  document.getElementById('new-member-preview').style.display='none';
+  siteData.newMemberImgData='';
+  updateDashStats();
+  showToast('Team member added!');
+}
+function deleteTeamMember(id){
+  siteData.team=siteData.team.filter(m=>m.id!==id);
+  setLS('asc_team',siteData.team);
+  renderAdminTeam();
+  renderTeam();
+  updateDashStats();
+  showToast('Team member removed.');
+}
+function renderAdminTeam(){
+  const el=document.getElementById('admin-team-list');
+  if(!el)return;
+  if(!siteData.team.length){el.innerHTML='<p style="font-size:0.78rem;color:var(--text-muted);">No team members.</p>';return;}
+  el.innerHTML=siteData.team.map(m=>`
+    <div class="testimonial-admin-item">
+      <div class="testimonial-admin-header">
+        <span class="testimonial-admin-name">${m.name} <span style="color:var(--gold);font-size:0.7rem;">${m.role}</span></span>
+        <button class="admin-delete-btn" onclick="deleteTeamMember(${m.id})"><i class="fas fa-trash"></i> Remove</button>
+      </div>
+      <p style="font-size:0.75rem;color:var(--text-muted);">${m.bio}</p>
+    </div>
+  `).join('');
+}
+
+function changePassword(){
+  const np=document.getElementById('new-password').value;
+  const cp=document.getElementById('confirm-password').value;
+  if(!np){showToast('Please enter a password.');return;}
+  if(np!==cp){showToast('Passwords do not match.');return;}
+  if(np.length<6){showToast('Password must be at least 6 characters.');return;}
+  siteData.adminPass=np;
+  setLS('asc_admin_pass',np);
+  document.getElementById('new-password').value='';
+  document.getElementById('confirm-password').value='';
+  showToast('Password updated!');
+}
+
+function updateDashStats(){
+  const tc=document.getElementById('dash-team-count');
+  const ttc=document.getElementById('dash-testimonial-count');
+  if(tc)tc.textContent=siteData.team.length;
+  if(ttc)ttc.textContent=siteData.testimonials.length;
+}
+
+function showToast(msg){
+  const t=document.getElementById('admin-toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ===========================
+// COUNTER ANIMATION
+// ===========================
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=parseInt(el.dataset.count);
+    let current=0;
+    const inc=target/60;
+    const timer=setInterval(()=>{
+      current+=inc;
+      if(current>=target){current=target;clearInterval(timer);}
+      el.textContent=Math.floor(current)+(el.dataset.suffix||'');
+    },16);
+  });
+}
+const counterObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounters();counterObserver.disconnect();}});
+},{threshold:0.3});
+document.querySelectorAll('.stats-section').forEach(el=>counterObserver.observe(el));
+
+// ===========================
+// WINDOW HASH HANDLING
+// ===========================
+window.addEventListener('hashchange',checkRoute);
+
+// Initial call
+setTimeout(()=>{
+  renderTestimonials();
+  renderTeam();
+},100);
+</script>
+</body>
+</html>
