@@ -101,9 +101,6 @@ body.cursor-text #cursor-follower{
   background:rgba(184,134,11,0.2);
 }
 
-/* ══════════════════════ LENIS SMOOTH SCROLL HINT ══════════════════════ */
-/* We use JS-based smooth scroll via a lightweight easing loop */
-
 /* ══════════════════════ LOADER ══════════════════════ */
 #loader{position:fixed;inset:0;background:var(--cream);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease;}
 #loader.hidden{opacity:0;pointer-events:none;}
@@ -701,7 +698,7 @@ footer{background:var(--black);}
   <a href="#" onclick="showPage('board');closeMobileNav();return false;">Board of Directors</a>
   <a href="#" onclick="showPage('team');closeMobileNav();return false;">Our Team</a>
   <a href="#" onclick="showPage('contact');closeMobileNav();return false;">Contact</a>
-  <a href="#" onclick="showPage('terms');closeMobileNav();return false;">Terms & Conditions</a>
+  <a href="#" onclick="showPage('terms');closeMobileNav();return false;">Terms &amp; Conditions</a>
   <a href="#" onclick="showPage('contact');closeMobileNav();return false;">→ Get In Touch</a>
 </div>
 
@@ -1141,7 +1138,7 @@ footer{background:var(--black);}
         <div class="admin-card-body">
           <div class="admin-note"><span>🗄️</span><span>All changes are saved to your Supabase database and sync instantly across all devices. Images are stored in the <strong>arizonasc-media</strong> storage bucket. Use Ctrl+Shift+A anywhere to access this panel.</span></div>
           <div class="admin-grid2">
-            <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Project</div><div style="font-size:0.88rem;font-weight:600;">hgbepzhrsbjolwilkpih</div></div>
+            <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Project</div><div style="font-size:0.88rem;font-weight:600;">hoysbvxyrowrzwenhrox</div></div>
             <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Status</div><div style="font-size:0.88rem;font-weight:600;" id="db-status-admin">Checking…</div></div>
             <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Contact</div><div style="font-size:0.88rem;font-weight:600;">info@arizonasc.ca</div></div>
             <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Version</div><div style="font-size:0.88rem;font-weight:600;">v3.0 — Supabase</div></div>
@@ -1354,8 +1351,8 @@ footer{background:var(--black);}
 // ══════════════════════════════════════════════════════════
 // SUPABASE CONFIGURATION
 // ══════════════════════════════════════════════════════════
-const SUPABASE_URL  = 'https://hgbepzhrsbjolwilkpih.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnYmVwemhyc2Jqb2x3aWxrcGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4ODUzMjQsImV4cCI6MjA5NTQ2MTMyNH0.el_SfB0834GzNkBAjPGmFYFIG7WwkbCMWY-6qBo30Wo';
+const SUPABASE_URL  = 'https://hoysbvxyrowrzwenhrox.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhveXNidnh5cm93cnp3ZW5ocm94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjM4MzYsImV4cCI6MjA5NjkzOTgzNn0.DdNUvQU_ls8xnUAYhxb0aHVSIvSb10d31ShPURYxudY';
 const STORAGE_BUCKET = 'arizonasc-media';
 
 // Init Supabase client
@@ -1391,7 +1388,6 @@ function setDbStatus(state, text) {
 
   let mouseX = -100, mouseY = -100;
   let followerX = -100, followerY = -100;
-  let isHovering = false;
 
   // Direct position for cursor dot
   document.addEventListener('mousemove', e => {
@@ -1443,10 +1439,8 @@ function setDbStatus(state, text) {
 })();
 
 // ══════════════════════════════════════════════════════════
-// SMOOTH SCROLL ENHANCEMENT (native + JS easing)
+// SMOOTH SCROLL ENHANCEMENT
 // ══════════════════════════════════════════════════════════
-// Already handled by html{scroll-behavior:smooth} in CSS.
-// Additional: intercept anchor clicks for extra smoothness.
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href="#"]');
   if(a){ e.preventDefault(); }
@@ -1676,7 +1670,7 @@ function applyLogoToNav(url) {
 }
 
 // ══════════════════════════════════════════════════════════
-// SUPABASE IMAGE UPLOAD — stores in Storage, saves URL to DB
+// SUPABASE IMAGE UPLOAD
 // ══════════════════════════════════════════════════════════
 async function uploadImage(file, storagePath, dbKey) {
   setDbStatus('saving','Uploading image…');
@@ -1750,7 +1744,7 @@ uploadConfigs.forEach(cfg => {
 });
 
 // ══════════════════════════════════════════════════════════
-// SAVE FUNCTIONS (all write to Supabase)
+// SAVE FUNCTIONS
 // ══════════════════════════════════════════════════════════
 async function upsertSettings(updates) {
   const rows = Object.entries(updates).map(([key,value])=>({key,value:String(value)}));
@@ -1955,9 +1949,6 @@ async function adminLogin() {
   err.style.display = 'none';
   try {
     const { data, error } = await db.from('admin_credentials').select('password').eq('username', user).single();
-    // Fallback: if DB fails, allow default credentials
-    const storedPass = data?.password || 'arizona2025';
-    const storedUser = user || 'admin';
     if((data && data.password === pass) || (!data && user==='admin' && pass==='arizona2025')) {
       document.getElementById('admin-login-screen').style.display='none';
       document.getElementById('admin-dashboard-app').style.display='block';
