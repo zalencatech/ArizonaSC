@@ -6,14 +6,8 @@
 <title>ArizonaSC — Global Supply Chain & Digital Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
-
-<!-- ══════════════════════════════════════════════════
-     SUPABASE JS SDK — loaded from CDN
-══════════════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-/* ══════════════════════ CSS VARIABLES ══════════════════════ */
 :root{
 --gold:#B8860B;--gold2:#D4A017;--gold3:#C9A84C;--gold-light:#F0D080;--gold-bright:#DAA520;
 --cream:#FAF7F0;--cream2:#F5F0E8;--cream3:#EDE6D6;--cream4:#E8DFC8;
@@ -25,83 +19,21 @@
 --gold-shadow:0 8px 32px rgba(184,134,11,0.22);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-
-/* ══════════════════════ SMOOTH SCROLL ══════════════════════ */
 html{scroll-behavior:smooth;}
-
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--cream);
-  color:var(--text);
-  overflow-x:hidden;
-  /* Hide default cursor on desktop */
-  cursor:none;
-}
-
-/* Keep default cursor on mobile/touch */
-@media(hover:none),(pointer:coarse){
-  body,*{cursor:auto!important;}
-  #custom-cursor,#cursor-follower{display:none!important;}
-}
-
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;cursor:none;}
+@media(hover:none),(pointer:coarse){body,*{cursor:auto!important;}#custom-cursor,#cursor-follower{display:none!important;}}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--cream2);}
 ::-webkit-scrollbar-thumb{background:var(--gold2);border-radius:3px;}
 
-/* ══════════════════════ CUSTOM CURSOR ══════════════════════ */
-#custom-cursor{
-  position:fixed;
-  width:12px;height:12px;
-  background:var(--gold);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:99999;
-  transform:translate(-50%,-50%);
-  transition:width 0.15s ease, height 0.15s ease, background 0.15s ease, opacity 0.15s ease;
-  mix-blend-mode:multiply;
-  will-change:transform;
-}
-#cursor-follower{
-  position:fixed;
-  width:36px;height:36px;
-  border:1.5px solid rgba(184,134,11,0.55);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:99998;
-  transform:translate(-50%,-50%);
-  transition:width 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
-              height 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
-              border-color 0.35s ease,
-              opacity 0.35s ease;
-  will-change:transform;
-}
-/* Cursor hover states */
-body.cursor-hover #custom-cursor{
-  width:8px;height:8px;
-  background:var(--gold-bright);
-}
-body.cursor-hover #cursor-follower{
-  width:52px;height:52px;
-  border-color:rgba(184,134,11,0.8);
-  background:rgba(184,134,11,0.05);
-}
-body.cursor-click #custom-cursor{
-  width:6px;height:6px;
-  background:var(--black);
-}
-body.cursor-click #cursor-follower{
-  width:24px;height:24px;
-  border-color:var(--gold);
-}
-/* Cursor on text */
-body.cursor-text #cursor-follower{
-  width:3px;height:30px;
-  border-radius:2px;
-  border-color:var(--gold);
-  background:rgba(184,134,11,0.2);
-}
+#custom-cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width 0.15s ease,height 0.15s ease,background 0.15s ease,opacity 0.15s ease;mix-blend-mode:multiply;will-change:transform;}
+#cursor-follower{position:fixed;width:36px;height:36px;border:1.5px solid rgba(184,134,11,0.55);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width 0.35s cubic-bezier(0.25,0.46,0.45,0.94),height 0.35s cubic-bezier(0.25,0.46,0.45,0.94),border-color 0.35s ease,opacity 0.35s ease;will-change:transform;}
+body.cursor-hover #custom-cursor{width:8px;height:8px;background:var(--gold-bright);}
+body.cursor-hover #cursor-follower{width:52px;height:52px;border-color:rgba(184,134,11,0.8);background:rgba(184,134,11,0.05);}
+body.cursor-click #custom-cursor{width:6px;height:6px;background:var(--black);}
+body.cursor-click #cursor-follower{width:24px;height:24px;border-color:var(--gold);}
+body.cursor-text #cursor-follower{width:3px;height:30px;border-radius:2px;border-color:var(--gold);background:rgba(184,134,11,0.2);}
 
-/* ══════════════════════ LOADER ══════════════════════ */
 #loader{position:fixed;inset:0;background:var(--cream);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease;}
 #loader.hidden{opacity:0;pointer-events:none;}
 .loader-brand{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:var(--black);letter-spacing:0.08em;animation:brandPop 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards;}
@@ -115,7 +47,6 @@ body.cursor-text #cursor-follower{
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
 .loader-db{font-size:0.6rem;letter-spacing:0.3em;color:var(--teal);margin-top:0.6rem;text-transform:uppercase;opacity:0;animation:fadeUp 0.6s 0.8s ease forwards;}
 
-/* ══════════════════════ NAV ══════════════════════ */
 nav{position:fixed;top:0;width:100%;z-index:1000;transition:all 0.4s ease;padding:0 4%;}
 nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(0,0,0,0.08);border-bottom:1px solid var(--border);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px;}
@@ -145,10 +76,7 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .mobile-nav a:hover{color:var(--gold);padding-left:8px;}
 .mobile-nav a:last-child{border-bottom:none;color:var(--gold);font-weight:600;}
 
-/* ══════════════════════ PAGES ══════════════════════ */
 .page{display:none;min-height:100vh;}.page.active{display:block;}
-
-/* ══════════════════════ SECTIONS ══════════════════════ */
 .section{padding:90px 4%;position:relative;}
 .section-alt{background:var(--cream2);}
 .section-alt2{background:var(--white);}
@@ -160,7 +88,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .section-title .gold-italic{color:var(--gold);font-style:italic;}
 .section-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--text2);line-height:1.8;max-width:650px;}
 
-/* ══════════════════════ BUTTONS ══════════════════════ */
 .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);padding:14px 32px;font-size:0.82rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;border:none;cursor:none;border-radius:4px;transition:all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);box-shadow:var(--shadow);}
 .btn-primary:hover{background:var(--gold);color:var(--black);box-shadow:var(--gold-shadow);transform:translateY(-2px);}
 .btn-outline{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--black);padding:14px 32px;font-size:0.82rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;border:2px solid var(--black);cursor:none;border-radius:4px;transition:all 0.35s;}
@@ -169,7 +96,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .btn-gold:hover{background:var(--black);color:var(--white);transform:translateY(-2px);}
 .gold-line{height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-bright),var(--gold),transparent);}
 
-/* ══════════════════════ ANIMATIONS ══════════════════════ */
 .fade-in-up{opacity:0;transform:translateY(35px);transition:opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94),transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
 .fade-in-up.visible{opacity:1;transform:translateY(0);}
 .fade-in-left{opacity:0;transform:translateX(-35px);transition:opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94),transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
@@ -179,7 +105,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .fade-in-scale{opacity:0;transform:scale(0.92);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.34,1.1,0.64,1);}
 .fade-in-scale.visible{opacity:1;transform:scale(1);}
 
-/* ══════════════════════ HERO ══════════════════════ */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:stretch;position:relative;overflow:hidden;background:var(--cream);padding-top:74px;}
 .hero-bg-pattern{position:absolute;inset:0;opacity:0.035;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,var(--gold) 60px,var(--gold) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,var(--gold) 60px,var(--gold) 61px);}
 .hero-accent{position:absolute;top:-120px;right:-120px;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,0.1),transparent 70%);pointer-events:none;animation:pulseAccent 8s ease-in-out infinite;}
@@ -222,7 +147,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .strip-item span:first-child{font-size:1rem;}
 .strip-divider{width:1px;height:20px;background:rgba(255,255,255,0.12);}
 
-/* ══════════════════════ ABOUT ══════════════════════ */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .about-img-col{position:relative;}
 .about-frame{border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--cream3),var(--cream4));aspect-ratio:4/5;position:relative;border:2px solid var(--cream4);}
@@ -236,8 +160,8 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .about-feat h4{font-size:0.82rem;font-weight:700;color:var(--black);margin-bottom:4px;}
 .about-feat p{font-size:0.78rem;color:var(--text-muted);line-height:1.5;}
 
-/* ══════════════════════ SERVICES ══════════════════════ */
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--cream3);}
+/* SERVICES GRID — updated to 5 columns on homepage */
+.services-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--cream3);}
 .service-card{background:var(--white);padding:2.2rem 1.8rem;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);cursor:none;}
 .service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(184,134,11,0.04),transparent);opacity:0;transition:opacity 0.4s;}
 .service-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-bright));transition:width 0.5s cubic-bezier(0.25,0.46,0.45,0.94);}
@@ -253,7 +177,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .service-link{display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:600;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-top:1.2rem;text-decoration:none;transition:gap 0.3s;}
 .service-card:hover .service-link{gap:12px;}
 
-/* ══════════════════════ WHY ══════════════════════ */
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
 .why-card{background:var(--white);border:1.5px solid var(--cream3);border-radius:14px;padding:2.2rem 1.8rem;position:relative;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);overflow:hidden;}
 .why-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:linear-gradient(to bottom,var(--gold),var(--gold-bright));transition:height 0.5s ease;}
@@ -270,7 +193,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .why-card.c-rose{border-top:3px solid var(--rose);}
 .why-card.c-teal2{border-top:3px solid #0891B2;}
 
-/* ══════════════════════ STATS BAND ══════════════════════ */
 .stats-band{background:var(--black);padding:80px 4%;position:relative;overflow:hidden;}
 .stats-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,134,11,0.12),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(13,148,136,0.08),transparent 60%);}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.04);position:relative;z-index:1;}
@@ -280,7 +202,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .stat-number{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;color:var(--gold);display:block;line-height:1;}
 .stat-label{font-size:0.72rem;color:rgba(255,255,255,0.45);letter-spacing:0.25em;text-transform:uppercase;margin-top:0.7rem;display:block;}
 
-/* ══════════════════════ VM ══════════════════════ */
 .vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
 .vm-card{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;padding:3rem;position:relative;overflow:hidden;transition:all 0.4s;}
 .vm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
@@ -291,7 +212,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .vm-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--black);margin-bottom:1.2rem;}
 .vm-card p{font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:var(--text2);line-height:1.85;}
 
-/* ══════════════════════ TESTIMONIALS ══════════════════════ */
 .testimonials-outer{overflow:hidden;}
 .testimonials-track{display:flex;gap:2rem;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
 .testimonial-card{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;padding:2.5rem;min-width:480px;flex-shrink:0;position:relative;transition:box-shadow 0.3s;}
@@ -310,7 +230,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .slider-btn{width:46px;height:46px;border:1.5px solid var(--border2);background:var(--white);color:var(--gold);cursor:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);border-radius:50%;}
 .slider-btn:hover{background:var(--gold);color:var(--black);border-color:var(--gold);transform:scale(1.1);}
 
-/* ══════════════════════ COLOUR STRIP ══════════════════════ */
 .colour-strip{display:flex;gap:0;overflow:hidden;}
 .cs-item{flex:1;height:5px;}
 .cs-1{background:var(--gold);}
@@ -320,7 +239,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .cs-5{background:var(--rose);}
 .cs-6{background:#0891B2;}
 
-/* ══════════════════════ CTA ══════════════════════ */
 .cta-section{background:var(--black);padding:100px 4%;text-align:center;position:relative;overflow:hidden;}
 .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,134,11,0.18),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(13,148,136,0.1),transparent 60%);}
 .cta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--white);margin-bottom:1rem;position:relative;z-index:1;}
@@ -328,7 +246,6 @@ nav.scrolled{background:rgba(250,247,240,0.97);backdrop-filter:blur(20px);box-sh
 .cta-desc{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:rgba(255,255,255,0.6);margin-bottom:2.5rem;position:relative;z-index:1;}
 .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
 
-/* ══════════════════════ FOOTER ══════════════════════ */
 footer{background:var(--black);}
 .footer-main{max-width:1320px;margin:0 auto;padding:60px 4% 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:4rem;}
 .footer-brand-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--white);}
@@ -348,12 +265,10 @@ footer{background:var(--black);}
 .footer-bottom-inner p{font-size:0.72rem;color:rgba(255,255,255,0.3);}
 .footer-bottom-inner a{color:var(--gold);font-size:0.72rem;}
 
-/* ══════════════════════ PAGE HERO ══════════════════════ */
 .page-hero{padding:120px 4% 80px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--cream2) 0%,var(--white) 100%);}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(184,134,11,0.08),transparent 60%);}
 .page-hero-inner{max-width:1320px;margin:0 auto;text-align:center;position:relative;z-index:1;}
 
-/* ══════════════════════ BIZ ══════════════════════ */
 .biz-block{padding:80px 4%;}
 .biz-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1320px;margin:0 auto;}
 .biz-inner.rev{direction:rtl;}
@@ -366,7 +281,6 @@ footer{background:var(--black);}
 .biz-features li:hover{padding-left:6px;color:var(--black);}
 .biz-features li::before{content:'◆';color:var(--gold);font-size:0.45rem;flex-shrink:0;}
 
-/* ══════════════════════ BOARD ══════════════════════ */
 .ceo-profile-wrap{max-width:1320px;margin:0 auto;padding:0 4% 80px;}
 .ceo-grid{display:grid;grid-template-columns:360px 1fr;gap:4.5rem;align-items:start;}
 .ceo-img-frame{border-radius:16px;overflow:hidden;background:var(--cream3);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;border:2px solid var(--cream4);position:relative;}
@@ -395,37 +309,30 @@ footer{background:var(--black);}
 .director-bio{font-size:0.82rem;color:var(--text2);line-height:1.65;}
 .dir-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-bright));margin:0.8rem 0;}
 
-/* ══════════════════════ TEAM ══════════════════════ */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:1320px;margin:0 auto;padding:0 4% 80px;}
-.team-card{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;overflow:hidden;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);}
-.team-card:hover{border-color:var(--border2);box-shadow:var(--shadow2);transform:translateY(-6px);}
-.team-photo{aspect-ratio:1/1;background:linear-gradient(135deg,var(--cream3),var(--cream4));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden;}
-.team-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
-.team-info-pad{padding:1.8rem;}
-.team-role-tag{font-size:0.65rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;font-weight:600;display:block;margin-bottom:0.4rem;}
-.team-member-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--black);margin-bottom:0.6rem;}
-.team-divider-line{width:35px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-bright));margin-bottom:0.9rem;}
-.team-bio{font-size:0.82rem;color:var(--text2);line-height:1.65;}
-.team-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
-.team-tag{background:var(--cream2);border:1px solid var(--cream4);color:var(--text-muted);font-size:0.68rem;padding:4px 10px;border-radius:100px;transition:all 0.2s;}
-.team-tag:hover{background:rgba(184,134,11,0.1);color:var(--gold);border-color:var(--border);}
-
-/* ══════════════════════ CONTACT ══════════════════════ */
+/* ══════════ CONTACT PAGE — REDESIGNED ══════════ */
 .contact-layout{max-width:1320px;margin:0 auto;padding:60px 4% 80px;display:grid;grid-template-columns:1fr 1.6fr;gap:3.5rem;}
-.contact-info-box{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;padding:2.2rem;margin-bottom:1.5rem;transition:box-shadow 0.3s;}
-.contact-info-box:hover{box-shadow:var(--shadow);}
-.contact-info-box h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--black);margin-bottom:1.5rem;padding-bottom:0.8rem;border-bottom:1.5px solid var(--cream3);}
-.contact-item{display:flex;gap:1.2rem;margin-bottom:1.5rem;align-items:flex-start;}
-.c-icon-box{width:42px;height:42px;background:rgba(184,134,11,0.1);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
-.c-label{font-size:0.62rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;font-weight:600;display:block;margin-bottom:3px;}
-.c-value{font-size:0.85rem;color:var(--text);line-height:1.5;}
-.hours-table{margin-top:0.3rem;}
-.hours-row{display:flex;justify-content:space-between;font-size:0.78rem;padding:5px 0;border-bottom:1px solid var(--cream3);}
-.hours-row:last-child{border-bottom:none;}
-.hours-day{color:var(--text2);}
-.hours-time{color:var(--gold);font-weight:600;}
+
+/* Left info column */
+.contact-info-cards{display:flex;flex-direction:column;gap:1.2rem;}
+.contact-info-card{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;padding:1.8rem 2rem;transition:box-shadow 0.3s,transform 0.3s;position:relative;overflow:hidden;}
+.contact-info-card::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--gold),var(--gold-bright));}
+.contact-info-card:hover{box-shadow:var(--gold-shadow);transform:translateY(-2px);}
+.contact-info-card-icon{width:46px;height:46px;background:rgba(184,134,11,0.08);border:1.5px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem;}
+.contact-info-card-label{font-size:0.62rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;font-weight:700;display:block;margin-bottom:0.35rem;}
+.contact-info-card-value{font-size:0.92rem;color:var(--text);font-weight:500;line-height:1.5;}
+.contact-info-card-value a{color:var(--text);text-decoration:none;transition:color 0.3s;}
+.contact-info-card-value a:hover{color:var(--gold);}
+
+/* Reach-out intro block */
+.contact-reach-out{background:var(--black);border-radius:16px;padding:2rem;position:relative;overflow:hidden;}
+.contact-reach-out::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(184,134,11,0.18),transparent 60%);}
+.contact-reach-out h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--white);margin-bottom:0.6rem;position:relative;z-index:1;}
+.contact-reach-out p{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;position:relative;z-index:1;}
+
+/* Right form */
 .contact-form-box{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;padding:2.5rem;}
-.contact-form-box h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--black);margin-bottom:1.8rem;padding-bottom:1rem;border-bottom:1.5px solid var(--cream3);}
+.contact-form-box h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--black);margin-bottom:0.4rem;padding-bottom:1rem;border-bottom:1.5px solid var(--cream3);}
+.contact-form-box .form-subtitle{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text-muted);margin-bottom:1.8rem;display:block;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
 .form-group{margin-bottom:1.2rem;}
 .form-group label{display:block;font-size:0.68rem;font-weight:600;letter-spacing:0.15em;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
@@ -433,12 +340,7 @@ footer{background:var(--black);}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);background:var(--white);box-shadow:0 0 0 4px rgba(184,134,11,0.08);}
 .form-group textarea{height:130px;resize:vertical;}
 .form-success{display:none;background:rgba(13,148,136,0.08);border:1.5px solid rgba(13,148,136,0.3);color:var(--teal);padding:12px 16px;border-radius:8px;font-size:0.85rem;font-weight:500;margin-bottom:1rem;}
-.map-area{max-width:1320px;margin:0 auto;padding:0 4% 80px;}
-.map-box{background:var(--white);border:1.5px solid var(--cream3);border-radius:16px;height:300px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
-.map-open-btn{display:inline-flex;align-items:center;gap:8px;background:var(--black);color:var(--white);padding:10px 22px;border-radius:6px;font-size:0.78rem;font-weight:600;cursor:none;border:none;transition:all 0.3s;margin-top:0.8rem;}
-.map-open-btn:hover{background:var(--gold);color:var(--black);}
 
-/* ══════════════════════ TERMS ══════════════════════ */
 .terms-content{max-width:900px;margin:0 auto;padding:60px 4% 100px;}
 .terms-sec{margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--cream3);}
 .terms-sec:last-child{border-bottom:none;}
@@ -449,7 +351,6 @@ footer{background:var(--black);}
 .terms-sec ul li{font-size:0.84rem;color:var(--text2);padding:5px 0 5px 18px;position:relative;line-height:1.6;}
 .terms-sec ul li::before{content:'◆';color:var(--gold);font-size:0.4rem;position:absolute;left:0;top:9px;}
 
-/* ══════════════════════ DB STATUS INDICATOR ══════════════════════ */
 #db-status-bar{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9990;display:flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--cream3);border-radius:100px;padding:7px 14px;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;box-shadow:var(--shadow);opacity:0;transition:opacity 0.4s ease,transform 0.4s ease;transform:translateY(10px);pointer-events:none;}
 #db-status-bar.show{opacity:1;transform:translateY(0);}
 #db-status-bar.connected{border-color:rgba(13,148,136,0.3);color:var(--teal);}
@@ -457,7 +358,6 @@ footer{background:var(--black);}
 #db-status-bar.saving{border-color:rgba(29,78,216,0.3);color:var(--blue);}
 #db-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
 
-/* ══════════════════════ ADMIN PANEL ══════════════════════ */
 #admin-panel{display:none;min-height:100vh;font-family:'DM Sans',sans-serif;}
 #admin-panel.active{display:block;}
 .admin-login-wrap{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FAF7F0 0%,#EDE6D6 50%,#E8DFC8 100%);padding:2rem;position:relative;overflow:hidden;}
@@ -572,19 +472,16 @@ footer{background:var(--black);}
 .qa-label{font-size:0.78rem;font-weight:600;color:var(--text2);}
 .admin-note{background:rgba(29,78,216,0.05);border:1.5px solid rgba(29,78,216,0.15);border-radius:10px;padding:1rem 1.2rem;font-size:0.8rem;color:var(--blue);margin-bottom:1.5rem;display:flex;gap:10px;align-items:flex-start;}
 .admin-note span:first-child{flex-shrink:0;}
-
-/* Contact submissions table */
 .submissions-table{width:100%;border-collapse:collapse;font-size:0.8rem;}
 .submissions-table th{background:var(--cream);padding:10px 12px;text-align:left;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);border-bottom:1.5px solid var(--cream3);}
 .submissions-table td{padding:10px 12px;border-bottom:1px solid var(--cream3);color:var(--text2);vertical-align:top;}
 .submissions-table tr:hover td{background:var(--cream);}
 .no-submissions{text-align:center;padding:2rem;color:var(--text-muted);font-size:0.85rem;}
 
-/* ══════════════════════ RESPONSIVE ══════════════════════ */
 @media(max-width:1100px){
 .hero-inner{gap:3rem;}
 .footer-main{grid-template-columns:1fr 1fr;gap:3rem;}
-.services-grid{grid-template-columns:repeat(2,1fr);}
+.services-grid{grid-template-columns:repeat(3,1fr);}
 .admin-stats-row{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:900px){
@@ -649,17 +546,14 @@ footer{background:var(--black);}
 </head>
 <body>
 
-<!-- ══════════════════════ CUSTOM CURSOR ══════════════════════ -->
 <div id="custom-cursor"></div>
 <div id="cursor-follower"></div>
 
-<!-- ══════════════════════ DB STATUS ══════════════════════ -->
 <div id="db-status-bar">
   <div id="db-dot"></div>
   <span id="db-status-text">Connecting…</span>
 </div>
 
-<!-- ══════════════════════ LOADER ══════════════════════ -->
 <div id="loader">
   <div class="loader-brand">Arizona<span>SC</span></div>
   <div class="loader-sub">Global Enterprise Solutions</div>
@@ -667,7 +561,6 @@ footer{background:var(--black);}
   <div class="loader-db" id="loader-db-msg">Connecting to database…</div>
 </div>
 
-<!-- ══════════════════════ NAV ══════════════════════ -->
 <nav id="main-nav">
   <div class="nav-inner">
     <a href="#" class="nav-brand" onclick="showPage('home');return false;">
@@ -681,7 +574,6 @@ footer{background:var(--black);}
       <a href="#" onclick="showPage('home');return false;">Home</a>
       <a href="#" onclick="showPage('businesses');return false;">Our Businesses</a>
       <a href="#" onclick="showPage('board');return false;">Leadership</a>
-      <a href="#" onclick="showPage('team');return false;">Our Team</a>
       <a href="#" onclick="showPage('contact');return false;">Contact</a>
       <a href="#" onclick="showPage('terms');return false;">Terms</a>
       <a href="#" class="nav-cta" onclick="showPage('contact');return false;">Get In Touch →</a>
@@ -696,15 +588,12 @@ footer{background:var(--black);}
   <a href="#" onclick="showPage('home');closeMobileNav();return false;">Home</a>
   <a href="#" onclick="showPage('businesses');closeMobileNav();return false;">Our Businesses</a>
   <a href="#" onclick="showPage('board');closeMobileNav();return false;">Board of Directors</a>
-  <a href="#" onclick="showPage('team');closeMobileNav();return false;">Our Team</a>
   <a href="#" onclick="showPage('contact');closeMobileNav();return false;">Contact</a>
   <a href="#" onclick="showPage('terms');closeMobileNav();return false;">Terms &amp; Conditions</a>
   <a href="#" onclick="showPage('contact');closeMobileNav();return false;">→ Get In Touch</a>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     HOME PAGE
-═══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════ HOME PAGE ═══════════════════════════ -->
 <div id="page-home" class="page active">
 <section class="hero">
   <div class="hero-bg-pattern"></div>
@@ -714,7 +603,7 @@ footer{background:var(--black);}
     <div>
       <div class="hero-badge fade-in-up"><span class="hero-badge-dot"></span>Canada's Premier Enterprise Group</div>
       <h1 class="hero-title fade-in-up" style="transition-delay:0.1s;" id="hero-title-el">Redefining<br><span class="line-gold">Global Standards</span><br>in Supply Chain &<br>Digital Innovation</h1>
-      <p class="hero-subtitle fade-in-up" style="transition-delay:0.2s;" id="hero-desc-el">ArizonaSC is a Toronto-based international enterprise delivering world-class supply chain solutions, logistics mastery, and cutting-edge digital transformation across industries and continents.</p>
+      <p class="hero-subtitle fade-in-up" style="transition-delay:0.2s;" id="hero-desc-el">ArizonaSC is a Canada-based international enterprise delivering world-class supply chain solutions, logistics mastery, social media excellence, and cutting-edge digital transformation across industries and continents.</p>
       <div class="hero-btns fade-in-up" style="transition-delay:0.3s;">
         <a href="#" class="btn-primary" onclick="showPage('businesses');return false;">Explore Services →</a>
         <a href="#" class="btn-outline" onclick="showPage('contact');return false;">Get In Touch</a>
@@ -734,12 +623,12 @@ footer{background:var(--black);}
           <div class="emblem-center-circle"><span class="emblem-letters">ASC</span></div>
         </div>
         <div class="hero-card-title">ArizonaSC</div>
-        <div class="hero-card-sub">Toronto, Canada — Global Operations</div>
+        <div class="hero-card-sub">Scarborough, Canada — Global Operations</div>
       </div>
       <div class="hero-stats-mini">
         <div class="hs-item"><div class="hs-num" data-count="500" id="hstat-clients">0</div><div class="hs-label">Clients</div></div>
         <div class="hs-item"><div class="hs-num" data-count="25" id="hstat-countries">0</div><div class="hs-label">Countries</div></div>
-        <div class="hs-item"><div class="hs-num" data-count="8" id="hstat-verticals">0</div><div class="hs-label">Verticals</div></div>
+        <div class="hs-item"><div class="hs-num" data-count="5" id="hstat-verticals">0</div><div class="hs-label">Verticals</div></div>
         <div class="hs-item"><div class="hs-num" data-count="98" id="hstat-sat">0</div><div class="hs-label">% Satisfaction</div></div>
       </div>
     </div>
@@ -750,10 +639,10 @@ footer{background:var(--black);}
 <div class="hero-bottom-strip">
   <div class="strip-inner">
     <div class="strip-item"><span>🚢</span><span>Supply Chain Solutions</span></div><div class="strip-divider"></div>
-    <div class="strip-item"><span>🤖</span><span>AI Automation</span></div><div class="strip-divider"></div>
-    <div class="strip-item"><span>💻</span><span>Web &amp; App Development</span></div><div class="strip-divider"></div>
-    <div class="strip-item"><span>📊</span><span>Digital Business Services</span></div><div class="strip-divider"></div>
-    <div class="strip-item"><span>🎓</span><span>Educational Courses</span></div>
+    <div class="strip-item"><span>🚚</span><span>Logistics Services</span></div><div class="strip-divider"></div>
+    <div class="strip-item"><span>📱</span><span>Social Media Services</span></div><div class="strip-divider"></div>
+    <div class="strip-item"><span>🎓</span><span>Technical Educational Courses</span></div><div class="strip-divider"></div>
+    <div class="strip-item"><span>📦</span><span>Products</span></div>
   </div>
 </div>
 
@@ -765,7 +654,7 @@ footer{background:var(--black);}
           <div class="about-frame-inner">
             <div style="font-size:5rem;">🏢</div>
             <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--black);">ArizonaSC</div>
-            <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.3em;text-transform:uppercase;">Toronto, Canada</div>
+            <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.3em;text-transform:uppercase;">Scarborough, Canada</div>
           </div>
         </div>
         <div class="about-badge-float"><div class="big-num">4+</div><div class="label">Years of Excellence</div></div>
@@ -773,8 +662,8 @@ footer{background:var(--black);}
       <div class="fade-in-right">
         <div class="section-eyebrow">About ArizonaSC</div>
         <h2 class="section-title">A Trusted Name in <span class="gold-italic">Global Enterprise</span></h2>
-        <p class="section-desc">Founded in Toronto, Ontario, ArizonaSC operates at the nexus of supply chain excellence and digital innovation. Our multi-disciplinary approach empowers businesses worldwide to scale with confidence, precision, and purpose.</p>
-        <p class="section-desc" style="margin-top:1rem;">We operate across eight high-impact verticals — from logistics and supply chain to AI automation, web development, and professional education — delivering integrated solutions that transform enterprises.</p>
+        <p class="section-desc">Founded in Scarborough, Canada, ArizonaSC operates at the nexus of supply chain excellence and digital innovation. Our multi-disciplinary approach empowers businesses worldwide to scale with confidence, precision, and purpose.</p>
+        <p class="section-desc" style="margin-top:1rem;">We operate across five high-impact verticals — from logistics and supply chain to social media services, technical education, and curated products — delivering integrated solutions that transform enterprises.</p>
         <div class="about-features">
           <div class="about-feat fade-in-scale"><h4>🌐 International Reach</h4><p>Operating across 25+ countries with global delivery standards.</p></div>
           <div class="about-feat fade-in-scale"><h4>⚡ Rapid Execution</h4><p>Agile operations delivering enterprise-scale results.</p></div>
@@ -791,18 +680,15 @@ footer{background:var(--black);}
   <div class="container">
     <div style="text-align:center;margin-bottom:3.5rem;">
       <div class="section-eyebrow" style="justify-content:center;">What We Do</div>
-      <h2 class="section-title fade-in-up" style="text-align:center;">Eight Pillars of <span class="gold-italic">Enterprise Excellence</span></h2>
+      <h2 class="section-title fade-in-up" style="text-align:center;">Five Pillars of <span class="gold-italic">Enterprise Excellence</span></h2>
       <p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Comprehensive solutions that power modern businesses across every dimension.</p>
     </div>
-    <div class="services-grid fade-in-up" id="home-services-grid">
-      <div class="service-card"><span class="service-num">01</span><span class="service-icon">🚢</span><h3>Supply Chain Solutions</h3><p id="svc-home-1">End-to-end supply chain design, optimization, and management. We build resilient networks that keep your business moving at every scale.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">02</span><span class="service-icon">🚚</span><h3>Logistics Services</h3><p id="svc-home-2">Comprehensive freight, warehousing, last-mile delivery, and customs management for global trade operations.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">03</span><span class="service-icon">📱</span><h3>Social Media Services</h3><p id="svc-home-3">Strategic brand building, content creation, community management, and performance marketing across all major platforms.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">04</span><span class="service-icon">💻</span><h3>Web Development</h3><p id="svc-home-4">Premium custom websites, enterprise web applications, and e-commerce platforms built for performance and conversion.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">05</span><span class="service-icon">📲</span><h3>App Development</h3><p id="svc-home-5">Native and cross-platform mobile applications crafted with precision, scalability, and user experience at the core.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">06</span><span class="service-icon">🤖</span><h3>AI Automation Solutions</h3><p id="svc-home-6">Intelligent workflow automation, AI integration, and machine learning solutions that transform operational efficiency.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">07</span><span class="service-icon">🎓</span><h3>Educational Courses</h3><p id="svc-home-7">Professional development programs, corporate training modules, and certification courses for tomorrow's leaders.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
-      <div class="service-card"><span class="service-num">08</span><span class="service-icon">📊</span><h3>Digital Business Services</h3><p id="svc-home-8">Complete digital transformation consulting, process optimization, and strategic digital growth advisory.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
+    <div class="services-grid fade-in-up">
+      <div class="service-card"><span class="service-num">01</span><span class="service-icon">🚢</span><h3>Supply Chain Solutions</h3><p id="svc-home-1">End-to-end supply chain design, optimization, and management. We build resilient global networks that keep your business moving at every scale, reducing costs and maximising operational efficiency.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
+      <div class="service-card"><span class="service-num">02</span><span class="service-icon">🚚</span><h3>Logistics Services</h3><p id="svc-home-2">Comprehensive freight forwarding, warehousing, last-mile delivery, and customs management for seamless global trade operations across air, sea, and road networks.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
+      <div class="service-card"><span class="service-num">03</span><span class="service-icon">📱</span><h3>Social Media Services</h3><p id="svc-home-3">Full-spectrum digital presence management — encompassing web development, app development, AI automation, social media strategy, and digital business transformation all under one roof.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
+      <div class="service-card"><span class="service-num">04</span><span class="service-icon">🎓</span><h3>Technical Educational Courses</h3><p id="svc-home-4">Industry-leading technical certification programs and corporate training in supply chain management, AI &amp; automation, digital marketing, and leadership development for tomorrow's professionals.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Explore →</a></div>
+      <div class="service-card"><span class="service-num">05</span><span class="service-icon">📦</span><h3>Products</h3><p id="svc-home-5">ArizonaSC will be expanding into a curated range of high-quality products across select categories. Our product portfolio — launching soon — will reflect the same standards of excellence that define all of our enterprise offerings.</p><a href="#" class="service-link" onclick="showPage('businesses');return false;">Coming Soon →</a></div>
     </div>
   </div>
 </section>
@@ -828,11 +714,11 @@ footer{background:var(--black);}
       <h2 class="section-title fade-in-up" style="text-align:center;">The <span class="gold-italic">ArizonaSC</span> Advantage</h2>
     </div>
     <div class="why-grid fade-in-up">
-      <div class="why-card c-gold"><div class="why-num">01</div><h3>Multi-Vertical Expertise</h3><p>Rare synergy across logistics, technology, digital marketing, AI, and education — all under one roof for seamless delivery.</p></div>
+      <div class="why-card c-gold"><div class="why-num">01</div><h3>Multi-Vertical Expertise</h3><p>Rare synergy across logistics, social media, technical education, and curated products — all under one roof for seamless, integrated delivery.</p></div>
       <div class="why-card c-teal"><div class="why-num">02</div><h3>Proven Leadership</h3><p>Led by Dr. Aubid Allah Khan and seasoned professionals with decades of global enterprise and academic excellence.</p></div>
       <div class="why-card c-blue"><div class="why-num">03</div><h3>Global Infrastructure</h3><p>Operational presence and partnerships across 25+ countries, enabling truly borderless supply chain and digital solutions.</p></div>
       <div class="why-card c-violet"><div class="why-num">04</div><h3>AI-First Approach</h3><p>Every solution we deploy is enhanced with intelligent automation, data analytics, and machine learning by default.</p></div>
-      <div class="why-card c-rose"><div class="why-num">05</div><h3>Canadian Standards</h3><p>Governed by Canadian corporate ethics and compliance — assuring our clients of uncompromising integrity.</p></div>
+      <div class="why-card c-rose"><div class="why-num">05</div><h3>Canadian Standards</h3><p>Governed by Canadian corporate ethics and compliance — assuring our clients of uncompromising integrity and reliability.</p></div>
       <div class="why-card c-teal2"><div class="why-num">06</div><h3>End-to-End Delivery</h3><p>From strategy and planning through execution and optimization — we stay with you at every step of your journey.</p></div>
     </div>
   </div>
@@ -846,7 +732,7 @@ footer{background:var(--black);}
     </div>
     <div class="vm-grid fade-in-up">
       <div class="vm-card vision"><span class="vm-icon">🔭</span><h3>Our Vision</h3><p>To become the world's most trusted integrated enterprise group — a name synonymous with supply chain mastery, digital excellence, and human empowerment. We envision an interconnected global marketplace where ArizonaSC serves as the backbone of commerce, technology, and knowledge across every continent.</p><p style="margin-top:1rem;">By 2030, we aspire to serve over 5,000 enterprises in 50+ countries, driven by our unwavering commitment to innovation, integrity, and impact.</p></div>
-      <div class="vm-card mission"><span class="vm-icon">🎯</span><h3>Our Mission</h3><p>To deliver world-class supply chain, logistics, digital technology, and educational solutions that empower businesses to grow, scale, and lead in their industries — through innovation, expertise, and relentless execution.</p><p style="margin-top:1rem;">We are committed to building long-term partnerships grounded in trust, transparency, and measurable outcomes — creating value not just for our clients, but for communities and economies worldwide.</p></div>
+      <div class="vm-card mission"><span class="vm-icon">🎯</span><h3>Our Mission</h3><p>To deliver world-class supply chain, logistics, social media, and technical educational solutions that empower businesses to grow, scale, and lead in their industries — through innovation, expertise, and relentless execution.</p><p style="margin-top:1rem;">We are committed to building long-term partnerships grounded in trust, transparency, and measurable outcomes — creating value not just for our clients, but for communities and economies worldwide.</p></div>
     </div>
   </div>
 </section>
@@ -860,9 +746,9 @@ footer{background:var(--black);}
     <div class="testimonials-outer fade-in-up">
       <div class="testimonials-track" id="testimonialsTrack">
         <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t1-text-el">"ArizonaSC completely transformed our logistics operations. Their supply chain expertise and AI-driven insights cut our overhead by 34% within the first quarter. Truly enterprise-class service."</p><div class="t-author"><div class="t-avatar">M</div><div><div class="t-name" id="t1-name-el">Michael Hartley</div><div class="t-pos" id="t1-pos-el">CEO, Hartley Manufacturing Group — Toronto, ON</div></div></div></div>
-        <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t2-text-el">"The digital transformation services provided by ArizonaSC were exceptional. Their web development team built us a platform that scaled from 500 to 50,000 users without a single performance issue."</p><div class="t-author"><div class="t-avatar">S</div><div><div class="t-name" id="t2-name-el">Sarah Al-Amin</div><div class="t-pos" id="t2-pos-el">Director of Technology, GlobalTrade Corp — Dubai, UAE</div></div></div></div>
-        <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t3-text-el">"Working with ArizonaSC on our AI automation project was a revelation. They delivered a solution that automated 65% of our back-office operations in under 8 weeks. Unmatched professionalism."</p><div class="t-author"><div class="t-avatar">R</div><div><div class="t-name" id="t3-name-el">Robert Chang</div><div class="t-pos" id="t3-pos-el">COO, Pacific Ventures Ltd — Vancouver, BC</div></div></div></div>
-        <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t4-text-el">"Their educational programs gave our management team the skills needed to lead in today's digital economy. The curriculum was sharp, relevant, and exceptionally well-delivered."</p><div class="t-author"><div class="t-avatar">F</div><div><div class="t-name" id="t4-name-el">Fatima Qureshi</div><div class="t-pos" id="t4-pos-el">HR Director, Meridian Enterprises — Karachi, PK</div></div></div></div>
+        <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t2-text-el">"The digital transformation services provided by ArizonaSC were exceptional. Their social media and web expertise built us a presence that scaled from 500 to 50,000 followers without missing a beat."</p><div class="t-author"><div class="t-avatar">S</div><div><div class="t-name" id="t2-name-el">Sarah Al-Amin</div><div class="t-pos" id="t2-pos-el">Director of Technology, GlobalTrade Corp — Dubai, UAE</div></div></div></div>
+        <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t3-text-el">"Working with ArizonaSC on our logistics and supply chain overhaul was a revelation. They delivered a solution that automated 65% of our back-office operations in under 8 weeks. Unmatched professionalism."</p><div class="t-author"><div class="t-avatar">R</div><div><div class="t-name" id="t3-name-el">Robert Chang</div><div class="t-pos" id="t3-pos-el">COO, Pacific Ventures Ltd — Vancouver, BC</div></div></div></div>
+        <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="testimonial-text" id="t4-text-el">"Their technical educational programs gave our management team the skills needed to lead in today's digital economy. The curriculum was sharp, relevant, and exceptionally well-delivered."</p><div class="t-author"><div class="t-avatar">F</div><div><div class="t-name" id="t4-name-el">Fatima Qureshi</div><div class="t-pos" id="t4-pos-el">HR Director, Meridian Enterprises — Karachi, PK</div></div></div></div>
       </div>
     </div>
     <div class="slider-btns"><button class="slider-btn" onclick="slideTestimonials(-1)">&#8592;</button><button class="slider-btn" onclick="slideTestimonials(1)">&#8594;</button></div>
@@ -888,39 +774,36 @@ footer{background:var(--black);}
     <div>
       <div class="footer-brand-logo">Arizona<span>SC</span></div>
       <span class="footer-brand-sub">Global Enterprise Solutions</span>
-      <p class="footer-brand-desc">ArizonaSC is a Toronto-based international enterprise delivering world-class supply chain, logistics, digital technology, and educational solutions across five continents.</p>
+      <p class="footer-brand-desc">ArizonaSC is a Canada-based international enterprise delivering world-class supply chain, logistics, social media, technical education, and product solutions across five continents.</p>
     </div>
-    <div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Our Businesses</a></li><li><a href="#" onclick="showPage('board');return false;">Board of Directors</a></li><li><a href="#" onclick="showPage('team');return false;">Our Team</a></li><li><a href="#" onclick="showPage('contact');return false;">Get In Touch</a></li><li><a href="#" onclick="showPage('terms');return false;">Terms &amp; Conditions</a></li></ul></div>
-    <div class="footer-col"><h4>Our Services</h4><ul><li><a href="#" onclick="showPage('businesses');return false;">Supply Chain</a></li><li><a href="#" onclick="showPage('businesses');return false;">Logistics</a></li><li><a href="#" onclick="showPage('businesses');return false;">Web Development</a></li><li><a href="#" onclick="showPage('businesses');return false;">App Development</a></li><li><a href="#" onclick="showPage('businesses');return false;">AI Automation</a></li><li><a href="#" onclick="showPage('businesses');return false;">Educational Courses</a></li></ul></div>
-    <div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>📍</span><span id="footer-addr">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</span></div><div class="footer-contact-row"><span>✉️</span><span id="footer-email">info@arizonasc.ca</span></div><div class="footer-contact-row"><span>🕐</span><span>Mon–Fri: 9AM–6PM EST</span></div></div>
+    <div class="footer-col"><h4>Navigation</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Our Businesses</a></li><li><a href="#" onclick="showPage('board');return false;">Board of Directors</a></li><li><a href="#" onclick="showPage('contact');return false;">Get In Touch</a></li><li><a href="#" onclick="showPage('terms');return false;">Terms &amp; Conditions</a></li></ul></div>
+    <div class="footer-col"><h4>Our Services</h4><ul><li><a href="#" onclick="showPage('businesses');return false;">Supply Chain</a></li><li><a href="#" onclick="showPage('businesses');return false;">Logistics</a></li><li><a href="#" onclick="showPage('businesses');return false;">Social Media Services</a></li><li><a href="#" onclick="showPage('businesses');return false;">Technical Courses</a></li><li><a href="#" onclick="showPage('businesses');return false;">Products</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>📍</span><span id="footer-addr">126 Shorting Road, Scarborough, Canada</span></div><div class="footer-contact-row"><span>✉️</span><span id="footer-email">info@arizonasc.ca</span></div><div class="footer-contact-row"><span>🌐</span><span>arizonasc.ca</span></div><div class="footer-contact-row"><span>📞</span><span>+1 (437) 979-8279</span></div></div>
   </div>
-  <div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved. | 126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</p><a href="mailto:info@arizonasc.ca" id="footer-email-link">info@arizonasc.ca</a></div></div>
+  <div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved. | 126 Shorting Road, Scarborough, Canada</p><a href="mailto:info@arizonasc.ca" id="footer-email-link">info@arizonasc.ca</a></div></div>
 </footer>
-</div><!-- /page-home -->
+</div>
 
-<!-- ═══════════════════════════════════════════════════
-     BUSINESSES PAGE
-═══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════ BUSINESSES PAGE ═══════════════════════════ -->
 <div id="page-businesses" class="page">
-<div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">What We Offer</div><h1 class="section-title fade-in-up" style="text-align:center;">Our <span class="gold-italic">Business Verticals</span></h1><p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Eight specialized divisions operating in synergy to deliver holistic enterprise value.</p></div></div>
+<div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">What We Offer</div><h1 class="section-title fade-in-up" style="text-align:center;">Our <span class="gold-italic">Business Verticals</span></h1><p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Five specialized divisions operating in synergy to deliver holistic enterprise value.</p></div></div>
 <div>
-<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 01</span><h2 class="section-title"><span class="gold">Supply Chain</span> Solutions</h2><p class="section-desc">We architect, optimize, and manage end-to-end supply chains that give your enterprise a decisive competitive advantage.</p><ul class="biz-features"><li>Global procurement strategy &amp; vendor management</li><li>Demand forecasting &amp; inventory optimization</li><li>Supply chain risk assessment &amp; mitigation</li><li>Real-time visibility &amp; analytics dashboards</li><li>Sustainable supply chain design</li><li>ERP integration &amp; digital supply chain tools</li></ul></div><div><div class="biz-visual-box">🚢</div></div></div></div>
-<div class="biz-block" style="background:var(--cream2);"><div class="biz-inner rev"><div><span class="biz-tag">Division 02</span><h2 class="section-title"><span class="gold">Logistics</span> Services</h2><p class="section-desc">From first-mile freight to last-mile delivery, ArizonaSC manages the full logistics lifecycle with precision and reliability.</p><ul class="biz-features"><li>International freight forwarding (Air, Sea, Road)</li><li>Customs brokerage &amp; trade compliance</li><li>Warehousing &amp; distribution center management</li><li>Last-mile delivery solutions</li><li>Cold chain &amp; specialized cargo logistics</li><li>Reverse logistics &amp; returns management</li></ul></div><div><div class="biz-visual-box">🚚</div></div></div></div>
-<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 03</span><h2 class="section-title"><span class="gold">Social Media</span> Services</h2><p class="section-desc">ArizonaSC's social media division crafts strategic, data-driven campaigns across all major platforms.</p><ul class="biz-features"><li>Brand strategy &amp; identity development</li><li>Content creation (video, graphics, copywriting)</li><li>Community management &amp; reputation monitoring</li><li>Paid advertising &amp; ROI optimization</li><li>Influencer partnership management</li><li>Social media analytics &amp; monthly reporting</li></ul></div><div><div class="biz-visual-box">📱</div></div></div></div>
-<div class="biz-block" style="background:var(--cream2);"><div class="biz-inner rev"><div><span class="biz-tag">Division 04</span><h2 class="section-title"><span class="gold">Web</span> Development</h2><p class="section-desc">From sleek corporate websites to large-scale enterprise platforms and high-conversion e-commerce stores.</p><ul class="biz-features"><li>Custom corporate &amp; enterprise web applications</li><li>E-commerce platforms (Shopify, WooCommerce, custom)</li><li>Progressive Web Apps (PWA) development</li><li>CMS development (WordPress, Webflow, headless)</li><li>UI/UX design &amp; prototyping</li><li>Website maintenance, hosting &amp; cybersecurity</li></ul></div><div><div class="biz-visual-box">💻</div></div></div></div>
-<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 05</span><h2 class="section-title"><span class="gold">App</span> Development</h2><p class="section-desc">We engineer mobile applications that users love and businesses depend on.</p><ul class="biz-features"><li>iOS (Swift) &amp; Android (Kotlin) native development</li><li>Cross-platform apps (Flutter, React Native)</li><li>Enterprise mobile application suites</li><li>App Store optimization (ASO) &amp; launch strategy</li><li>Backend APIs &amp; cloud infrastructure</li><li>App maintenance, updates &amp; security patching</li></ul></div><div><div class="biz-visual-box">📲</div></div></div></div>
-<div class="biz-block" style="background:var(--cream2);"><div class="biz-inner rev"><div><span class="biz-tag">Division 06</span><h2 class="section-title"><span class="gold">AI Automation</span> Solutions</h2><p class="section-desc">ArizonaSC's AI division designs and deploys custom automation solutions powered by the latest in machine learning.</p><ul class="biz-features"><li>Intelligent process automation (IPA/RPA)</li><li>Custom LLM integrations &amp; AI chatbots</li><li>Predictive analytics &amp; business intelligence</li><li>Computer vision &amp; document processing AI</li><li>AI-powered customer service systems</li><li>Machine learning model development &amp; deployment</li></ul></div><div><div class="biz-visual-box">🤖</div></div></div></div>
-<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 07</span><h2 class="section-title"><span class="gold">Educational</span> Courses &amp; Training</h2><p class="section-desc">Professional development programs and certification courses designed by industry experts.</p><ul class="biz-features"><li>Supply chain management certification programs</li><li>Digital marketing &amp; social media mastery courses</li><li>AI &amp; automation fundamentals for business</li><li>Leadership &amp; executive development workshops</li><li>Corporate in-house training programs</li><li>Online learning platform &amp; live virtual sessions</li></ul></div><div><div class="biz-visual-box">🎓</div></div></div></div>
-<div class="biz-block" style="background:var(--cream2);"><div class="biz-inner rev"><div><span class="biz-tag">Division 08</span><h2 class="section-title"><span class="gold">Digital Business</span> Services</h2><p class="section-desc">Comprehensive digital transformation consultancy bridging the gap between where your business is and where it needs to be.</p><ul class="biz-features"><li>Digital transformation strategy &amp; roadmapping</li><li>Business process re-engineering (BPR)</li><li>Cloud migration &amp; infrastructure modernization</li><li>Digital marketing strategy &amp; performance growth</li><li>CRM implementation &amp; CX optimization</li><li>Data strategy, governance &amp; analytics setup</li></ul></div><div><div class="biz-visual-box">📊</div></div></div></div>
+<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 01</span><h2 class="section-title"><span class="gold">Supply Chain</span> Solutions</h2><p class="section-desc">We architect, optimize, and manage end-to-end supply chains that give your enterprise a decisive competitive advantage in the global marketplace.</p><ul class="biz-features"><li>Global procurement strategy &amp; vendor management</li><li>Demand forecasting &amp; inventory optimization</li><li>Supply chain risk assessment &amp; mitigation</li><li>Real-time visibility &amp; analytics dashboards</li><li>Sustainable supply chain design &amp; implementation</li><li>ERP integration &amp; digital supply chain tools</li></ul></div><div><div class="biz-visual-box">🚢</div></div></div></div>
+
+<div class="biz-block" style="background:var(--cream2);"><div class="biz-inner rev"><div><span class="biz-tag">Division 02</span><h2 class="section-title"><span class="gold">Logistics</span> Services</h2><p class="section-desc">From first-mile freight to last-mile delivery, ArizonaSC manages the full logistics lifecycle with precision, reliability, and global reach.</p><ul class="biz-features"><li>International freight forwarding (Air, Sea, Road)</li><li>Customs brokerage &amp; trade compliance</li><li>Warehousing &amp; distribution center management</li><li>Last-mile delivery solutions &amp; tracking</li><li>Cold chain &amp; specialized cargo logistics</li><li>Reverse logistics &amp; returns management</li></ul></div><div><div class="biz-visual-box">🚚</div></div></div></div>
+
+<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 03</span><h2 class="section-title"><span class="gold">Social Media</span> Services</h2><p class="section-desc">ArizonaSC's Social Media division is a full-spectrum digital powerhouse — uniting web development, app development, AI automation, social media strategy, and comprehensive digital business transformation under one expert team.</p><ul class="biz-features"><li>Custom web &amp; enterprise application development</li><li>Native &amp; cross-platform mobile app engineering</li><li>AI automation, LLM integration &amp; intelligent workflows</li><li>Social media strategy, content creation &amp; community management</li><li>Paid advertising, influencer management &amp; ROI optimization</li><li>Digital transformation consulting &amp; business process re-engineering</li><li>E-commerce platforms, CRM &amp; CX optimization</li><li>Brand identity development &amp; performance marketing</li></ul></div><div><div class="biz-visual-box">📱</div></div></div></div>
+
+<div class="biz-block" style="background:var(--cream2);"><div class="biz-inner rev"><div><span class="biz-tag">Division 04</span><h2 class="section-title"><span class="gold">Technical Educational</span> Courses &amp; Training</h2><p class="section-desc">Professional technical development programs and industry certification courses designed by domain experts — equipping individuals and organizations with the skills demanded by today's fast-evolving digital economy.</p><ul class="biz-features"><li>Supply chain management &amp; logistics certification programs</li><li>AI, automation &amp; machine learning fundamentals for business</li><li>Digital marketing &amp; social media mastery courses</li><li>Web &amp; app development bootcamps for professionals</li><li>Leadership, executive development &amp; corporate workshops</li><li>Online learning platform &amp; live virtual sessions</li></ul></div><div><div class="biz-visual-box">🎓</div></div></div></div>
+
+<div class="biz-block" style="background:var(--white);"><div class="biz-inner"><div><span class="biz-tag">Division 05</span><h2 class="section-title"><span class="gold">Products</span></h2><p class="section-desc">ArizonaSC is expanding into a curated range of high-quality products across select categories. Our product portfolio is being carefully developed to reflect the same enterprise-grade standards of excellence that define all of our services.</p><ul class="biz-features"><li>Curated product lines currently in development</li><li>Partnerships with leading global manufacturers</li><li>Quality-assured sourcing through our supply chain network</li><li>Enterprise &amp; bulk procurement options available</li><li>B2B and B2C product distribution channels</li><li>Full product launch details coming soon — stay tuned</li></ul></div><div><div class="biz-visual-box">📦</div></div></div></div>
 </div>
 <div class="cta-section" style="padding:70px 4%;"><div class="container"><h2 class="cta-title" style="font-size:2rem;">Ready to Transform Your <span>Business?</span></h2><p class="cta-desc">Let's discuss which services are right for your enterprise.</p><div class="cta-btns"><a href="#" class="btn-gold" onclick="showPage('contact');return false;">Get a Free Consultation →</a></div></div></div>
 <div class="gold-line"></div>
-<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">Eight high-impact verticals delivering enterprise excellence worldwide.</p></div><div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('businesses');return false;">Supply Chain</a></li><li><a href="#" onclick="showPage('businesses');return false;">Logistics</a></li><li><a href="#" onclick="showPage('businesses');return false;">Web Dev</a></li><li><a href="#" onclick="showPage('businesses');return false;">AI Automation</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="#" onclick="showPage('board');return false;">Leadership</a></li><li><a href="#" onclick="showPage('team');return false;">Team</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li><li><a href="#" onclick="showPage('terms');return false;">Terms</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>📍</span><span>126 Shorting Road, Toronto, ON</span></div><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
+<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">Five high-impact verticals delivering enterprise excellence worldwide.</p></div><div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('businesses');return false;">Supply Chain</a></li><li><a href="#" onclick="showPage('businesses');return false;">Logistics</a></li><li><a href="#" onclick="showPage('businesses');return false;">Social Media Services</a></li><li><a href="#" onclick="showPage('businesses');return false;">Technical Courses</a></li><li><a href="#" onclick="showPage('businesses');return false;">Products</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="#" onclick="showPage('board');return false;">Leadership</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li><li><a href="#" onclick="showPage('terms');return false;">Terms</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>📍</span><span>126 Shorting Road, Scarborough, Canada</span></div><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div><div class="footer-contact-row"><span>📞</span><span>+1 (437) 979-8279</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     BOARD PAGE
-═══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════ BOARD PAGE ═══════════════════════════ -->
 <div id="page-board" class="page">
 <div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">Leadership</div><h1 class="section-title fade-in-up" style="text-align:center;">CEO &amp; <span class="gold-italic">Board of Directors</span></h1><p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Visionary leaders with global expertise driving ArizonaSC's mission.</p></div></div>
 <section class="section section-alt2">
@@ -936,7 +819,7 @@ footer{background:var(--black);}
       <div class="ceo-badge-role">🌟 Founder &amp; Chief Executive Officer</div>
       <h2 class="ceo-name" id="ceo-name-display">Dr. Aubid Allah Khan</h2>
       <span class="ceo-titles" id="ceo-title-display">PhD (Business Administration) · PhD (International Commerce) · PhD (Technology Management)</span>
-      <p class="ceo-bio" id="ceo-desc-display">Dr. Aubid Allah Khan is the visionary founder and Chief Executive Officer of ArizonaSC, a Toronto-based international enterprise group operating at the intersection of supply chain excellence, digital innovation, and human capital development.</p>
+      <p class="ceo-bio" id="ceo-desc-display">Dr. Aubid Allah Khan is the visionary founder and Chief Executive Officer of ArizonaSC, a Canada-based international enterprise group operating at the intersection of supply chain excellence, digital innovation, and human capital development.</p>
       <p class="ceo-bio" style="margin-top:0.8rem;">With doctoral credentials spanning Business Administration, International Commerce, and Technology Management, Dr. Khan brings a rare multi-disciplinary intellect to enterprise strategy.</p>
       <div class="credential-tags" style="margin-top:1.5rem;"><span class="credential-tag">PhD — Business Administration</span><span class="credential-tag">PhD — International Commerce</span><span class="credential-tag">PhD — Technology Management</span><span class="credential-tag">Supply Chain Expert</span><span class="credential-tag">Digital Transformation Leader</span><span class="credential-tag">AI Strategist</span></div>
       <div class="achievements">
@@ -959,108 +842,102 @@ footer{background:var(--black);}
 </div>
 </section>
 <div class="gold-line"></div>
-<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">Led by world-class professionals committed to enterprise excellence.</p></div><div class="footer-col"><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Services</a></li><li><a href="#" onclick="showPage('team');return false;">Team</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>📍</span><span>126 Shorting Road, Toronto, Ontario, M1S 3S6</span></div><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
+<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">Led by world-class professionals committed to enterprise excellence.</p></div><div class="footer-col"><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Services</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>📍</span><span>126 Shorting Road, Scarborough, Canada</span></div><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div><div class="footer-contact-row"><span>📞</span><span>+1 (437) 979-8279</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     TEAM PAGE
-═══════════════════════════════════════════════════ -->
-<div id="page-team" class="page">
-<div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">Our People</div><h1 class="section-title fade-in-up" style="text-align:center;">The <span class="gold-italic">Team</span> Behind the Vision</h1><p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Talented professionals united by a shared commitment to excellence.</p></div></div>
-<section class="section section-alt2">
-<div class="team-grid fade-in-up">
-  <div class="team-card">
-    <div class="team-photo" id="team1-img-container"><span>👤</span></div>
-    <div class="team-info-pad">
-      <span class="team-role-tag" id="team1-role">Head Developer &amp; Technology Lead</span>
-      <h3 class="team-member-name" id="team1-name">Azwer Ullah</h3>
-      <div class="team-divider-line"></div>
-      <p class="team-bio" id="team1-bio">Azwer Ullah is ArizonaSC's Head Developer and digital innovation engine — a full-stack technologist and AI practitioner with deep expertise across web development, mobile engineering, cloud architecture, and intelligent automation.</p>
-      <div class="team-tags"><span class="team-tag">Full-Stack Dev</span><span class="team-tag">AI &amp; Automation</span><span class="team-tag">Mobile Engineering</span><span class="team-tag">Cloud Architecture</span></div>
-    </div>
-  </div>
-</div>
-</section>
-<div class="gold-line"></div>
-<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">Our people are our greatest asset.</p></div><div class="footer-col"><h4>Company</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Services</a></li><li><a href="#" onclick="showPage('board');return false;">Leadership</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
-</div>
-
-<!-- ═══════════════════════════════════════════════════
-     CONTACT PAGE
-═══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════ CONTACT PAGE ═══════════════════════════ -->
 <div id="page-contact" class="page">
-<div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">Contact Us</div><h1 class="section-title fade-in-up" style="text-align:center;">Let's <span class="gold-italic">Build Something</span> Together</h1><p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Whether you're ready to transform your supply chain or explore digital solutions, we're ready.</p></div></div>
+<div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">Contact Us</div><h1 class="section-title fade-in-up" style="text-align:center;">Let's <span class="gold-italic">Build Something</span> Together</h1><p class="section-desc fade-in-up" style="text-align:center;margin:0 auto;">Whether you're ready to transform your supply chain or explore digital solutions, our team is here and ready to help.</p></div></div>
+
 <section class="section section-alt2">
 <div class="contact-layout fade-in-up">
+  <!-- LEFT COLUMN — Contact Info -->
   <div>
-    <div class="contact-info-box"><h3>Get In Touch</h3>
-      <div class="contact-item"><div class="c-icon-box">📍</div><div><span class="c-label">Headquarters</span><span class="c-value" id="contact-addr-display">126 Shorting Road<br>Toronto, Ontario, M1S 3S6<br>Canada</span></div></div>
-      <div class="contact-item"><div class="c-icon-box">✉️</div><div><span class="c-label">Email Address</span><span class="c-value" id="contact-email-display">info@arizonasc.ca</span></div></div>
-      <div class="contact-item"><div class="c-icon-box">📞</div><div><span class="c-label">Business Inquiries</span><span class="c-value">Contact via email. We respond within 24 business hours.</span></div></div>
+    <div class="contact-reach-out" style="margin-bottom:1.2rem;">
+      <h3>Ready to Work Together?</h3>
+      <p>Reach out to us through any of the channels below. Our team responds to all enquiries within 24 business hours — we look forward to hearing from you.</p>
     </div>
-    <div class="contact-info-box"><h3>Business Hours (EST)</h3>
-      <div class="hours-table">
-        <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time" id="contact-hours1-display">9:00 AM – 6:00 PM</span></div>
-        <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time" id="contact-hours2-display">10:00 AM – 4:00 PM</span></div>
-        <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time" style="color:var(--text-muted);">Closed</span></div>
+
+    <div class="contact-info-cards">
+      <div class="contact-info-card">
+        <div class="contact-info-card-icon">✉️</div>
+        <span class="contact-info-card-label">Email Address</span>
+        <div class="contact-info-card-value"><a href="mailto:info@arizonasc.ca">info@arizonasc.ca</a></div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-card-icon">📞</div>
+        <span class="contact-info-card-label">Phone / WhatsApp</span>
+        <div class="contact-info-card-value"><a href="tel:+14379798279">+1 (437) 979-8279</a></div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-card-icon">🌐</div>
+        <span class="contact-info-card-label">Website</span>
+        <div class="contact-info-card-value"><a href="https://arizonasc.ca" target="_blank">arizonasc.ca</a></div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-card-icon">📍</div>
+        <span class="contact-info-card-label">Headquarters</span>
+        <div class="contact-info-card-value">126 Shorting Road<br>Scarborough, Canada</div>
       </div>
     </div>
   </div>
+
+  <!-- RIGHT COLUMN — Form -->
   <div class="contact-form-box">
     <h3>Send Us a Message</h3>
+    <span class="form-subtitle">Complete the form below and a member of our team will be in touch shortly.</span>
     <div id="contact-success" class="form-success">✔ Your message has been sent! We'll be in touch within 24 hours.</div>
-    <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" id="cf-fname" placeholder="Your first name"></div><div class="form-group"><label>Last Name</label><input type="text" id="cf-lname" placeholder="Your last name"></div></div>
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" id="cf-fname" placeholder="Your first name"></div>
+      <div class="form-group"><label>Last Name</label><input type="text" id="cf-lname" placeholder="Your last name"></div>
+    </div>
     <div class="form-group"><label>Email Address</label><input type="email" id="cf-email" placeholder="your@company.com"></div>
     <div class="form-group"><label>Company / Organization</label><input type="text" id="cf-company" placeholder="Your company name"></div>
     <div class="form-group"><label>Service of Interest</label>
       <select id="cf-service">
         <option value="">Select a service...</option>
-        <option>Supply Chain Solutions</option><option>Logistics Services</option>
-        <option>Social Media Services</option><option>Web Development</option>
-        <option>App Development</option><option>AI Automation Solutions</option>
-        <option>Educational Courses</option><option>Digital Business Services</option>
+        <option>Supply Chain Solutions</option>
+        <option>Logistics Services</option>
+        <option>Social Media Services</option>
+        <option>Technical Educational Courses</option>
+        <option>Products</option>
         <option>General Inquiry</option>
       </select>
     </div>
-    <div class="form-group"><label>Your Message</label><textarea id="cf-message" placeholder="Tell us about your project..."></textarea></div>
+    <div class="form-group"><label>Your Message</label><textarea id="cf-message" placeholder="Tell us about your project or inquiry..."></textarea></div>
     <button class="btn-primary" onclick="submitContactForm()" style="width:100%;justify-content:center;">Send Message →</button>
   </div>
 </div>
 </section>
-<div class="map-area"><div class="map-box"><div style="text-align:center;"><div style="font-size:3rem;">🗺️</div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--black);margin-top:0.5rem;">Toronto Headquarters</div><div style="font-size:0.82rem;color:var(--text-muted);margin-top:0.3rem;">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</div><button class="map-open-btn" onclick="window.open('https://maps.google.com/?q=126+Shorting+Road+Toronto+Ontario+M1S3S6+Canada','_blank')">Open in Google Maps →</button></div></div></div>
+
 <div class="gold-line"></div>
-<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Services</a></li><li><a href="#" onclick="showPage('board');return false;">Leadership</a></li><li><a href="#" onclick="showPage('terms');return false;">Terms</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
+<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">126 Shorting Road, Scarborough, Canada</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('businesses');return false;">Services</a></li><li><a href="#" onclick="showPage('board');return false;">Leadership</a></li><li><a href="#" onclick="showPage('terms');return false;">Terms</a></li></ul></div><div class="footer-col"><h4>Contact</h4><div class="footer-contact-row"><span>✉️</span><span>info@arizonasc.ca</span></div><div class="footer-contact-row"><span>📞</span><span>+1 (437) 979-8279</span></div><div class="footer-contact-row"><span>🌐</span><span>arizonasc.ca</span></div></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved.</p></div></div></footer>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     TERMS PAGE
-═══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════ TERMS PAGE ═══════════════════════════ -->
 <div id="page-terms" class="page">
 <div class="page-hero"><div class="page-hero-inner"><div class="section-eyebrow" style="justify-content:center;">Legal</div><h1 class="section-title fade-in-up" style="text-align:center;">Terms &amp; <span class="gold-italic">Conditions</span></h1><p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.8rem;">Last Updated: January 1, 2025</p></div></div>
 <div class="terms-content">
-<div class="terms-sec"><h2>1. Agreement to Terms</h2><p>These Terms and Conditions constitute a legally binding agreement between you and ArizonaSC (Arizona Supply Chain Solutions Inc.), a corporation registered in the Province of Ontario, Canada.</p></div>
-<div class="terms-sec"><h2>2. Company Information</h2><p><strong>Arizona Supply Chain Solutions Inc. (ArizonaSC)</strong><br>Registered Address: 126 Shorting Road, Toronto, Ontario, M1S 3S6, Canada<br>Business Email: info@arizonasc.ca | Jurisdiction: Province of Ontario, Canada</p></div>
+<div class="terms-sec"><h2>1. Agreement to Terms</h2><p>These Terms and Conditions constitute a legally binding agreement between you and ArizonaSC (Arizona Supply Chain Solutions Inc.), a corporation registered in Canada.</p></div>
+<div class="terms-sec"><h2>2. Company Information</h2><p><strong>Arizona Supply Chain Solutions Inc. (ArizonaSC)</strong><br>Registered Address: 126 Shorting Road, Scarborough, Canada<br>Business Email: info@arizonasc.ca | Website: arizonasc.ca | Phone: +1 (437) 979-8279</p></div>
 <div class="terms-sec"><h2>3. Services &amp; Scope of Work</h2><ul><li>All services are delivered in accordance with standards mutually agreed upon in writing.</li><li>ArizonaSC reserves the right to engage qualified subcontractors to fulfill service obligations.</li><li>Service timelines are estimates unless explicitly defined as firm deadlines in a signed agreement.</li><li>Any changes to agreed scope must be documented in a written Change Order.</li></ul></div>
-<div class="terms-sec"><h2>4. Payment Terms &amp; Conditions</h2><h3>4.1 Invoicing &amp; Payment</h3><p>All fees are invoiced in Canadian Dollars (CAD). Payment terms are Net-15 from the invoice date.</p><h3>4.2 Late Payments</h3><p>Invoices not paid within the agreed period are subject to a late payment fee of 2% per month on outstanding balances.</p><h3>4.3 Refund Policy</h3><p>Refunds are assessed on a case-by-case basis. Educational course fees are non-refundable once course access has been granted.</p></div>
+<div class="terms-sec"><h2>4. Payment Terms &amp; Conditions</h2><h3>4.1 Invoicing &amp; Payment</h3><p>All fees are invoiced in Canadian Dollars (CAD). Payment terms are Net-15 from the invoice date.</p><h3>4.2 Late Payments</h3><p>Invoices not paid within the agreed period are subject to a late payment fee of 2% per month on outstanding balances.</p><h3>4.3 Refund Policy</h3><p>Refunds are assessed on a case-by-case basis. Technical educational course fees are non-refundable once course access has been granted.</p></div>
 <div class="terms-sec"><h2>5. Intellectual Property Rights</h2><p>Upon receipt of full payment, ArizonaSC assigns ownership of all custom deliverables. ArizonaSC retains ownership of all pre-existing intellectual property and proprietary frameworks.</p></div>
-<div class="terms-sec"><h2>6. Privacy &amp; Data Protection</h2><p>ArizonaSC collects and processes personal data strictly for service delivery. We comply with PIPEDA and applicable Ontario privacy regulations.</p></div>
-<div class="terms-sec"><h2>7. Governing Law</h2><p>These Terms shall be governed by the laws of the Province of Ontario, Canada. For questions: <strong style="color:var(--gold);">info@arizonasc.ca</strong></p></div>
+<div class="terms-sec"><h2>6. Privacy &amp; Data Protection</h2><p>ArizonaSC collects and processes personal data strictly for service delivery. We comply with PIPEDA and applicable Canadian privacy regulations.</p></div>
+<div class="terms-sec"><h2>7. Governing Law</h2><p>These Terms shall be governed by the laws of Canada. For questions: <strong style="color:var(--gold);">info@arizonasc.ca</strong> | <strong style="color:var(--gold);">+1 (437) 979-8279</strong></p></div>
 </div>
 <div class="gold-line"></div>
-<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">© 2025 ArizonaSC. Registered in Ontario, Canada.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved. | Governed by Ontario Law, Canada.</p></div></div></footer>
+<footer><div class="footer-main"><div><div class="footer-brand-logo">Arizona<span>SC</span></div><p class="footer-brand-desc">© 2025 ArizonaSC. Registered in Canada.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('home');return false;">Home</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div></div><div class="footer-bottom-bar"><div class="footer-bottom-inner"><p>© 2025 ArizonaSC. All Rights Reserved. | Governed by Canadian Law.</p></div></div></footer>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     ADMIN PANEL
-═══════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════ ADMIN PANEL ═══════════════════════════ -->
 <div id="admin-panel">
-<!-- LOGIN -->
 <div id="admin-login-screen" class="admin-login-wrap">
   <div class="admin-login-card">
-    <div class="admin-login-logo">
-      <div class="asc-brand">Arizona<span>SC</span></div>
-      <p>Admin Control Panel</p>
-    </div>
+    <div class="admin-login-logo"><div class="asc-brand">Arizona<span>SC</span></div><p>Admin Control Panel</p></div>
     <div class="admin-login-divider"></div>
     <h2>Welcome Back</h2>
     <p class="login-sub">Sign in to access the dashboard.</p>
@@ -1072,27 +949,21 @@ footer{background:var(--black);}
   </div>
 </div>
 
-<!-- DASHBOARD APP -->
 <div id="admin-dashboard-app" style="display:none;">
 <div class="admin-app">
-<!-- SIDEBAR -->
 <div class="admin-sidebar">
-  <div class="admin-sidebar-head">
-    <div class="admin-sb-brand">Arizona<span>SC</span></div>
-    <div class="admin-sb-sub"><span class="admin-sb-dot"></span>Admin · Supabase</div>
-  </div>
+  <div class="admin-sidebar-head"><div class="admin-sb-brand">Arizona<span>SC</span></div><div class="admin-sb-sub"><span class="admin-sb-dot"></span>Admin · Supabase</div></div>
   <nav class="admin-nav" id="adminNav">
     <div class="admin-nav-group">Overview</div>
     <button class="admin-nav-btn active" data-section="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Dashboard</span></button>
     <div class="admin-nav-group">Content</div>
     <button class="admin-nav-btn" data-section="logo"><span class="nav-icon">🏷️</span><span class="nav-label">Company Logo</span></button>
     <button class="admin-nav-btn" data-section="homepage"><span class="nav-icon">🏠</span><span class="nav-label">Homepage</span></button>
-    <button class="admin-nav-btn" data-section="services"><span class="nav-icon">⚙️</span><span class="nav-label">Services</span><span class="nav-badge">8</span></button>
+    <button class="admin-nav-btn" data-section="services"><span class="nav-icon">⚙️</span><span class="nav-label">Services</span><span class="nav-badge">5</span></button>
     <button class="admin-nav-btn" data-section="testimonials"><span class="nav-icon">💬</span><span class="nav-label">Testimonials</span></button>
     <div class="admin-nav-group">Team &amp; People</div>
     <button class="admin-nav-btn" data-section="ceo"><span class="nav-icon">👔</span><span class="nav-label">CEO Profile</span></button>
     <button class="admin-nav-btn" data-section="directors"><span class="nav-icon">👥</span><span class="nav-label">Directors</span></button>
-    <button class="admin-nav-btn" data-section="team"><span class="nav-icon">🤝</span><span class="nav-label">Team Photos</span></button>
     <div class="admin-nav-group">Settings &amp; Data</div>
     <button class="admin-nav-btn" data-section="contact"><span class="nav-icon">📞</span><span class="nav-label">Contact Info</span></button>
     <button class="admin-nav-btn" data-section="submissions"><span class="nav-icon">📥</span><span class="nav-label">Form Submissions</span></button>
@@ -1104,26 +975,19 @@ footer{background:var(--black);}
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="admin-main">
   <div class="admin-topbar">
-    <div class="admin-topbar-left">
-      <div class="admin-topbar-title" id="adminTopbarTitle">Dashboard</div>
-    </div>
-    <div class="admin-topbar-right">
-      <div id="db-topbar-dot" class="admin-topbar-dot"></div>
-      <div class="admin-topbar-badge" id="db-topbar-label">Supabase</div>
-    </div>
+    <div class="admin-topbar-left"><div class="admin-topbar-title" id="adminTopbarTitle">Dashboard</div></div>
+    <div class="admin-topbar-right"><div id="db-topbar-dot" class="admin-topbar-dot"></div><div class="admin-topbar-badge" id="db-topbar-label">Supabase</div></div>
   </div>
   <div class="admin-body-wrap">
 
-    <!-- DASHBOARD -->
     <div id="as-dashboard" class="admin-section active">
       <div class="admin-stats-row">
-        <div class="admin-stat-tile ast-gold"><div class="ast-num">8</div><div class="ast-label">Business Verticals</div><div class="ast-icon">⚙️</div></div>
+        <div class="admin-stat-tile ast-gold"><div class="ast-num">5</div><div class="ast-label">Business Verticals</div><div class="ast-icon">⚙️</div></div>
         <div class="admin-stat-tile ast-teal"><div class="ast-num">500+</div><div class="ast-label">Global Clients</div><div class="ast-icon">🌐</div></div>
         <div class="admin-stat-tile ast-blue"><div class="ast-num" id="dash-sub-count">—</div><div class="ast-label">Form Submissions</div><div class="ast-icon">📥</div></div>
-        <div class="admin-stat-tile ast-violet"><div class="ast-num">6</div><div class="ast-label">Pages Live</div><div class="ast-icon">📄</div></div>
+        <div class="admin-stat-tile ast-violet"><div class="ast-num">5</div><div class="ast-label">Pages Live</div><div class="ast-icon">📄</div></div>
       </div>
       <div class="quick-actions-grid">
         <button class="quick-action" onclick="switchToSection('ceo')"><span class="qa-icon">👔</span><span class="qa-label">Update CEO Photo</span></button>
@@ -1141,38 +1005,26 @@ footer{background:var(--black);}
             <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Project</div><div style="font-size:0.88rem;font-weight:600;">hoysbvxyrowrzwenhrox</div></div>
             <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Status</div><div style="font-size:0.88rem;font-weight:600;" id="db-status-admin">Checking…</div></div>
             <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Contact</div><div style="font-size:0.88rem;font-weight:600;">info@arizonasc.ca</div></div>
-            <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Version</div><div style="font-size:0.88rem;font-weight:600;">v3.0 — Supabase</div></div>
+            <div><div style="font-size:0.65rem;letter-spacing:0.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;">Version</div><div style="font-size:0.88rem;font-weight:600;">v3.1 — Supabase</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- LOGO -->
     <div id="as-logo" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>Upload Company Logo</h3><span class="card-badge">Branding</span></div>
         <div class="admin-card-body">
-          <div class="admin-note"><span>💡</span><span>Upload a PNG with transparent background for best results. Minimum 200×200px. Stored in Supabase Storage and loaded on every device.</span></div>
+          <div class="admin-note"><span>💡</span><span>Upload a PNG with transparent background for best results. Minimum 200×200px.</span></div>
           <div class="img-upload-row">
-            <div>
-              <div class="img-upload-zone" id="logo-zone">
-                <input type="file" accept="image/*" id="logo-file-input">
-                <span class="upload-icon">🏷️</span>
-                <div class="upload-text">Click to select logo image</div>
-                <div class="upload-hint">PNG, JPG, SVG — max 2MB recommended</div>
-                <div class="upload-btn-label">Browse Files</div>
-              </div>
-            </div>
-            <div class="img-preview-box square" id="logo-preview-box">
-              <div class="img-preview-placeholder"><span class="ph-icon">🖼️</span><span>Logo Preview</span></div>
-            </div>
+            <div><div class="img-upload-zone" id="logo-zone"><input type="file" accept="image/*" id="logo-file-input"><span class="upload-icon">🏷️</span><div class="upload-text">Click to select logo image</div><div class="upload-hint">PNG, JPG, SVG — max 2MB recommended</div><div class="upload-btn-label">Browse Files</div></div></div>
+            <div class="img-preview-box square" id="logo-preview-box"><div class="img-preview-placeholder"><span class="ph-icon">🖼️</span><span>Logo Preview</span></div></div>
           </div>
           <div id="logo-toast" class="admin-toast success">✔ Logo uploaded to Supabase Storage and applied!</div>
         </div>
       </div>
     </div>
 
-    <!-- HOMEPAGE -->
     <div id="as-homepage" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>Hero Section Text</h3><span class="card-badge">Homepage</span></div>
@@ -1180,7 +1032,7 @@ footer{background:var(--black);}
           <div class="admin-field"><label>Hero Title — Line 1</label><input type="text" id="hp-title1" value="Redefining"></div>
           <div class="admin-field"><label>Hero Title — Gold Italic Line</label><input type="text" id="hp-title2" value="Global Standards"></div>
           <div class="admin-field"><label>Hero Title — Line 3</label><input type="text" id="hp-title3" value="in Supply Chain & Digital Innovation"></div>
-          <div class="admin-field"><label>Hero Description</label><textarea id="hp-desc">ArizonaSC is a Toronto-based international enterprise delivering world-class supply chain solutions, logistics mastery, and cutting-edge digital transformation across industries and continents.</textarea></div>
+          <div class="admin-field"><label>Hero Description</label><textarea id="hp-desc">ArizonaSC is a Canada-based international enterprise delivering world-class supply chain solutions, logistics mastery, social media excellence, and cutting-edge digital transformation across industries and continents.</textarea></div>
           <button class="admin-save-btn" onclick="saveHomepage()">💾 Save to Supabase</button>
           <div id="hp-toast" class="admin-toast success">✔ Homepage content saved to database!</div>
         </div>
@@ -1200,41 +1052,35 @@ footer{background:var(--black);}
       </div>
     </div>
 
-    <!-- SERVICES -->
     <div id="as-services" class="admin-section">
       <div class="admin-card">
-        <div class="admin-card-header"><h3>Service Card Descriptions</h3><span class="card-badge violet">8 Services</span></div>
+        <div class="admin-card-header"><h3>Service Card Descriptions</h3><span class="card-badge violet">5 Services</span></div>
         <div class="admin-card-body">
-          <div class="admin-field"><label>1. Supply Chain Solutions</label><textarea id="svc1">End-to-end supply chain design, optimization, and management.</textarea></div>
-          <div class="admin-field"><label>2. Logistics Services</label><textarea id="svc2">Comprehensive freight, warehousing, last-mile delivery, and customs management.</textarea></div>
-          <div class="admin-field"><label>3. Social Media Services</label><textarea id="svc3">Strategic brand building, content creation, and performance marketing.</textarea></div>
-          <div class="admin-field"><label>4. Web Development</label><textarea id="svc4">Premium custom websites, enterprise web applications, and e-commerce platforms.</textarea></div>
-          <div class="admin-field"><label>5. App Development</label><textarea id="svc5">Native and cross-platform mobile applications crafted with precision.</textarea></div>
-          <div class="admin-field"><label>6. AI Automation Solutions</label><textarea id="svc6">Intelligent workflow automation, AI integration, and machine learning solutions.</textarea></div>
-          <div class="admin-field"><label>7. Educational Courses</label><textarea id="svc7">Professional development programs, corporate training, and certification courses.</textarea></div>
-          <div class="admin-field"><label>8. Digital Business Services</label><textarea id="svc8">Complete digital transformation consulting and strategic digital growth advisory.</textarea></div>
+          <div class="admin-field"><label>1. Supply Chain Solutions</label><textarea id="svc1">End-to-end supply chain design, optimization, and management. We build resilient global networks that keep your business moving at every scale.</textarea></div>
+          <div class="admin-field"><label>2. Logistics Services</label><textarea id="svc2">Comprehensive freight forwarding, warehousing, last-mile delivery, and customs management for seamless global trade operations.</textarea></div>
+          <div class="admin-field"><label>3. Social Media Services</label><textarea id="svc3">Full-spectrum digital presence management — web development, app development, AI automation, social media strategy, and digital business transformation all under one roof.</textarea></div>
+          <div class="admin-field"><label>4. Technical Educational Courses</label><textarea id="svc4">Industry-leading technical certification programs and corporate training in supply chain, AI, digital marketing, and leadership development.</textarea></div>
+          <div class="admin-field"><label>5. Products</label><textarea id="svc5">ArizonaSC will be expanding into a curated range of high-quality products. Our product portfolio — launching soon — will reflect the same enterprise-grade standards of excellence across all our offerings.</textarea></div>
           <button class="admin-save-btn" onclick="saveServices()">💾 Save All to Supabase</button>
           <div id="svc-toast" class="admin-toast success">✔ Service descriptions saved!</div>
         </div>
       </div>
     </div>
 
-    <!-- TESTIMONIALS -->
     <div id="as-testimonials" class="admin-section">
       <div class="admin-card"><div class="admin-card-header"><h3>Testimonial 1</h3><span class="card-badge">Client Review</span></div><div class="admin-card-body"><div class="admin-grid2"><div class="admin-field"><label>Client Name</label><input type="text" id="t1-name" value="Michael Hartley"></div><div class="admin-field"><label>Position &amp; Company</label><input type="text" id="t1-pos" value="CEO, Hartley Manufacturing Group — Toronto, ON"></div></div><div class="admin-field"><label>Testimonial Text</label><textarea id="t1-text">ArizonaSC completely transformed our logistics operations.</textarea></div></div></div>
       <div class="admin-card"><div class="admin-card-header"><h3>Testimonial 2</h3><span class="card-badge">Client Review</span></div><div class="admin-card-body"><div class="admin-grid2"><div class="admin-field"><label>Client Name</label><input type="text" id="t2-name" value="Sarah Al-Amin"></div><div class="admin-field"><label>Position &amp; Company</label><input type="text" id="t2-pos" value="Director of Technology, GlobalTrade Corp — Dubai, UAE"></div></div><div class="admin-field"><label>Testimonial Text</label><textarea id="t2-text">The digital transformation services were exceptional.</textarea></div></div></div>
-      <div class="admin-card"><div class="admin-card-header"><h3>Testimonial 3</h3><span class="card-badge">Client Review</span></div><div class="admin-card-body"><div class="admin-grid2"><div class="admin-field"><label>Client Name</label><input type="text" id="t3-name" value="Robert Chang"></div><div class="admin-field"><label>Position &amp; Company</label><input type="text" id="t3-pos" value="COO, Pacific Ventures Ltd — Vancouver, BC"></div></div><div class="admin-field"><label>Testimonial Text</label><textarea id="t3-text">Working with ArizonaSC was a revelation.</textarea></div></div></div>
-      <div class="admin-card"><div class="admin-card-header"><h3>Testimonial 4</h3><span class="card-badge">Client Review</span></div><div class="admin-card-body"><div class="admin-grid2"><div class="admin-field"><label>Client Name</label><input type="text" id="t4-name" value="Fatima Qureshi"></div><div class="admin-field"><label>Position &amp; Company</label><input type="text" id="t4-pos" value="HR Director, Meridian Enterprises — Karachi, PK"></div></div><div class="admin-field"><label>Testimonial Text</label><textarea id="t4-text">Their educational programs were exceptional.</textarea></div></div></div>
+      <div class="admin-card"><div class="admin-card-header"><h3>Testimonial 3</h3><span class="card-badge">Client Review</span></div><div class="admin-card-body"><div class="admin-grid2"><div class="admin-field"><label>Client Name</label><input type="text" id="t3-name" value="Robert Chang"></div><div class="admin-field"><label>Position &amp; Company</label><input type="text" id="t3-pos" value="COO, Pacific Ventures Ltd — Vancouver, BC"></div></div><div class="admin-field"><label>Testimonial Text</label><textarea id="t3-text">Working with ArizonaSC on our logistics overhaul was a revelation.</textarea></div></div></div>
+      <div class="admin-card"><div class="admin-card-header"><h3>Testimonial 4</h3><span class="card-badge">Client Review</span></div><div class="admin-card-body"><div class="admin-grid2"><div class="admin-field"><label>Client Name</label><input type="text" id="t4-name" value="Fatima Qureshi"></div><div class="admin-field"><label>Position &amp; Company</label><input type="text" id="t4-pos" value="HR Director, Meridian Enterprises — Karachi, PK"></div></div><div class="admin-field"><label>Testimonial Text</label><textarea id="t4-text">Their technical educational programs were exceptional and highly relevant.</textarea></div></div></div>
       <button class="admin-save-btn" onclick="saveTestimonials()">💾 Save All to Supabase</button>
       <div id="t-toast" class="admin-toast success">✔ Testimonials saved to database!</div>
     </div>
 
-    <!-- CEO -->
     <div id="as-ceo" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>CEO Photo</h3><span class="card-badge">Dr. Aubid Allah Khan</span></div>
         <div class="admin-card-body">
-          <div class="admin-note"><span>📸</span><span>Uploaded to Supabase Storage bucket <strong>arizonasc-media</strong>. Displays on the Board of Directors page across all devices.</span></div>
+          <div class="admin-note"><span>📸</span><span>Uploaded to Supabase Storage bucket <strong>arizonasc-media</strong>. Displays on the Board of Directors page.</span></div>
           <div class="img-upload-row">
             <div><div class="img-upload-zone" id="ceo-zone"><input type="file" accept="image/*" id="ceo-file-input"><span class="upload-icon">👔</span><div class="upload-text">Click to select CEO photo</div><div class="upload-hint">Recommended: 600×800px portrait</div><div class="upload-btn-label">Browse Files</div></div></div>
             <div class="img-preview-box" id="ceo-preview-box"><div class="img-preview-placeholder"><span class="ph-icon">👤</span><span>Photo Preview</span></div></div>
@@ -1254,7 +1100,6 @@ footer{background:var(--black);}
       </div>
     </div>
 
-    <!-- DIRECTORS -->
     <div id="as-directors" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>Director of Logistics Photo</h3><span class="card-badge">Raja Akhter Mehmood</span></div>
@@ -1278,34 +1123,16 @@ footer{background:var(--black);}
       </div>
     </div>
 
-    <!-- TEAM -->
-    <div id="as-team" class="admin-section">
-      <div class="admin-card">
-        <div class="admin-card-header"><h3>Azwer Ullah — Head Developer Photo</h3><span class="card-badge violet">Team Member</span></div>
-        <div class="admin-card-body">
-          <div class="img-upload-row">
-            <div><div class="img-upload-zone" id="team1-zone"><input type="file" accept="image/*" id="team1-file-input"><span class="upload-icon">👤</span><div class="upload-text">Click to select photo — Azwer Ullah</div><div class="upload-hint">Recommended: 400×400px square</div><div class="upload-btn-label">Browse Files</div></div></div>
-            <div class="img-preview-box square" id="team1-preview-box"><div class="img-preview-placeholder"><span class="ph-icon">👤</span><span>Preview</span></div></div>
-          </div>
-          <div id="team1-toast" class="admin-toast success">✔ Team photo uploaded!</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTACT -->
     <div id="as-contact" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>Company Contact Details</h3><span class="card-badge teal">Settings</span></div>
         <div class="admin-card-body">
           <div class="admin-field"><label>Business Email</label><input type="email" id="ci-email" value="info@arizonasc.ca"></div>
+          <div class="admin-field"><label>Website</label><input type="text" id="ci-website" value="arizonasc.ca"></div>
+          <div class="admin-field"><label>Phone Number</label><input type="text" id="ci-phone" value="+1 (437) 979-8279"></div>
           <div class="admin-grid2">
             <div class="admin-field"><label>Street Address</label><input type="text" id="ci-address" value="126 Shorting Road"></div>
-            <div class="admin-field"><label>City, Province, Postal Code</label><input type="text" id="ci-city" value="Toronto, Ontario, M1S 3S6"></div>
-          </div>
-          <div class="admin-field"><label>Country</label><input type="text" id="ci-country" value="Canada"></div>
-          <div class="admin-grid2">
-            <div class="admin-field"><label>Weekday Hours</label><input type="text" id="ci-hours1" value="9:00 AM – 6:00 PM EST"></div>
-            <div class="admin-field"><label>Saturday Hours</label><input type="text" id="ci-hours2" value="10:00 AM – 4:00 PM EST"></div>
+            <div class="admin-field"><label>City, Region</label><input type="text" id="ci-city" value="Scarborough, Canada"></div>
           </div>
           <button class="admin-save-btn teal" onclick="saveContactInfo()">💾 Save to Supabase</button>
           <div id="ci-toast" class="admin-toast success">✔ Contact info saved!</div>
@@ -1313,17 +1140,13 @@ footer{background:var(--black);}
       </div>
     </div>
 
-    <!-- SUBMISSIONS -->
     <div id="as-submissions" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>Contact Form Submissions</h3><span class="card-badge blue" id="sub-count-badge">Loading…</span></div>
-        <div class="admin-card-body">
-          <div id="submissions-table-wrap"><p class="no-submissions">Loading submissions…</p></div>
-        </div>
+        <div class="admin-card-body"><div id="submissions-table-wrap"><p class="no-submissions">Loading submissions…</p></div></div>
       </div>
     </div>
 
-    <!-- PASSWORD -->
     <div id="as-password" class="admin-section">
       <div class="admin-card">
         <div class="admin-card-header"><h3>Change Admin Password</h3><span class="card-badge">Security</span></div>
@@ -1338,633 +1161,299 @@ footer{background:var(--black);}
       </div>
     </div>
 
-  </div><!-- /admin-body-wrap -->
-</div><!-- /admin-main -->
-</div><!-- /admin-app -->
-</div><!-- /admin-dashboard-app -->
-</div><!-- /admin-panel -->
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-<!-- ═══════════════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════════════ -->
 <script>
-// ══════════════════════════════════════════════════════════
-// SUPABASE CONFIGURATION
-// ══════════════════════════════════════════════════════════
 const SUPABASE_URL  = 'https://hoysbvxyrowrzwenhrox.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhveXNidnh5cm93cnp3ZW5ocm94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjM4MzYsImV4cCI6MjA5NjkzOTgzNn0.DdNUvQU_ls8xnUAYhxb0aHVSIvSb10d31ShPURYxudY';
 const STORAGE_BUCKET = 'arizonasc-media';
-
-// Init Supabase client
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// ══════════════════════════════════════════════════════════
-// DB STATUS INDICATOR
-// ══════════════════════════════════════════════════════════
 function setDbStatus(state, text) {
-  const bar  = document.getElementById('db-status-bar');
-  const txt  = document.getElementById('db-status-text');
-  const dot  = document.getElementById('db-topbar-dot');
-  const lbl  = document.getElementById('db-topbar-label');
-  const adm  = document.getElementById('db-status-admin');
-  bar.className = 'show ' + state;
-  if(txt) txt.textContent = text;
-  if(adm) adm.textContent = text;
-  // Colour topbar dot
-  if(dot) dot.style.background = state==='connected'?'var(--teal)': state==='error'?'var(--rose)':'var(--blue)';
-  if(lbl) lbl.textContent = state==='connected'?'DB Live':'DB Error';
-  // Hide after 4s if connected
-  if(state==='connected') setTimeout(()=>{ bar.classList.remove('show'); }, 4000);
+  const bar=document.getElementById('db-status-bar'),txt=document.getElementById('db-status-text'),dot=document.getElementById('db-topbar-dot'),lbl=document.getElementById('db-topbar-label'),adm=document.getElementById('db-status-admin');
+  bar.className='show '+state;
+  if(txt)txt.textContent=text;if(adm)adm.textContent=text;
+  if(dot)dot.style.background=state==='connected'?'var(--teal)':state==='error'?'var(--rose)':'var(--blue)';
+  if(lbl)lbl.textContent=state==='connected'?'DB Live':'DB Error';
+  if(state==='connected')setTimeout(()=>{bar.classList.remove('show');},4000);
 }
 
-// ══════════════════════════════════════════════════════════
-// CUSTOM CURSOR
-// ══════════════════════════════════════════════════════════
 (function(){
-  const cursor   = document.getElementById('custom-cursor');
-  const follower = document.getElementById('cursor-follower');
-  if(!cursor || !follower) return;
-
-  let mouseX = -100, mouseY = -100;
-  let followerX = -100, followerY = -100;
-
-  // Direct position for cursor dot
-  document.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top  = mouseY + 'px';
-  });
-
-  // Smooth follower using rAF
-  function animateFollower() {
-    followerX += (mouseX - followerX) * 0.12;
-    followerY += (mouseY - followerY) * 0.12;
-    follower.style.left = followerX + 'px';
-    follower.style.top  = followerY + 'px';
-    requestAnimationFrame(animateFollower);
-  }
+  const cursor=document.getElementById('custom-cursor'),follower=document.getElementById('cursor-follower');
+  if(!cursor||!follower)return;
+  let mouseX=-100,mouseY=-100,followerX=-100,followerY=-100;
+  document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;cursor.style.left=mouseX+'px';cursor.style.top=mouseY+'px';});
+  function animateFollower(){followerX+=(mouseX-followerX)*0.12;followerY+=(mouseY-followerY)*0.12;follower.style.left=followerX+'px';follower.style.top=followerY+'px';requestAnimationFrame(animateFollower);}
   animateFollower();
-
-  // Hover on interactive elements
-  const hoverEls = 'a, button, .service-card, .why-card, .team-card, .director-card, .quick-action, .admin-nav-btn, .slider-btn, .map-open-btn, input, textarea, select, .img-upload-zone, .footer-col ul li a, .about-feat, .vm-card';
-  document.addEventListener('mouseover', e => {
-    if(e.target.closest(hoverEls)){
-      document.body.classList.add('cursor-hover');
-    }
-  });
-  document.addEventListener('mouseout', e => {
-    if(e.target.closest(hoverEls)){
-      document.body.classList.remove('cursor-hover');
-    }
-  });
-  document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
-
-  // Text cursor
-  const textEls = 'p, h1, h2, h3, h4, h5, span:not(.nav-logo-letter):not(.emblem-letters)';
-  document.addEventListener('mouseover', e => {
-    if(e.target.matches && e.target.matches(textEls) && !e.target.closest('a,button')){
-      document.body.classList.add('cursor-text');
-    }
-  });
-  document.addEventListener('mouseout', e => {
-    document.body.classList.remove('cursor-text');
-  });
-
-  // Hide on leave
-  document.addEventListener('mouseleave', () => { cursor.style.opacity='0'; follower.style.opacity='0'; });
-  document.addEventListener('mouseenter', () => { cursor.style.opacity='1'; follower.style.opacity='1'; });
+  const hoverEls='a,button,.service-card,.why-card,.director-card,.quick-action,.admin-nav-btn,.slider-btn,input,textarea,select,.img-upload-zone,.about-feat,.vm-card,.contact-info-card';
+  document.addEventListener('mouseover',e=>{if(e.target.closest(hoverEls))document.body.classList.add('cursor-hover');});
+  document.addEventListener('mouseout',e=>{if(e.target.closest(hoverEls))document.body.classList.remove('cursor-hover');});
+  document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
+  document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+  document.addEventListener('mouseleave',()=>{cursor.style.opacity='0';follower.style.opacity='0';});
+  document.addEventListener('mouseenter',()=>{cursor.style.opacity='1';follower.style.opacity='1';});
 })();
 
-// ══════════════════════════════════════════════════════════
-// SMOOTH SCROLL ENHANCEMENT
-// ══════════════════════════════════════════════════════════
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[href="#"]');
-  if(a){ e.preventDefault(); }
-});
+document.addEventListener('click',e=>{const a=e.target.closest('a[href="#"]');if(a)e.preventDefault();});
 
-// ══════════════════════════════════════════════════════════
-// INIT ON LOAD
-// ══════════════════════════════════════════════════════════
-window.addEventListener('load', async function(){
-  setDbStatus('saving', 'Connecting to Supabase…');
-  try {
-    const { data, error } = await db.from('site_settings').select('key,value').limit(1);
-    if(error) throw error;
-    setDbStatus('connected', '🟢 Supabase Connected');
-    document.getElementById('loader-db-msg').textContent = '✓ Database connected';
-    document.getElementById('loader-db-msg').style.color = 'var(--teal)';
-  } catch(e) {
-    setDbStatus('error', '⚠ DB Connection Error');
-    document.getElementById('loader-db-msg').textContent = '⚠ Using fallback data';
-    console.warn('Supabase error:', e.message);
+window.addEventListener('load',async function(){
+  setDbStatus('saving','Connecting to Supabase…');
+  try{
+    const{data,error}=await db.from('site_settings').select('key,value').limit(1);
+    if(error)throw error;
+    setDbStatus('connected','🟢 Supabase Connected');
+    document.getElementById('loader-db-msg').textContent='✓ Database connected';
+    document.getElementById('loader-db-msg').style.color='var(--teal)';
+  }catch(e){
+    setDbStatus('error','⚠ DB Connection Error');
+    document.getElementById('loader-db-msg').textContent='⚠ Using fallback data';
+    console.warn('Supabase error:',e.message);
   }
-
   setTimeout(async function(){
     document.getElementById('loader').classList.add('hidden');
-    initAnimations();
-    initCounters();
+    initAnimations();initCounters();
     await loadAllDataFromSupabase();
     checkAdminRoute();
-  }, 2200);
+  },2200);
 });
 
-function checkAdminRoute(){
-  const p=window.location.pathname, h=window.location.hash, s=window.location.search;
-  if(p.includes('/admin')||h==='#admin'||s.includes('admin')) openAdminPanel();
+function checkAdminRoute(){const p=window.location.pathname,h=window.location.hash,s=window.location.search;if(p.includes('/admin')||h==='#admin'||s.includes('admin'))openAdminPanel();}
+
+async function loadAllDataFromSupabase(){
+  try{
+    const{data:settings}=await db.from('site_settings').select('key,value');
+    if(settings){const s={};settings.forEach(r=>s[r.key]=r.value);applySiteSettings(s);}
+    const{data:people}=await db.from('people').select('*');
+    if(people)applyPeople(people);
+    const{data:svcs}=await db.from('services').select('*').order('service_num');
+    if(svcs)applyServices(svcs);
+    const{data:tests}=await db.from('testimonials').select('*').order('t_key');
+    if(tests)applyTestimonials(tests);
+  }catch(e){console.warn('Load error:',e.message);}
 }
 
-// ══════════════════════════════════════════════════════════
-// LOAD ALL DATA FROM SUPABASE
-// ══════════════════════════════════════════════════════════
-async function loadAllDataFromSupabase() {
-  try {
-    // Site settings
-    const { data: settings } = await db.from('site_settings').select('key,value');
-    if(settings) {
-      const s = {};
-      settings.forEach(r => s[r.key] = r.value);
-      applySiteSettings(s);
-    }
-
-    // People
-    const { data: people } = await db.from('people').select('*');
-    if(people) applyPeople(people);
-
-    // Services
-    const { data: svcs } = await db.from('services').select('*').order('service_num');
-    if(svcs) applyServices(svcs);
-
-    // Testimonials
-    const { data: tests } = await db.from('testimonials').select('*').order('t_key');
-    if(tests) applyTestimonials(tests);
-
-  } catch(e) {
-    console.warn('Load error:', e.message);
-  }
-}
-
-function applySiteSettings(s) {
-  // Hero
-  const ht = document.getElementById('hero-title-el');
-  if(ht && s.hero_title1) {
-    ht.innerHTML = `${s.hero_title1}<br><span class="line-gold">${s.hero_title2||'Global Standards'}</span><br>${s.hero_title3||''}`;
-  }
-  const hd = document.getElementById('hero-desc-el');
-  if(hd && s.hero_desc) hd.textContent = s.hero_desc;
-
-  // Stats
-  if(s.stat_clients) {
-    document.querySelectorAll('[data-count]').forEach(el => {
-      const key = el.closest('.hs-item')?.querySelector('.hs-label')?.textContent?.toLowerCase();
-      if(key?.includes('client')) el.dataset.count = s.stat_clients;
-      if(key?.includes('countr')) el.dataset.count = s.stat_countries;
-      if(key?.includes('satisfaction')) el.dataset.count = s.stat_satisfaction;
-    });
-    const targets = document.querySelectorAll('[data-target]');
-    targets.forEach(el => {
-      const lbl = el.nextElementSibling?.textContent?.toLowerCase()||'';
-      if(lbl.includes('client')) el.dataset.target = s.stat_clients;
-      if(lbl.includes('countr')) el.dataset.target = s.stat_countries;
-      if(lbl.includes('project')) el.dataset.target = s.stat_projects;
-      if(lbl.includes('satisf')) el.dataset.target = s.stat_satisfaction;
-    });
-  }
-
-  // Contact
-  const ced = document.getElementById('contact-email-display');
-  if(ced && s.contact_email) ced.textContent = s.contact_email;
-  const cad = document.getElementById('contact-addr-display');
-  if(cad && s.contact_address) cad.innerHTML = `${s.contact_address}<br>${s.contact_city||''}<br>${s.contact_country||''}`;
-  const ch1 = document.getElementById('contact-hours1-display');
-  if(ch1 && s.contact_hours1) ch1.textContent = s.contact_hours1;
-  const ch2 = document.getElementById('contact-hours2-display');
-  if(ch2 && s.contact_hours2) ch2.textContent = s.contact_hours2;
-  const fe = document.getElementById('footer-email');
-  if(fe && s.contact_email) fe.textContent = s.contact_email;
-  const fel = document.getElementById('footer-email-link');
-  if(fel && s.contact_email) { fel.textContent = s.contact_email; fel.href = 'mailto:'+s.contact_email; }
-  const fa = document.getElementById('footer-addr');
-  if(fa && s.contact_address) fa.textContent = `${s.contact_address}, ${s.contact_city||''}, ${s.contact_country||''}`;
-
-  // Logo
-  if(s.logo_url && s.logo_url.trim()!=='') applyLogoToNav(s.logo_url);
-
-  // Populate admin fields
-  if(document.getElementById('hp-title1')) {
-    if(s.hero_title1) document.getElementById('hp-title1').value = s.hero_title1;
-    if(s.hero_title2) document.getElementById('hp-title2').value = s.hero_title2;
-    if(s.hero_title3) document.getElementById('hp-title3').value = s.hero_title3;
-    if(s.hero_desc)   document.getElementById('hp-desc').value   = s.hero_desc;
-    if(s.stat_clients)      document.getElementById('stat-clients').value      = s.stat_clients;
-    if(s.stat_countries)    document.getElementById('stat-countries').value    = s.stat_countries;
-    if(s.stat_projects)     document.getElementById('stat-projects').value     = s.stat_projects;
-    if(s.stat_satisfaction) document.getElementById('stat-satisfaction').value = s.stat_satisfaction;
-    if(s.contact_email)   document.getElementById('ci-email').value   = s.contact_email;
-    if(s.contact_address) document.getElementById('ci-address').value = s.contact_address;
-    if(s.contact_city)    document.getElementById('ci-city').value    = s.contact_city;
-    if(s.contact_country) document.getElementById('ci-country').value = s.contact_country;
-    if(s.contact_hours1)  document.getElementById('ci-hours1').value  = s.contact_hours1;
-    if(s.contact_hours2)  document.getElementById('ci-hours2').value  = s.contact_hours2;
+function applySiteSettings(s){
+  const ht=document.getElementById('hero-title-el');
+  if(ht&&s.hero_title1)ht.innerHTML=`${s.hero_title1}<br><span class="line-gold">${s.hero_title2||'Global Standards'}</span><br>${s.hero_title3||''}`;
+  const hd=document.getElementById('hero-desc-el');if(hd&&s.hero_desc)hd.textContent=s.hero_desc;
+  const ced=document.getElementById('contact-email-display');if(ced&&s.contact_email)ced.textContent=s.contact_email;
+  const fe=document.getElementById('footer-email');if(fe&&s.contact_email)fe.textContent=s.contact_email;
+  const fel=document.getElementById('footer-email-link');if(fel&&s.contact_email){fel.textContent=s.contact_email;fel.href='mailto:'+s.contact_email;}
+  const fa=document.getElementById('footer-addr');if(fa&&s.contact_address)fa.textContent=`${s.contact_address}, ${s.contact_city||''}`;
+  if(s.logo_url&&s.logo_url.trim()!=='')applyLogoToNav(s.logo_url);
+  if(document.getElementById('hp-title1')){
+    if(s.hero_title1)document.getElementById('hp-title1').value=s.hero_title1;
+    if(s.hero_title2)document.getElementById('hp-title2').value=s.hero_title2;
+    if(s.hero_title3)document.getElementById('hp-title3').value=s.hero_title3;
+    if(s.hero_desc)document.getElementById('hp-desc').value=s.hero_desc;
+    if(s.stat_clients)document.getElementById('stat-clients').value=s.stat_clients;
+    if(s.stat_countries)document.getElementById('stat-countries').value=s.stat_countries;
+    if(s.stat_projects)document.getElementById('stat-projects').value=s.stat_projects;
+    if(s.stat_satisfaction)document.getElementById('stat-satisfaction').value=s.stat_satisfaction;
+    if(s.contact_email)document.getElementById('ci-email').value=s.contact_email;
+    if(s.contact_address)document.getElementById('ci-address').value=s.contact_address;
+    if(s.contact_city)document.getElementById('ci-city').value=s.contact_city;
   }
 }
 
-function applyPeople(people) {
-  people.forEach(p => {
-    if(p.role_key === 'ceo') {
-      const nd = document.getElementById('ceo-name-display');
-      const td = document.getElementById('ceo-title-display');
-      const dd = document.getElementById('ceo-desc-display');
-      if(nd && p.full_name) nd.textContent = p.full_name;
-      if(td && p.credentials) td.textContent = p.credentials;
-      if(dd && p.bio) dd.textContent = p.bio;
-      if(p.image_url) applyPhotoToSite('ceo', p.image_url);
-      // admin fields
-      const cn = document.getElementById('ceo-name');
-      const ct = document.getElementById('ceo-title');
-      const cd = document.getElementById('ceo-desc');
-      if(cn && p.full_name) cn.value = p.full_name;
-      if(ct && p.credentials) ct.value = p.credentials;
-      if(cd && p.bio) cd.value = p.bio;
+function applyPeople(people){
+  people.forEach(p=>{
+    if(p.role_key==='ceo'){
+      const nd=document.getElementById('ceo-name-display'),td=document.getElementById('ceo-title-display'),dd=document.getElementById('ceo-desc-display');
+      if(nd&&p.full_name)nd.textContent=p.full_name;if(td&&p.credentials)td.textContent=p.credentials;if(dd&&p.bio)dd.textContent=p.bio;
+      if(p.image_url)applyPhotoToSite('ceo',p.image_url);
+      const cn=document.getElementById('ceo-name'),ct=document.getElementById('ceo-title'),cd=document.getElementById('ceo-desc');
+      if(cn&&p.full_name)cn.value=p.full_name;if(ct&&p.credentials)ct.value=p.credentials;if(cd&&p.bio)cd.value=p.bio;
     }
-    if(p.role_key === 'dir1') {
-      const n = document.getElementById('dir1-name');
-      const r = document.getElementById('dir1-role');
-      const b = document.getElementById('dir1-bio');
-      if(n && p.full_name) n.textContent = p.full_name;
-      if(r && p.role_title) r.textContent = p.role_title;
-      if(b && p.bio) b.textContent = p.bio;
-      if(p.image_url) applyPhotoToSite('dir1', p.image_url);
-    }
-    if(p.role_key === 'dir2') {
-      const n = document.getElementById('dir2-name');
-      const r = document.getElementById('dir2-role');
-      const b = document.getElementById('dir2-bio');
-      if(n && p.full_name) n.textContent = p.full_name;
-      if(r && p.role_title) r.textContent = p.role_title;
-      if(b && p.bio) b.textContent = p.bio;
-      if(p.image_url) applyPhotoToSite('dir2', p.image_url);
-    }
-    if(p.role_key === 'team1') {
-      const n = document.getElementById('team1-name');
-      const r = document.getElementById('team1-role');
-      const b = document.getElementById('team1-bio');
-      if(n && p.full_name) n.textContent = p.full_name;
-      if(r && p.role_title) r.textContent = p.role_title;
-      if(b && p.bio) b.textContent = p.bio;
-      if(p.image_url) applyPhotoToSite('team1', p.image_url);
-    }
+    if(p.role_key==='dir1'){const n=document.getElementById('dir1-name'),r=document.getElementById('dir1-role'),b=document.getElementById('dir1-bio');if(n&&p.full_name)n.textContent=p.full_name;if(r&&p.role_title)r.textContent=p.role_title;if(b&&p.bio)b.textContent=p.bio;if(p.image_url)applyPhotoToSite('dir1',p.image_url);}
+    if(p.role_key==='dir2'){const n=document.getElementById('dir2-name'),r=document.getElementById('dir2-role'),b=document.getElementById('dir2-bio');if(n&&p.full_name)n.textContent=p.full_name;if(r&&p.role_title)r.textContent=p.role_title;if(b&&p.bio)b.textContent=p.bio;if(p.image_url)applyPhotoToSite('dir2',p.image_url);}
   });
 }
 
-function applyServices(svcs) {
-  svcs.forEach(s => {
-    const el = document.getElementById('svc-home-'+s.service_num);
-    if(el && s.description) el.textContent = s.description;
-    const adminEl = document.getElementById('svc'+s.service_num);
-    if(adminEl && s.description) adminEl.value = s.description;
+function applyServices(svcs){
+  svcs.forEach(s=>{
+    const el=document.getElementById('svc-home-'+s.service_num);if(el&&s.description)el.textContent=s.description;
+    const adminEl=document.getElementById('svc'+s.service_num);if(adminEl&&s.description)adminEl.value=s.description;
   });
 }
 
-function applyTestimonials(tests) {
-  tests.forEach(t => {
-    const key = t.t_key; // t1, t2, t3, t4
-    const nameEl = document.getElementById(key+'-name-el');
-    const posEl  = document.getElementById(key+'-pos-el');
-    const txtEl  = document.getElementById(key+'-text-el');
-    if(nameEl && t.client_name) nameEl.textContent = t.client_name;
-    if(posEl  && t.position)    posEl.textContent  = t.position;
-    if(txtEl  && t.content)     txtEl.textContent  = '\u201C'+t.content+'\u201D';
-    // Admin fields
-    const an = document.getElementById(key+'-name');
-    const ap = document.getElementById(key+'-pos');
-    const at = document.getElementById(key+'-text');
-    if(an && t.client_name) an.value = t.client_name;
-    if(ap && t.position)    ap.value = t.position;
-    if(at && t.content)     at.value = t.content;
+function applyTestimonials(tests){
+  tests.forEach(t=>{
+    const key=t.t_key;
+    const nameEl=document.getElementById(key+'-name-el'),posEl=document.getElementById(key+'-pos-el'),txtEl=document.getElementById(key+'-text-el');
+    if(nameEl&&t.client_name)nameEl.textContent=t.client_name;if(posEl&&t.position)posEl.textContent=t.position;if(txtEl&&t.content)txtEl.textContent='\u201C'+t.content+'\u201D';
+    const an=document.getElementById(key+'-name'),ap=document.getElementById(key+'-pos'),at=document.getElementById(key+'-text');
+    if(an&&t.client_name)an.value=t.client_name;if(ap&&t.position)ap.value=t.position;if(at&&t.content)at.value=t.content;
   });
 }
 
-// ══════════════════════════════════════════════════════════
-// PHOTO HELPERS
-// ══════════════════════════════════════════════════════════
-function applyPhotoToSite(key, url) {
-  const map = {
-    'ceo':   '#ceo-img-container',
-    'dir1':  '#dir1-img-container',
-    'dir2':  '#dir2-img-container',
-    'team1': '#team1-img-container'
-  };
-  const sel = map[key];
-  if(sel) {
-    const c = document.querySelector(sel);
-    if(c) c.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:inherit;" alt="Profile Photo">`;
-  }
+function applyPhotoToSite(key,url){
+  const map={'ceo':'#ceo-img-container','dir1':'#dir1-img-container','dir2':'#dir2-img-container'};
+  const sel=map[key];if(sel){const c=document.querySelector(sel);if(c)c.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:inherit;" alt="Profile Photo">`;}
 }
-function applyLogoToNav(url) {
-  const box = document.getElementById('nav-logo-box');
-  if(box) box.innerHTML = `<img src="${url}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;" alt="Logo">`;
-}
+function applyLogoToNav(url){const box=document.getElementById('nav-logo-box');if(box)box.innerHTML=`<img src="${url}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;" alt="Logo">`;}
 
-// ══════════════════════════════════════════════════════════
-// SUPABASE IMAGE UPLOAD
-// ══════════════════════════════════════════════════════════
-async function uploadImage(file, storagePath, dbKey) {
+async function uploadImage(file,storagePath,dbKey){
   setDbStatus('saving','Uploading image…');
-  try {
-    // 1. Upload to Storage
-    const { data: uploadData, error: uploadErr } = await db.storage
-      .from(STORAGE_BUCKET)
-      .upload(storagePath, file, { upsert: true, contentType: file.type });
-    if(uploadErr) throw uploadErr;
-
-    // 2. Get public URL
-    const { data: { publicUrl } } = db.storage.from(STORAGE_BUCKET).getPublicUrl(storagePath);
-
-    // 3. Save URL to appropriate table
-    if(dbKey === 'logo') {
-      await db.from('site_settings').upsert({ key:'logo_url', value:publicUrl }, { onConflict:'key' });
-    } else {
-      await db.from('people').update({ image_url: publicUrl }).eq('role_key', dbKey);
-    }
-
-    setDbStatus('connected','✔ Image saved');
-    return publicUrl;
-  } catch(e) {
-    setDbStatus('error','Upload failed: '+e.message);
-    console.error('Upload error:', e);
-    return null;
-  }
+  try{
+    const{error:uploadErr}=await db.storage.from(STORAGE_BUCKET).upload(storagePath,file,{upsert:true,contentType:file.type});
+    if(uploadErr)throw uploadErr;
+    const{data:{publicUrl}}=db.storage.from(STORAGE_BUCKET).getPublicUrl(storagePath);
+    if(dbKey==='logo'){await db.from('site_settings').upsert({key:'logo_url',value:publicUrl},{onConflict:'key'});}
+    else{await db.from('people').update({image_url:publicUrl}).eq('role_key',dbKey);}
+    setDbStatus('connected','✔ Image saved');return publicUrl;
+  }catch(e){setDbStatus('error','Upload failed: '+e.message);console.error('Upload error:',e);return null;}
 }
 
-// Upload zone setup
-const uploadConfigs = [
-  { zone:'logo-zone',  input:'logo-file-input',  preview:'logo-preview-box',  key:'logo',  toast:'logo-toast',  path:'logo/logo' },
-  { zone:'ceo-zone',   input:'ceo-file-input',   preview:'ceo-preview-box',   key:'ceo',   toast:'ceo-img-toast', path:'people/ceo' },
-  { zone:'dir1-zone',  input:'dir1-file-input',  preview:'dir1-preview-box',  key:'dir1',  toast:'dir1-toast',  path:'people/dir1' },
-  { zone:'dir2-zone',  input:'dir2-file-input',  preview:'dir2-preview-box',  key:'dir2',  toast:'dir2-toast',  path:'people/dir2' },
-  { zone:'team1-zone', input:'team1-file-input', preview:'team1-preview-box', key:'team1', toast:'team1-toast', path:'people/team1' }
+const uploadConfigs=[
+  {zone:'logo-zone',input:'logo-file-input',preview:'logo-preview-box',key:'logo',toast:'logo-toast',path:'logo/logo'},
+  {zone:'ceo-zone',input:'ceo-file-input',preview:'ceo-preview-box',key:'ceo',toast:'ceo-img-toast',path:'people/ceo'},
+  {zone:'dir1-zone',input:'dir1-file-input',preview:'dir1-preview-box',key:'dir1',toast:'dir1-toast',path:'people/dir1'},
+  {zone:'dir2-zone',input:'dir2-file-input',preview:'dir2-preview-box',key:'dir2',toast:'dir2-toast',path:'people/dir2'}
 ];
 
-uploadConfigs.forEach(cfg => {
-  const zone  = document.getElementById(cfg.zone);
-  const input = document.getElementById(cfg.input);
-  if(!zone || !input) return;
-
-  zone.addEventListener('click', e => {
-    if(e.target === input) return;
-    input.click();
-  });
-
-  input.addEventListener('change', async function(){
-    const file = this.files[0];
-    if(!file) return;
-
-    // Local preview first
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const pbox = document.getElementById(cfg.preview);
-      if(pbox) pbox.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" alt="Preview">`;
-    };
+uploadConfigs.forEach(cfg=>{
+  const zone=document.getElementById(cfg.zone),input=document.getElementById(cfg.input);
+  if(!zone||!input)return;
+  zone.addEventListener('click',e=>{if(e.target===input)return;input.click();});
+  input.addEventListener('change',async function(){
+    const file=this.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{const pbox=document.getElementById(cfg.preview);if(pbox)pbox.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" alt="Preview">`;};
     reader.readAsDataURL(file);
-
-    // Upload to Supabase
-    const ext = file.name.split('.').pop();
-    const url = await uploadImage(file, cfg.path+'.'+ext, cfg.key);
-    if(url) {
-      // Apply to site
-      if(cfg.key === 'logo') applyLogoToNav(url);
-      else applyPhotoToSite(cfg.key, url);
-      showToast(cfg.toast);
-    }
+    const ext=file.name.split('.').pop();
+    const url=await uploadImage(file,cfg.path+'.'+ext,cfg.key);
+    if(url){if(cfg.key==='logo')applyLogoToNav(url);else applyPhotoToSite(cfg.key,url);showToast(cfg.toast);}
   });
 });
 
-// ══════════════════════════════════════════════════════════
-// SAVE FUNCTIONS
-// ══════════════════════════════════════════════════════════
-async function upsertSettings(updates) {
-  const rows = Object.entries(updates).map(([key,value])=>({key,value:String(value)}));
-  const { error } = await db.from('site_settings').upsert(rows, { onConflict:'key' });
-  if(error) { setDbStatus('error','Save error: '+error.message); throw error; }
+async function upsertSettings(updates){
+  const rows=Object.entries(updates).map(([key,value])=>({key,value:String(value)}));
+  const{error}=await db.from('site_settings').upsert(rows,{onConflict:'key'});
+  if(error){setDbStatus('error','Save error: '+error.message);throw error;}
   setDbStatus('connected','✔ Saved to Supabase');
 }
 
-async function saveHomepage() {
-  try {
-    await upsertSettings({
-      hero_title1: document.getElementById('hp-title1').value,
-      hero_title2: document.getElementById('hp-title2').value,
-      hero_title3: document.getElementById('hp-title3').value,
-      hero_desc:   document.getElementById('hp-desc').value
-    });
-    // Apply live
-    const ht = document.getElementById('hero-title-el');
-    if(ht) ht.innerHTML = `${document.getElementById('hp-title1').value}<br><span class="line-gold">${document.getElementById('hp-title2').value}</span><br>${document.getElementById('hp-title3').value}`;
-    const hd = document.getElementById('hero-desc-el');
-    if(hd) hd.textContent = document.getElementById('hp-desc').value;
+async function saveHomepage(){
+  try{
+    await upsertSettings({hero_title1:document.getElementById('hp-title1').value,hero_title2:document.getElementById('hp-title2').value,hero_title3:document.getElementById('hp-title3').value,hero_desc:document.getElementById('hp-desc').value});
+    const ht=document.getElementById('hero-title-el');if(ht)ht.innerHTML=`${document.getElementById('hp-title1').value}<br><span class="line-gold">${document.getElementById('hp-title2').value}</span><br>${document.getElementById('hp-title3').value}`;
+    const hd=document.getElementById('hero-desc-el');if(hd)hd.textContent=document.getElementById('hp-desc').value;
     showToast('hp-toast');
-  } catch(e){}
+  }catch(e){}
 }
 
-async function saveStats() {
-  try {
-    await upsertSettings({
-      stat_clients:      document.getElementById('stat-clients').value,
-      stat_countries:    document.getElementById('stat-countries').value,
-      stat_projects:     document.getElementById('stat-projects').value,
-      stat_satisfaction: document.getElementById('stat-satisfaction').value
+async function saveStats(){
+  try{await upsertSettings({stat_clients:document.getElementById('stat-clients').value,stat_countries:document.getElementById('stat-countries').value,stat_projects:document.getElementById('stat-projects').value,stat_satisfaction:document.getElementById('stat-satisfaction').value});showToast('stats-toast');}catch(e){}
+}
+
+async function saveCEO(){
+  try{
+    const name=document.getElementById('ceo-name').value,title=document.getElementById('ceo-title').value,desc=document.getElementById('ceo-desc').value;
+    await db.from('people').update({full_name:name,credentials:title,bio:desc}).eq('role_key','ceo');
+    const nd=document.getElementById('ceo-name-display');if(nd)nd.textContent=name;
+    const td=document.getElementById('ceo-title-display');if(td)td.textContent=title;
+    const dd=document.getElementById('ceo-desc-display');if(dd)dd.textContent=desc;
+    setDbStatus('connected','✔ CEO saved');showToast('ceo-toast');
+  }catch(e){setDbStatus('error','Save error: '+e.message);}
+}
+
+async function saveServices(){
+  try{
+    const rows=[];
+    for(let i=1;i<=5;i++){const el=document.getElementById('svc'+i);if(el)rows.push({service_num:i,description:el.value});}
+    await db.from('services').upsert(rows,{onConflict:'service_num'});
+    rows.forEach(r=>{const el=document.getElementById('svc-home-'+r.service_num);if(el)el.textContent=r.description;});
+    setDbStatus('connected','✔ Services saved');showToast('svc-toast');
+  }catch(e){setDbStatus('error','Save error: '+e.message);}
+}
+
+async function saveTestimonials(){
+  try{
+    const rows=['t1','t2','t3','t4'].map(key=>({t_key:key,client_name:document.getElementById(key+'-name')?.value||'',position:document.getElementById(key+'-pos')?.value||'',content:document.getElementById(key+'-text')?.value||''}));
+    await db.from('testimonials').upsert(rows,{onConflict:'t_key'});
+    rows.forEach(t=>{
+      const ne=document.getElementById(t.t_key+'-name-el'),pe=document.getElementById(t.t_key+'-pos-el'),te=document.getElementById(t.t_key+'-text-el');
+      if(ne)ne.textContent=t.client_name;if(pe)pe.textContent=t.position;if(te)te.textContent='\u201C'+t.content+'\u201D';
     });
-    showToast('stats-toast');
-  } catch(e){}
+    setDbStatus('connected','✔ Testimonials saved');showToast('t-toast');
+  }catch(e){setDbStatus('error','Save error: '+e.message);}
 }
 
-async function saveCEO() {
-  try {
-    const name  = document.getElementById('ceo-name').value;
-    const title = document.getElementById('ceo-title').value;
-    const desc  = document.getElementById('ceo-desc').value;
-    await db.from('people').update({ full_name:name, credentials:title, bio:desc }).eq('role_key','ceo');
-    // Apply live
-    const nd = document.getElementById('ceo-name-display');   if(nd) nd.textContent = name;
-    const td = document.getElementById('ceo-title-display');  if(td) td.textContent = title;
-    const dd = document.getElementById('ceo-desc-display');   if(dd) dd.textContent = desc;
-    setDbStatus('connected','✔ CEO saved');
-    showToast('ceo-toast');
-  } catch(e){ setDbStatus('error','Save error: '+e.message); }
-}
-
-async function saveServices() {
-  try {
-    const rows = [];
-    for(let i=1;i<=8;i++){
-      const el = document.getElementById('svc'+i);
-      if(el) rows.push({ service_num:i, description:el.value });
-    }
-    await db.from('services').upsert(rows, { onConflict:'service_num' });
-    // Apply live
-    rows.forEach(r => {
-      const el = document.getElementById('svc-home-'+r.service_num);
-      if(el) el.textContent = r.description;
-    });
-    setDbStatus('connected','✔ Services saved');
-    showToast('svc-toast');
-  } catch(e){ setDbStatus('error','Save error: '+e.message); }
-}
-
-async function saveTestimonials() {
-  try {
-    const rows = ['t1','t2','t3','t4'].map(key => ({
-      t_key:       key,
-      client_name: document.getElementById(key+'-name')?.value||'',
-      position:    document.getElementById(key+'-pos')?.value||'',
-      content:     document.getElementById(key+'-text')?.value||''
-    }));
-    await db.from('testimonials').upsert(rows, { onConflict:'t_key' });
-    // Apply live
-    rows.forEach(t => {
-      const ne = document.getElementById(t.t_key+'-name-el');
-      const pe = document.getElementById(t.t_key+'-pos-el');
-      const te = document.getElementById(t.t_key+'-text-el');
-      if(ne) ne.textContent = t.client_name;
-      if(pe) pe.textContent = t.position;
-      if(te) te.textContent = '\u201C'+t.content+'\u201D';
-    });
-    setDbStatus('connected','✔ Testimonials saved');
-    showToast('t-toast');
-  } catch(e){ setDbStatus('error','Save error: '+e.message); }
-}
-
-async function saveContactInfo() {
-  try {
-    const em = document.getElementById('ci-email').value;
-    await upsertSettings({
-      contact_email:   em,
-      contact_address: document.getElementById('ci-address').value,
-      contact_city:    document.getElementById('ci-city').value,
-      contact_country: document.getElementById('ci-country').value,
-      contact_hours1:  document.getElementById('ci-hours1').value,
-      contact_hours2:  document.getElementById('ci-hours2').value
-    });
-    const ced = document.getElementById('contact-email-display');
-    if(ced) ced.textContent = em;
+async function saveContactInfo(){
+  try{
+    const em=document.getElementById('ci-email').value;
+    await upsertSettings({contact_email:em,contact_address:document.getElementById('ci-address').value,contact_city:document.getElementById('ci-city').value});
+    const ced=document.getElementById('contact-email-display');if(ced)ced.textContent=em;
     showToast('ci-toast');
-  } catch(e){}
+  }catch(e){}
 }
 
-async function changePassword() {
-  const cur = document.getElementById('pw-current').value;
-  const nw  = document.getElementById('pw-new').value;
-  const cf  = document.getElementById('pw-confirm').value;
-  const err = document.getElementById('pw-error');
-  err.style.display = 'none';
-
-  try {
-    // Verify current password
-    const { data } = await db.from('admin_credentials').select('password').eq('username','admin').single();
-    if(!data || data.password !== cur) {
-      err.textContent = 'Current password is incorrect.'; err.style.display='block'; return;
-    }
-    if(nw.length < 8){ err.textContent='Min 8 characters.'; err.style.display='block'; return; }
-    if(nw !== cf){ err.textContent='Passwords do not match.'; err.style.display='block'; return; }
-    await db.from('admin_credentials').update({ password:nw }).eq('username','admin');
-    ['pw-current','pw-new','pw-confirm'].forEach(id=>{ document.getElementById(id).value=''; });
-    showToast('pw-toast');
-    setDbStatus('connected','✔ Password updated');
-  } catch(e){ err.textContent='Error: '+e.message; err.style.display='block'; }
+async function changePassword(){
+  const cur=document.getElementById('pw-current').value,nw=document.getElementById('pw-new').value,cf=document.getElementById('pw-confirm').value,err=document.getElementById('pw-error');
+  err.style.display='none';
+  try{
+    const{data}=await db.from('admin_credentials').select('password').eq('username','admin').single();
+    if(!data||data.password!==cur){err.textContent='Current password is incorrect.';err.style.display='block';return;}
+    if(nw.length<8){err.textContent='Min 8 characters.';err.style.display='block';return;}
+    if(nw!==cf){err.textContent='Passwords do not match.';err.style.display='block';return;}
+    await db.from('admin_credentials').update({password:nw}).eq('username','admin');
+    ['pw-current','pw-new','pw-confirm'].forEach(id=>{document.getElementById(id).value='';});
+    showToast('pw-toast');setDbStatus('connected','✔ Password updated');
+  }catch(e){err.textContent='Error: '+e.message;err.style.display='block';}
 }
 
-// ══════════════════════════════════════════════════════════
-// CONTACT FORM SUBMISSION → SUPABASE
-// ══════════════════════════════════════════════════════════
-async function submitContactForm() {
-  const fname   = document.getElementById('cf-fname').value.trim();
-  const lname   = document.getElementById('cf-lname').value.trim();
-  const email   = document.getElementById('cf-email').value.trim();
-  const company = document.getElementById('cf-company').value.trim();
-  const service = document.getElementById('cf-service').value;
-  const message = document.getElementById('cf-message').value.trim();
-
-  if(!fname || !email) { alert('Please fill in your name and email address.'); return; }
-
-  try {
+async function submitContactForm(){
+  const fname=document.getElementById('cf-fname').value.trim(),lname=document.getElementById('cf-lname').value.trim(),email=document.getElementById('cf-email').value.trim(),company=document.getElementById('cf-company').value.trim(),service=document.getElementById('cf-service').value,message=document.getElementById('cf-message').value.trim();
+  if(!fname||!email){alert('Please fill in your name and email address.');return;}
+  try{
     setDbStatus('saving','Sending message…');
-    const { error } = await db.from('contact_submissions').insert({
-      first_name: fname, last_name: lname, email, company, service, message
-    });
-    if(error) throw error;
+    const{error}=await db.from('contact_submissions').insert({first_name:fname,last_name:lname,email,company,service,message});
+    if(error)throw error;
     setDbStatus('connected','✔ Message sent!');
-    const s = document.getElementById('contact-success');
-    s.style.display = 'block';
-    ['cf-fname','cf-lname','cf-email','cf-company','cf-message'].forEach(id=>{
-      const el = document.getElementById(id); if(el) el.value='';
-    });
-    document.getElementById('cf-service').selectedIndex = 0;
-    setTimeout(()=>{ s.style.display='none'; }, 6000);
-  } catch(e) {
-    setDbStatus('error','Send failed');
-    alert('Failed to send: '+e.message);
-  }
+    const s=document.getElementById('contact-success');s.style.display='block';
+    ['cf-fname','cf-lname','cf-email','cf-company','cf-message'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    document.getElementById('cf-service').selectedIndex=0;
+    setTimeout(()=>{s.style.display='none';},6000);
+  }catch(e){setDbStatus('error','Send failed');alert('Failed to send: '+e.message);}
 }
 
-// ══════════════════════════════════════════════════════════
-// LOAD SUBMISSIONS IN ADMIN
-// ══════════════════════════════════════════════════════════
-async function loadSubmissions() {
-  const wrap = document.getElementById('submissions-table-wrap');
-  const badge = document.getElementById('sub-count-badge');
-  const dashCount = document.getElementById('dash-sub-count');
-  try {
-    const { data, error } = await db.from('contact_submissions').select('*').order('submitted_at',{ascending:false});
-    if(error) throw error;
-    const count = data?.length || 0;
-    if(badge) badge.textContent = count + ' total';
-    if(dashCount) dashCount.textContent = count;
-    if(!data || count===0){
-      wrap.innerHTML = '<p class="no-submissions">No submissions yet.</p>';
-      return;
-    }
-    let html = '<div style="overflow-x:auto;"><table class="submissions-table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Company</th><th>Service</th><th>Message</th></tr></thead><tbody>';
+async function loadSubmissions(){
+  const wrap=document.getElementById('submissions-table-wrap'),badge=document.getElementById('sub-count-badge'),dashCount=document.getElementById('dash-sub-count');
+  try{
+    const{data,error}=await db.from('contact_submissions').select('*').order('submitted_at',{ascending:false});
+    if(error)throw error;
+    const count=data?.length||0;
+    if(badge)badge.textContent=count+' total';if(dashCount)dashCount.textContent=count;
+    if(!data||count===0){wrap.innerHTML='<p class="no-submissions">No submissions yet.</p>';return;}
+    let html='<div style="overflow-x:auto;"><table class="submissions-table"><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Company</th><th>Service</th><th>Message</th></tr></thead><tbody>';
     data.forEach(r=>{
-      const d = new Date(r.submitted_at).toLocaleDateString('en-CA',{year:'numeric',month:'short',day:'numeric'});
-      html += `<tr><td>${d}</td><td>${r.first_name||''} ${r.last_name||''}</td><td>${r.email||''}</td><td>${r.company||'—'}</td><td>${r.service||'—'}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.message||''}">${r.message||''}</td></tr>`;
+      const d=new Date(r.submitted_at).toLocaleDateString('en-CA',{year:'numeric',month:'short',day:'numeric'});
+      html+=`<tr><td>${d}</td><td>${r.first_name||''} ${r.last_name||''}</td><td>${r.email||''}</td><td>${r.company||'—'}</td><td>${r.service||'—'}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${r.message||''}">${r.message||''}</td></tr>`;
     });
-    html += '</tbody></table></div>';
-    wrap.innerHTML = html;
-  } catch(e) {
-    wrap.innerHTML = '<p class="no-submissions" style="color:var(--rose);">Error loading: '+e.message+'</p>';
-  }
+    html+='</tbody></table></div>';wrap.innerHTML=html;
+  }catch(e){wrap.innerHTML='<p class="no-submissions" style="color:var(--rose);">Error loading: '+e.message+'</p>';}
 }
 
-// ══════════════════════════════════════════════════════════
-// ADMIN LOGIN
-// ══════════════════════════════════════════════════════════
-async function adminLogin() {
-  const user = document.getElementById('admin-user').value.trim();
-  const pass = document.getElementById('admin-pass').value;
-  const err  = document.getElementById('admin-login-error');
-  err.style.display = 'none';
-  try {
-    const { data, error } = await db.from('admin_credentials').select('password').eq('username', user).single();
-    if((data && data.password === pass) || (!data && user==='admin' && pass==='arizona2025')) {
+async function adminLogin(){
+  const user=document.getElementById('admin-user').value.trim(),pass=document.getElementById('admin-pass').value,err=document.getElementById('admin-login-error');
+  err.style.display='none';
+  try{
+    const{data,error}=await db.from('admin_credentials').select('password').eq('username',user).single();
+    if((data&&data.password===pass)||(!data&&user==='admin'&&pass==='arizona2025')){
       document.getElementById('admin-login-screen').style.display='none';
       document.getElementById('admin-dashboard-app').style.display='block';
-      // Load submissions count
       await loadSubmissions();
-    } else {
-      err.style.display = 'block';
-    }
-  } catch(e) {
-    // DB unavailable — try default
-    if(user==='admin' && pass==='arizona2025'){
-      document.getElementById('admin-login-screen').style.display='none';
-      document.getElementById('admin-dashboard-app').style.display='block';
-    } else {
-      err.style.display='block';
-    }
+    }else{err.style.display='block';}
+  }catch(e){
+    if(user==='admin'&&pass==='arizona2025'){document.getElementById('admin-login-screen').style.display='none';document.getElementById('admin-dashboard-app').style.display='block';}
+    else{err.style.display='block';}
   }
 }
 
@@ -1974,137 +1463,68 @@ function adminLogout(){
   document.getElementById('admin-panel').style.display='none';
   document.getElementById('admin-panel').classList.remove('active');
   document.getElementById('main-nav').style.display='block';
-  document.getElementById('admin-user').value='';
-  document.getElementById('admin-pass').value='';
+  document.getElementById('admin-user').value='';document.getElementById('admin-pass').value='';
 }
-function goToWebsite(){ adminLogout(); showPage('home'); }
+function goToWebsite(){adminLogout();showPage('home');}
 function openAdminPanel(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('main-nav').style.display='none';
-  const panel=document.getElementById('admin-panel');
-  panel.style.display='block';
-  panel.classList.add('active');
+  const panel=document.getElementById('admin-panel');panel.style.display='block';panel.classList.add('active');
 }
 
-// ══════════════════════════════════════════════════════════
-// ADMIN NAVIGATION
-// ══════════════════════════════════════════════════════════
-const sectionTitles = {
-  dashboard:'Dashboard', logo:'Company Logo', homepage:'Homepage Content',
-  services:'Services', testimonials:'Testimonials', ceo:'CEO Profile',
-  directors:'Directors', team:'Team Photos', contact:'Contact Settings',
-  submissions:'Form Submissions', password:'Change Password'
-};
-document.getElementById('adminNav').addEventListener('click', function(e){
-  const btn = e.target.closest('.admin-nav-btn');
-  if(!btn) return;
-  const sec = btn.dataset.section;
-  if(!sec) return;
-  switchToSection(sec);
+const sectionTitles={dashboard:'Dashboard',logo:'Company Logo',homepage:'Homepage Content',services:'Services',testimonials:'Testimonials',ceo:'CEO Profile',directors:'Directors',contact:'Contact Settings',submissions:'Form Submissions',password:'Change Password'};
+document.getElementById('adminNav').addEventListener('click',function(e){
+  const btn=e.target.closest('.admin-nav-btn');if(!btn)return;const sec=btn.dataset.section;if(!sec)return;switchToSection(sec);
 });
 function switchToSection(sec){
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('active'));
-  const el = document.getElementById('as-'+sec);
-  if(el) el.classList.add('active');
-  const btn = document.querySelector('.admin-nav-btn[data-section="'+sec+'"]');
-  if(btn) btn.classList.add('active');
-  const tb = document.getElementById('adminTopbarTitle');
-  if(tb) tb.textContent = sectionTitles[sec]||'Admin Panel';
-  if(sec==='submissions') loadSubmissions();
+  const el=document.getElementById('as-'+sec);if(el)el.classList.add('active');
+  const btn=document.querySelector('.admin-nav-btn[data-section="'+sec+'"]');if(btn)btn.classList.add('active');
+  const tb=document.getElementById('adminTopbarTitle');if(tb)tb.textContent=sectionTitles[sec]||'Admin Panel';
+  if(sec==='submissions')loadSubmissions();
 }
 
-// ══════════════════════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════════════════════
-function showToast(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'), 3500);
-}
+function showToast(id){const el=document.getElementById(id);if(!el)return;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3500);}
 
-// ══════════════════════════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════════════════════════
 function showPage(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('admin-panel').style.display='none';
   document.getElementById('main-nav').style.display='block';
-  const el = document.getElementById('page-'+page);
-  if(el){ el.classList.add('active'); }
-  window.scrollTo({top:0, behavior:'smooth'});
-  setTimeout(initAnimations, 150);
+  const el=document.getElementById('page-'+page);if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(initAnimations,150);
 }
-function toggleMobileNav(){
-  const n=document.getElementById('mobile-nav');
-  const h=document.getElementById('hamburger');
-  n.classList.toggle('open'); h.classList.toggle('open');
-}
-function closeMobileNav(){
-  document.getElementById('mobile-nav').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-}
-window.addEventListener('scroll',function(){
-  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY>40);
-});
+function toggleMobileNav(){const n=document.getElementById('mobile-nav'),h=document.getElementById('hamburger');n.classList.toggle('open');h.classList.toggle('open');}
+function closeMobileNav(){document.getElementById('mobile-nav').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
+window.addEventListener('scroll',function(){document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>40);});
 
-// ══════════════════════════════════════════════════════════
-// ANIMATIONS
-// ══════════════════════════════════════════════════════════
 function initAnimations(){
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach((e,i)=>{
-      if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*70);
-    });
-  },{threshold:0.08});
-  document.querySelectorAll('.fade-in-up,.fade-in-left,.fade-in-right,.fade-in-scale').forEach(el=>{
-    if(!el.classList.contains('visible')) obs.observe(el);
-  });
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*70);});},{threshold:0.08});
+  document.querySelectorAll('.fade-in-up,.fade-in-left,.fade-in-right,.fade-in-scale').forEach(el=>{if(!el.classList.contains('visible'))obs.observe(el);});
 }
 
-// ══════════════════════════════════════════════════════════
-// COUNTERS
-// ══════════════════════════════════════════════════════════
-function animNum(el, target, dur){
-  let s=0; const step=target/(dur/16);
-  const t=setInterval(()=>{
-    s+=step;
-    if(s>=target){ s=target; clearInterval(t); }
-    el.textContent = Math.floor(s).toLocaleString();
-  },16);
+function animNum(el,target,dur){
+  let s=0;const step=target/(dur/16);
+  const t=setInterval(()=>{s+=step;if(s>=target){s=target;clearInterval(t);}el.textContent=Math.floor(s).toLocaleString();},16);
 }
 function initCounters(){
-  const obs1=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ animNum(e.target,parseInt(e.target.dataset.count)||0,1800); obs1.unobserve(e.target); } });
-  },{threshold:0.5});
+  const obs1=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){animNum(e.target,parseInt(e.target.dataset.count)||0,1800);obs1.unobserve(e.target);}});},{threshold:0.5});
   document.querySelectorAll('.hs-num[data-count]').forEach(el=>obs1.observe(el));
-
-  const obs2=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ const c=e.target.querySelector('.counter'); if(c) animNum(c,parseInt(e.target.dataset.target)||0,2000); obs2.unobserve(e.target); } });
-  },{threshold:0.5});
+  const obs2=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const c=e.target.querySelector('.counter');if(c)animNum(c,parseInt(e.target.dataset.target)||0,2000);obs2.unobserve(e.target);}});},{threshold:0.5});
   document.querySelectorAll('[data-target]').forEach(el=>obs2.observe(el));
 }
 
-// ══════════════════════════════════════════════════════════
-// TESTIMONIALS SLIDER
-// ══════════════════════════════════════════════════════════
 let tIdx=0;
 function slideTestimonials(dir){
-  const track=document.getElementById('testimonialsTrack');
-  if(!track) return;
+  const track=document.getElementById('testimonialsTrack');if(!track)return;
   const cards=track.querySelectorAll('.testimonial-card');
-  tIdx=Math.max(0, Math.min(cards.length-1, tIdx+dir));
+  tIdx=Math.max(0,Math.min(cards.length-1,tIdx+dir));
   track.style.transform=`translateX(-${tIdx*(cards[0].offsetWidth+32)}px)`;
-  document.querySelectorAll('.slider-dot').forEach((d,i)=>d.classList.toggle('active', i===tIdx));
+  document.querySelectorAll('.slider-dot').forEach((d,i)=>d.classList.toggle('active',i===tIdx));
 }
 
-// ══════════════════════════════════════════════════════════
-// KEYBOARD SHORTCUT
-// ══════════════════════════════════════════════════════════
-document.addEventListener('keydown', function(e){
-  if(e.ctrlKey && e.shiftKey && e.key==='A'){ e.preventDefault(); openAdminPanel(); }
-});
+document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();openAdminPanel();}});
 </script>
 </body>
 </html>
